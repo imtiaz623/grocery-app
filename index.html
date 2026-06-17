@@ -1,458 +1,214 @@
 
  
-<div style="font-family:var(--font-sans); max-width:420px; 
+<div style="font-family:var(--font-sans); max-width:420px; margin:0 auto; background:var(--color-background-primary); border-
 
-margin:0 auto; background:var(--color-background-primary); 
-
-border-radius:24px; border:0.5px solid var(--color-border-
-
-tertiary); overflow:hidden; min-height:680px;">
+radius:24px; border:0.5px solid var(--color-border-tertiary); overflow:hidden; min-height:680px;">
 
 <!-- LOGIN SCREEN (replaces old select screen) -->
-<div id="view-login" style="padding:40px 24px; text-
+<div id="view-login" style="padding:40px 24px; text-align:center;">
+  <div style="width:64px; height:64px; background:#1D9E75; border-radius:18px; display:flex; align-items:center; justify-
 
-align:center;">
-  <div style="width:64px; height:64px; background:#1D9E75; 
-
-border-radius:18px; display:flex; align-items:center; 
-
-justify-content:center; margin:0 auto 16px;">
-    <i class="ti ti-leaf" style="font-size:30px; color:#fff;" 
-
-aria-hidden="true"></i>
+content:center; margin:0 auto 16px;">
+    <i class="ti ti-leaf" style="font-size:30px; color:#fff;" aria-hidden="true"></i>
   </div>
-  <h1 style="font-size:22px; font-weight:600; margin:0 0 4px; 
+  <h1 style="font-size:22px; font-weight:600; margin:0 0 4px; color:var(--color-text-primary);">Zaiqah ذائقہ</h1>
+  <p style="font-size:13px; color:var(--color-text-secondary); margin:0 0 28px;">خالص مصالحے</p>
+  <input type="text" id="login-user" placeholder="Username (khali chor ke bhi aagey jayein)" style="width:100%; margin-bottom:10px; 
 
-color:var(--color-text-primary);">Zaiqah ذائقہ</h1>
-  <p style="font-size:13px; color:var(--color-text-secondary); 
+padding:12px 14px; border-radius:12px; font-size:13px; box-sizing:border-box; border:1px solid var(--color-border-tertiary); 
 
-margin:0 0 28px;">خالص مصالحے</p>
-  <input type="text" id="login-user" placeholder="Username 
+background:var(--color-background-secondary); color:var(--color-text-primary);" />
+  <input type="password" id="login-pass" placeholder="Password (khali chor ke bhi aagey jayein)" style="width:100%; margin-
 
-(khali chor ke bhi aagey jayein)" style="width:100%; margin-
+bottom:16px; padding:12px 14px; border-radius:12px; font-size:13px; box-sizing:border-box; border:1px solid var(--color-border-
 
-bottom:10px; padding:12px 14px; border-radius:12px; font-
-
-size:13px; box-sizing:border-box; border:1px solid var(--
-
-color-border-tertiary); background:var(--color-background-
-
-secondary); color:var(--color-text-primary);" />
-  <input type="password" id="login-pass" placeholder="Password 
-
-(khali chor ke bhi aagey jayein)" style="width:100%; margin-
-
-bottom:16px; padding:12px 14px; border-radius:12px; font-
-
-size:13px; box-sizing:border-box; border:1px solid var(--
-
-color-border-tertiary); background:var(--color-background-
-
-secondary); color:var(--color-text-primary);" onkeydown="if
+tertiary); background:var(--color-background-secondary); color:var(--color-text-primary);" onkeydown="if
 
 (event.key==='Enter')doUnifiedLogin()" />
-  <button onclick="doUnifiedLogin()" style="width:100%; 
+  <button onclick="doUnifiedLogin()" style="width:100%; background:#1D9E75; color:#fff; border:none; border-radius:14px; 
 
-background:#1D9E75; color:#fff; border:none; border-
+padding:14px; font-size:15px; font-weight:600; cursor:pointer;">Login / Enter Karein</button>
+  <p id="login-err" style="font-size:12px; color:#E24B4A; margin-top:10px; display:none;">Galat username ya password</p>
+  <p style="font-size:11px; color:var(--color-text-secondary); margin-top:20px; opacity:0.6;">Customer: sirf Enter dabao &nbsp;|
 
-radius:14px; padding:14px; font-size:15px; font-weight:600; 
-
-cursor:pointer;">Login / Enter Karein</button>
-  <p id="login-err" style="font-size:12px; color:#E24B4A; 
-
-margin-top:10px; display:none;">Galat username ya password</p>
-  <p style="font-size:11px; color:var(--color-text-secondary); 
-
-margin-top:20px; opacity:0.6;">Customer: sirf Enter dabao 
-
-&nbsp;|&nbsp; Admin: apna ID use karein</p>
+&nbsp; Admin: apna ID use karein</p>
 </div>
 
 <!-- CUSTOMER VIEW -->
-<div id="view-customer" style="display:none; min-height:680px; 
+<div id="view-customer" style="display:none; min-height:680px; display:none; flex-direction:column;">
 
-display:none; flex-direction:column;">
-
-  <div id="cs-home" class="cs-screen" style="flex:1; 
-
-display:flex; flex-direction:column;">
-    <div style="background:linear-gradient
-
-(135deg,#1D9E75,#0F6E56); padding:24px 20px 16px;">
-      <div style="display:flex; justify-content:space-between; 
-
-align-items:center;">
+  <div id="cs-home" class="cs-screen" style="flex:1; display:flex; flex-direction:column;">
+    <div style="background:linear-gradient(135deg,#1D9E75,#0F6E56); padding:24px 20px 16px;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
         <div>
-          <p style="color:#9FE1CB; font-size:11px; 
-
-margin:0;">خالص مصالحے</p>
-          <h2 style="color:#fff; font-size:20px; font-
-
-weight:600; margin:4px 0 0;">Zaiqah ذائقہ</h2>
+          <p style="color:#9FE1CB; font-size:11px; margin:0;">خالص مصالحے</p>
+          <h2 style="color:#fff; font-size:20px; font-weight:600; margin:4px 0 0;">Zaiqah ذائقہ</h2>
         </div>
         <div style="display:flex; gap:14px;">
-          <div style="position:relative; cursor:pointer;" 
+          <div style="position:relative; cursor:pointer;" onclick="csGo('cart')">
+            <i class="ti ti-shopping-cart" style="font-size:22px; color:#fff;" aria-hidden="true"></i>
+            <span id="c-badge" style="display:none; position:absolute; top:-5px; right:-5px; background:#FA8C3A; color:#fff; font-
 
-onclick="csGo('cart')">
-            <i class="ti ti-shopping-cart" style="font-
-
-size:22px; color:#fff;" aria-hidden="true"></i>
-            <span id="c-badge" style="display:none; 
-
-position:absolute; top:-5px; right:-5px; background:#FA8C3A; 
-
-color:#fff; font-size:9px; border-radius:50%; width:16px; 
-
-height:16px; align-items:center; justify-content:center; 
-
-font-weight:500;">0</span>
+size:9px; border-radius:50%; width:16px; height:16px; align-items:center; justify-content:center; font-weight:500;">0</span>
           </div>
-          <i class="ti ti-logout" style="font-size:22px; 
-
-color:#fff; cursor:pointer;" onclick="goBackToLogin()" aria-
+          <i class="ti ti-logout" style="font-size:22px; color:#fff; cursor:pointer;" onclick="goBackToLogin()" aria-
 
 hidden="true"></i>
         </div>
       </div>
       <!-- OFFER BANNER with image -->
-      <div id="offer-banner" onclick="csGo('cart')" 
+      <div id="offer-banner" onclick="csGo('cart')" style="margin-top:12px; border-radius:12px; overflow:hidden; cursor:pointer; 
 
-style="margin-top:12px; border-radius:12px; overflow:hidden; 
+position:relative; height:70px; background:#0a5c42;">
+        <img id="offer-img" src="https://static.vecteezy.com/system/resources/previews/015/258/820/non_2x/new-offer-tag-red-
 
-cursor:pointer; position:relative; height:70px; 
-
-background:#0a5c42;">
-        <img id="offer-img" 
-
-src="https://static.vecteezy.com/system/resources/previews/015
-
-/258/820/non_2x/new-offer-tag-red-discount-label-isolated-on-
-
-yellow-background-vector.jpg" style="width:100%; height:100%; 
-
-object-fit:cover; display:block;" 
+discount-label-isolated-on-yellow-background-vector.jpg" style="width:100%; height:100%; object-fit:cover; display:block;" 
 
 onerror="this.style.display='none'" />
-        <div style="position:absolute; inset:0; 
+        <div style="position:absolute; inset:0; background:rgba(0,0,0,0.35); display:flex; align-items:center; padding:0 14px;">
+          <p id="offer-text" style="color:#fff; font-size:12px; margin:0; font-weight:500;">Aaj ka offer — Code <b>ZAIQAH10</b> use 
 
-background:rgba(0,0,0,0.35); display:flex; align-items:center; 
-
-padding:0 14px;">
-          <p id="offer-text" style="color:#fff; font-
-
-size:12px; margin:0; font-weight:500;">Aaj ka offer — Code 
-
-<b>ZAIQAH10</b> use karein, 10% off!</p>
+karein, 10% off!</p>
         </div>
       </div>
     </div>
-    <div style="padding:12px 16px 4px; overflow-x:auto; 
+    <div style="padding:12px 16px 4px; overflow-x:auto; display:flex; gap:8px;">
+      <span class="ccat active-ccat" onclick="cFilter('all',this)" style="background:#1D9E75; color:#fff; padding:5px 14px; border-
 
-display:flex; gap:8px;">
-      <span class="ccat active-ccat" onclick="cFilter
+radius:20px; font-size:12px; white-space:nowrap; cursor:pointer; font-weight:500;">Sab</span>
+      <span class="ccat" onclick="cFilter('whole',this)" style="background:var(--color-background-secondary); color:var(--color-
 
-('all',this)" style="background:#1D9E75; color:#fff; 
+text-secondary); padding:5px 14px; border-radius:20px; font-size:12px; white-space:nowrap; cursor:pointer;">Sabut</span>
+      <span class="ccat" onclick="cFilter('ground',this)" style="background:var(--color-background-secondary); color:var(--color-
 
-padding:5px 14px; border-radius:20px; font-size:12px; white-
+text-secondary); padding:5px 14px; border-radius:20px; font-size:12px; white-space:nowrap; cursor:pointer;">Pesa</span>
+      <span class="ccat" onclick="cFilter('dry-fruit',this)" style="background:var(--color-background-secondary); color:var(--color-
 
-space:nowrap; cursor:pointer; font-weight:500;">Sab</span>
-      <span class="ccat" onclick="cFilter('whole',this)" 
-
-style="background:var(--color-background-secondary); 
-
-color:var(--color-text-secondary); padding:5px 14px; border-
-
-radius:20px; font-size:12px; white-space:nowrap; 
-
-cursor:pointer;">Sabut</span>
-      <span class="ccat" onclick="cFilter('ground',this)" 
-
-style="background:var(--color-background-secondary); 
-
-color:var(--color-text-secondary); padding:5px 14px; border-
-
-radius:20px; font-size:12px; white-space:nowrap; 
-
-cursor:pointer;">Pesa</span>
-      <span class="ccat" onclick="cFilter('dry-fruit',this)" 
-
-style="background:var(--color-background-secondary); 
-
-color:var(--color-text-secondary); padding:5px 14px; border-
-
-radius:20px; font-size:12px; white-space:nowrap; 
-
-cursor:pointer;">Dry Fruit</span>
+text-secondary); padding:5px 14px; border-radius:20px; font-size:12px; white-space:nowrap; cursor:pointer;">Dry Fruit</span>
     </div>
     <div style="padding:10px 16px 80px; overflow-y:auto;">
-      <div id="c-grid" style="display:grid; grid-template-
-
-columns:1fr 1fr; gap:10px;"></div>
+      <div id="c-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:10px;"></div>
     </div>
   </div>
 
   <div id="cs-detail" class="cs-screen" style="display:none;">
     <div id="c-detail-content"></div>
-    <div style="padding:14px 16px; border-top:0.5px solid var
+    <div style="padding:14px 16px; border-top:0.5px solid var(--color-border-tertiary);">
+      <button onclick="addFromDetail()" style="width:100%; background:#1D9E75; color:#fff; border:none; border-radius:12px; 
 
-(--color-border-tertiary);">
-      <button onclick="addFromDetail()" style="width:100%; 
-
-background:#1D9E75; color:#fff; border:none; border-
-
-radius:12px; padding:13px; font-size:15px; font-weight:500; 
-
-cursor:pointer;">Basket mein Daalein</button>
+padding:13px; font-size:15px; font-weight:500; cursor:pointer;">Basket mein Daalein</button>
     </div>
   </div>
 
-  <div id="cs-cart" class="cs-screen" style="display:none; 
+  <div id="cs-cart" class="cs-screen" style="display:none; padding:16px 16px 100px; overflow-y:auto;">
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+      <i class="ti ti-arrow-left" onclick="csGo('home')" style="font-size:20px; cursor:pointer; color:var(--color-text-primary);" 
 
-padding:16px 16px 100px; overflow-y:auto;">
-    <div style="display:flex; align-items:center; gap:12px; 
-
-margin-bottom:16px;">
-      <i class="ti ti-arrow-left" onclick="csGo('home')" 
-
-style="font-size:20px; cursor:pointer; color:var(--color-
-
-text-primary);" aria-hidden="true"></i>
-      <p style="font-size:16px; font-weight:500; margin:0; 
-
-color:var(--color-text-primary);">Aapka Basket</p>
+aria-hidden="true"></i>
+      <p style="font-size:16px; font-weight:500; margin:0; color:var(--color-text-primary);">Aapka Basket</p>
     </div>
     <div id="c-cart-items"></div>
-    <div id="c-cart-empty" style="text-align:center; 
-
-padding:40px 0; color:var(--color-text-secondary);">
-      <i class="ti ti-basket" style="font-size:44px; 
-
-display:block; margin-bottom:10px;" aria-hidden="true"></i>
-      <p style="margin:0; font-size:14px;">Basket khali 
-
-hai</p>
+    <div id="c-cart-empty" style="text-align:center; padding:40px 0; color:var(--color-text-secondary);">
+      <i class="ti ti-basket" style="font-size:44px; display:block; margin-bottom:10px;" aria-hidden="true"></i>
+      <p style="margin:0; font-size:14px;">Basket khali hai</p>
     </div>
-    <div id="c-cart-total" style="display:none; margin-
-
-top:14px;">
+    <div id="c-cart-total" style="display:none; margin-top:14px;">
       <div style="display:flex; gap:8px; margin-bottom:10px;">
-        <input id="disc-inp" type="text" placeholder="Discount 
+        <input id="disc-inp" type="text" placeholder="Discount code..." style="flex:1; padding:9px 12px; border-radius:10px; font-
 
-code..." style="flex:1; padding:9px 12px; border-radius:10px; 
+size:13px;" />
+        <button onclick="applyDisc()" style="background:#1D9E75; color:#fff; border:none; border-radius:10px; padding:9px 14px; 
 
-font-size:13px;" />
-        <button onclick="applyDisc()" 
-
-style="background:#1D9E75; color:#fff; border:none; border-
-
-radius:10px; padding:9px 14px; font-size:13px; 
-
-cursor:pointer;">Apply</button>
+font-size:13px; cursor:pointer;">Apply</button>
       </div>
-      <div id="disc-msg" style="font-size:12px; margin:-4px 0 
+      <div id="disc-msg" style="font-size:12px; margin:-4px 0 10px; display:none;"></div>
+      <div style="background:var(--color-background-secondary); border-radius:12px; padding:12px; margin-bottom:12px;">
+        <div style="display:flex; justify-content:space-between; margin-bottom:6px;"><span style="font-size:13px; color:var(--color-
 
-10px; display:none;"></div>
-      <div style="background:var(--color-background-
+text-secondary);">Subtotal</span><span id="c-sub" style="font-size:13px; color:var(--color-text-primary);">Rs. 0</span></div>
+        <div id="c-disc-row" style="display:none; justify-content:space-between; margin-bottom:6px;"><span style="font-size:13px; 
 
-secondary); border-radius:12px; padding:12px; margin-
+color:#1D9E75;">Discount</span><span id="c-disc-val" style="font-size:13px; color:#1D9E75;">-Rs. 0</span></div>
+        <div style="display:flex; justify-content:space-between; border-top:0.5px solid var(--color-border-tertiary); padding-
 
-bottom:12px;">
-        <div style="display:flex; justify-content:space-
+top:8px; margin-top:4px;"><span style="font-size:14px; font-weight:500; color:var(--color-text-primary);">Total</span><span id="c-
 
-between; margin-bottom:6px;"><span style="font-size:13px; 
-
-color:var(--color-text-secondary);">Subtotal</span><span 
-
-id="c-sub" style="font-size:13px; color:var(--color-text-
-
-primary);">Rs. 0</span></div>
-        <div id="c-disc-row" style="display:none; justify-
-
-content:space-between; margin-bottom:6px;"><span style="font-
-
-size:13px; color:#1D9E75;">Discount</span><span id="c-disc-
-
-val" style="font-size:13px; color:#1D9E75;">-Rs. 
-
-0</span></div>
-        <div style="display:flex; justify-content:space-
-
-between; border-top:0.5px solid var(--color-border-tertiary); 
-
-padding-top:8px; margin-top:4px;"><span style="font-size:14px; 
-
-font-weight:500; color:var(--color-text-
-
-primary);">Total</span><span id="c-total" style="font-
-
-size:14px; font-weight:500; color:#1D9E75;">Rs. 0</span></div>
+total" style="font-size:14px; font-weight:500; color:#1D9E75;">Rs. 0</span></div>
       </div>
-      <button onclick="placeOrder()" style="width:100%; 
+      <button onclick="placeOrder()" style="width:100%; background:#1D9E75; color:#fff; border:none; border-radius:12px; 
 
-background:#1D9E75; color:#fff; border:none; border-
-
-radius:12px; padding:13px; font-size:14px; font-weight:500; 
-
-cursor:pointer;">WhatsApp pe Order Karein</button>
+padding:13px; font-size:14px; font-weight:500; cursor:pointer;">WhatsApp pe Order Karein</button>
     </div>
   </div>
 
-  <div id="cs-orders" class="cs-screen" style="display:none; 
+  <div id="cs-orders" class="cs-screen" style="display:none; padding:16px 16px 100px; overflow-y:auto;">
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+      <i class="ti ti-arrow-left" onclick="csGo('home')" style="font-size:20px; cursor:pointer; color:var(--color-text-primary);" 
 
-padding:16px 16px 100px; overflow-y:auto;">
-    <div style="display:flex; align-items:center; gap:12px; 
-
-margin-bottom:16px;">
-      <i class="ti ti-arrow-left" onclick="csGo('home')" 
-
-style="font-size:20px; cursor:pointer; color:var(--color-
-
-text-primary);" aria-hidden="true"></i>
-      <p style="font-size:16px; font-weight:500; margin:0; 
-
-color:var(--color-text-primary);">Order History</p>
+aria-hidden="true"></i>
+      <p style="font-size:16px; font-weight:500; margin:0; color:var(--color-text-primary);">Order History</p>
     </div>
-    <div id="c-orders-list" style="display:flex; flex-
-
-direction:column; gap:10px;"></div>
+    <div id="c-orders-list" style="display:flex; flex-direction:column; gap:10px;"></div>
   </div>
 
-  <div id="cs-b2b" class="cs-screen" style="display:none; 
+  <div id="cs-b2b" class="cs-screen" style="display:none; padding:0 0 100px;">
+    <div style="background:linear-gradient(135deg,#1D9E75,#0F6E56); padding:24px 20px 20px;">
+      <i class="ti ti-arrow-left" onclick="csGo('home')" style="font-size:20px; cursor:pointer; color:#fff; display:block; margin-
 
-padding:0 0 100px;">
-    <div style="background:linear-gradient
-
-(135deg,#1D9E75,#0F6E56); padding:24px 20px 20px;">
-      <i class="ti ti-arrow-left" onclick="csGo('home')" 
-
-style="font-size:20px; cursor:pointer; color:#fff; 
-
-display:block; margin-bottom:10px;" aria-hidden="true"></i>
-      <p style="color:#9FE1CB; font-size:11px; 
-
-margin:0;">Wholesale Portal</p>
-      <h2 style="color:#fff; font-size:18px; font-weight:500; 
-
-margin:6px 0 0;">Dukandaar Panel</h2>
+bottom:10px;" aria-hidden="true"></i>
+      <p style="color:#9FE1CB; font-size:11px; margin:0;">Wholesale Portal</p>
+      <h2 style="color:#fff; font-size:18px; font-weight:500; margin:6px 0 0;">Dukandaar Panel</h2>
     </div>
     <div style="padding:16px;">
-      <p style="font-size:13px; font-weight:500; color:var(--
+      <p style="font-size:13px; font-weight:500; color:var(--color-text-secondary); margin:0 0 10px;">Wholesale Rates (Min. 1kg)</p>
+      <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:16px;" id="b2b-list"></div>
+      <button onclick="window.open('https://wa.me/923001234567?text=Assalam+o+Alaikum,+bulk+order+karna+hai','_blank')" 
 
-color-text-secondary); margin:0 0 10px;">Wholesale Rates (Min. 
+style="width:100%; background:#25D366; color:#fff; border:none; border-radius:12px; padding:13px; font-size:14px; font-weight:500; 
 
-1kg)</p>
-      <div style="display:flex; flex-direction:column; 
-
-gap:8px; margin-bottom:16px;" id="b2b-list"></div>
-      <button onclick="window.open
-
-('https://wa.me/923001234567?text=Assalam+o+Alaikum,+bulk
-
-+order+karna+hai','_blank')" style="width:100%; 
-
-background:#25D366; color:#fff; border:none; border-
-
-radius:12px; padding:13px; font-size:14px; font-weight:500; 
-
-cursor:pointer;"><i class="ti ti-brand-whatsapp" aria-
-
-hidden="true"></i> Bulk Order — WhatsApp</button>
+cursor:pointer;"><i class="ti ti-brand-whatsapp" aria-hidden="true"></i> Bulk Order — WhatsApp</button>
     </div>
   </div>
 
-  <div id="cs-success" class="cs-screen" style="display:none; 
-
-padding:60px 20px; text-align:center;">
-    <div style="width:64px; height:64px; background:#EAF3DE; 
-
-border-radius:50%; display:flex; align-items:center; justify-
+  <div id="cs-success" class="cs-screen" style="display:none; padding:60px 20px; text-align:center;">
+    <div style="width:64px; height:64px; background:#EAF3DE; border-radius:50%; display:flex; align-items:center; justify-
 
 content:center; margin:0 auto 16px;">
-      <i class="ti ti-check" style="font-size:32px; 
-
-color:#1D9E75;" aria-hidden="true"></i>
+      <i class="ti ti-check" style="font-size:32px; color:#1D9E75;" aria-hidden="true"></i>
     </div>
-    <h2 style="font-size:18px; font-weight:500; color:var(--
+    <h2 style="font-size:18px; font-weight:500; color:var(--color-text-primary); margin:0 0 6px;">Shukriya!</h2>
+    <p id="c-success-id" style="font-size:12px; color:#1D9E75; margin:0 0 24px;"></p>
+    <button onclick="csGo('orders')" style="width:100%; background:var(--color-background-secondary); border:0.5px solid var(--
 
-color-text-primary); margin:0 0 6px;">Shukriya!</h2>
-    <p id="c-success-id" style="font-size:12px; color:#1D9E75; 
+color-border-tertiary); border-radius:12px; padding:11px; font-size:13px; cursor:pointer; color:var(--color-text-primary); margin-
 
-margin:0 0 24px;"></p>
-    <button onclick="csGo('orders')" style="width:100%; 
+bottom:8px;">Orders Dekhein</button>
+    <button onclick="csGo('home')" style="width:100%; background:#1D9E75; color:#fff; border:none; border-radius:12px; padding:11px; 
 
-background:var(--color-background-secondary); border:0.5px 
-
-solid var(--color-border-tertiary); border-radius:12px; 
-
-padding:11px; font-size:13px; cursor:pointer; color:var(--
-
-color-text-primary); margin-bottom:8px;">Orders 
-
-Dekhein</button>
-    <button onclick="csGo('home')" style="width:100%; 
-
-background:#1D9E75; color:#fff; border:none; border-
-
-radius:12px; padding:11px; font-size:13px; 
-
-cursor:pointer;">Wapis Jayein</button>
+font-size:13px; cursor:pointer;">Wapis Jayein</button>
   </div>
 
   <!-- COLORFUL BOTTOM NAV -->
-  <div id="c-nav" style="border-top:0.5px solid var(--color-
+  <div id="c-nav" style="border-top:0.5px solid var(--color-border-tertiary); display:flex; padding:0; background:linear-gradient
 
-border-tertiary); display:flex; padding:0; background:linear-
-
-gradient(90deg,#1D9E75,#185FA5,#FA8C3A,#E24B4A); 
-
-position:sticky; bottom:0;">
-    <div onclick="csGo('home')" style="flex:1; text-
-
-align:center; cursor:pointer; padding:8px 0; background:rgba
-
-(255,255,255,0.88);">
-      <i class="ti ti-home" id="cn-home" style="font-
-
-size:20px; color:#1D9E75;" aria-hidden="true"></i>
-      <p id="cnt-home" style="font-size:10px; margin:2px 0 0; 
-
-color:#1D9E75; font-weight:600;">Home</p>
+(90deg,#1D9E75,#185FA5,#FA8C3A,#E24B4A); position:sticky; bottom:0;">
+    <div onclick="csGo('home')" style="flex:1; text-align:center; cursor:pointer; padding:8px 0; background:rgba(255,255,255,0.88);">
+      <i class="ti ti-home" id="cn-home" style="font-size:20px; color:#1D9E75;" aria-hidden="true"></i>
+      <p id="cnt-home" style="font-size:10px; margin:2px 0 0; color:#1D9E75; font-weight:600;">Home</p>
     </div>
-    <div onclick="csGo('cart')" style="flex:1; text-
-
-align:center; cursor:pointer; padding:8px 0; background:rgba
-
-(255,255,255,0.88);">
-      <i class="ti ti-shopping-cart" id="cn-cart" 
-
-style="font-size:20px; color:#185FA5;" aria-hidden="true"></i>
-      <p id="cnt-cart" style="font-size:10px; margin:2px 0 0; 
-
-color:#185FA5;">Basket</p>
+    <div onclick="csGo('cart')" style="flex:1; text-align:center; cursor:pointer; padding:8px 0; background:rgba(255,255,255,0.88);">
+      <i class="ti ti-shopping-cart" id="cn-cart" style="font-size:20px; color:#185FA5;" aria-hidden="true"></i>
+      <p id="cnt-cart" style="font-size:10px; margin:2px 0 0; color:#185FA5;">Basket</p>
     </div>
-    <div onclick="csGo('orders')" style="flex:1; text-
-
-align:center; cursor:pointer; padding:8px 0; background:rgba
+    <div onclick="csGo('orders')" style="flex:1; text-align:center; cursor:pointer; padding:8px 0; background:rgba
 
 (255,255,255,0.88);">
-      <i class="ti ti-receipt" id="cn-orders" style="font-
-
-size:20px; color:#FA8C3A;" aria-hidden="true"></i>
-      <p id="cnt-orders" style="font-size:10px; margin:2px 0 
-
-0; color:#FA8C3A;">Orders</p>
+      <i class="ti ti-receipt" id="cn-orders" style="font-size:20px; color:#FA8C3A;" aria-hidden="true"></i>
+      <p id="cnt-orders" style="font-size:10px; margin:2px 0 0; color:#FA8C3A;">Orders</p>
     </div>
-    <div onclick="csGo('b2b')" style="flex:1; text-
-
-align:center; cursor:pointer; padding:8px 0; background:rgba
-
-(255,255,255,0.88);">
-      <i class="ti ti-building-store" id="cn-b2b" 
-
-style="font-size:20px; color:#E24B4A;" aria-hidden="true"></i>
-      <p id="cnt-b2b" style="font-size:10px; margin:2px 0 0; 
-
-color:#E24B4A;">Dukaan</p>
+    <div onclick="csGo('b2b')" style="flex:1; text-align:center; cursor:pointer; padding:8px 0; background:rgba(255,255,255,0.88);">
+      <i class="ti ti-building-store" id="cn-b2b" style="font-size:20px; color:#E24B4A;" aria-hidden="true"></i>
+      <p id="cnt-b2b" style="font-size:10px; margin:2px 0 0; color:#E24B4A;">Dukaan</p>
     </div>
   </div>
 </div>
@@ -460,342 +216,152 @@ color:#E24B4A;">Dukaan</p>
 <!-- ADMIN VIEW -->
 <div id="view-admin" style="display:none; min-height:680px;">
   <div id="a-main" style="display:block;">
-    <div style="background:#185FA5; padding:16px 20px; 
-
-display:flex; align-items:center; justify-content:space-
-
-between;">
+    <div style="background:#185FA5; padding:16px 20px; display:flex; align-items:center; justify-content:space-between;">
       <div>
-        <p style="color:#B5D4F4; font-size:11px; 
-
-margin:0;">Admin Panel</p>
-        <h2 style="color:#fff; font-size:17px; font-
-
-weight:500; margin:4px 0 0;">Zaiqah ذائقہ</h2>
+        <p style="color:#B5D4F4; font-size:11px; margin:0;">Admin Panel</p>
+        <h2 style="color:#fff; font-size:17px; font-weight:500; margin:4px 0 0;">Zaiqah ذائقہ</h2>
       </div>
-      <div style="display:flex; gap:14px; align-
+      <div style="display:flex; gap:14px; align-items:center;">
+        <div style="position:relative; cursor:pointer;" onclick="aGoTab('orders')">
+          <i class="ti ti-bell" style="font-size:22px; color:#fff;" aria-hidden="true"></i>
+          <span style="position:absolute; top:-5px; right:-5px; background:#FA8C3A; color:#fff; font-size:9px; border-radius:50%; 
 
-items:center;">
-        <div style="position:relative; cursor:pointer;" 
-
-onclick="aGoTab('orders')">
-          <i class="ti ti-bell" style="font-size:22px; 
-
-color:#fff;" aria-hidden="true"></i>
-          <span style="position:absolute; top:-5px; right:-
-
-5px; background:#FA8C3A; color:#fff; font-size:9px; border-
-
-radius:50%; width:16px; height:16px; display:flex; align-
-
-items:center; justify-content:center; font-weight:500;" 
-
-id="a-notif">3</span>
+width:16px; height:16px; display:flex; align-items:center; justify-content:center; font-weight:500;" id="a-notif">3</span>
         </div>
-        <i class="ti ti-logout" style="font-size:20px; 
-
-color:#fff; cursor:pointer;" onclick="goBackToLogin()" aria-
-
-hidden="true"></i>
+        <i class="ti ti-logout" style="font-size:20px; color:#fff; cursor:pointer;" onclick="goBackToLogin()" aria-hidden="true"></i>
       </div>
     </div>
 
-    <div style="display:flex; border-bottom:0.5px solid var
+    <div style="display:flex; border-bottom:0.5px solid var(--color-border-tertiary); overflow-x:auto;">
+      <div class="atab" id="atab-dash" onclick="aGoTab('dash')" style="padding:11px 14px; font-size:12px; font-weight:500; 
 
-(--color-border-tertiary); overflow-x:auto;">
-      <div class="atab" id="atab-dash" onclick="aGoTab
+color:#185FA5; border-bottom:2px solid #185FA5; cursor:pointer; white-space:nowrap;">Dashboard</div>
+      <div class="atab" id="atab-orders" onclick="aGoTab('orders')" style="padding:11px 14px; font-size:12px; color:var(--color-
 
-('dash')" style="padding:11px 14px; font-size:12px; font-
+text-secondary); border-bottom:2px solid transparent; cursor:pointer; white-space:nowrap;">Orders <span style="background:#FA8C3A; 
 
-weight:500; color:#185FA5; border-bottom:2px solid #185FA5; 
+color:#fff; font-size:9px; padding:1px 5px; border-radius:10px; margin-left:3px;" id="a-order-badge">3</span></div>
+      <div class="atab" id="atab-products" onclick="aGoTab('products')" style="padding:11px 14px; font-size:12px; color:var(--color-
 
-cursor:pointer; white-space:nowrap;">Dashboard</div>
-      <div class="atab" id="atab-orders" onclick="aGoTab
+text-secondary); border-bottom:2px solid transparent; cursor:pointer; white-space:nowrap;">Products</div>
+      <div class="atab" id="atab-banner" onclick="aGoTab('banner')" style="padding:11px 14px; font-size:12px; color:var(--color-
 
-('orders')" style="padding:11px 14px; font-size:12px; 
+text-secondary); border-bottom:2px solid transparent; cursor:pointer; white-space:nowrap;">Banner</div>
+      <div class="atab" id="atab-chat" onclick="aGoTab('chat')" style="padding:11px 14px; font-size:12px; color:var(--color-text-
 
-color:var(--color-text-secondary); border-bottom:2px solid 
-
-transparent; cursor:pointer; white-space:nowrap;">Orders <span 
-
-style="background:#FA8C3A; color:#fff; font-size:9px; 
-
-padding:1px 5px; border-radius:10px; margin-left:3px;" id="a-
-
-order-badge">3</span></div>
-      <div class="atab" id="atab-products" onclick="aGoTab
-
-('products')" style="padding:11px 14px; font-size:12px; 
-
-color:var(--color-text-secondary); border-bottom:2px solid 
-
-transparent; cursor:pointer; white-
-
-space:nowrap;">Products</div>
-      <div class="atab" id="atab-banner" onclick="aGoTab
-
-('banner')" style="padding:11px 14px; font-size:12px; 
-
-color:var(--color-text-secondary); border-bottom:2px solid 
-
-transparent; cursor:pointer; white-space:nowrap;">Banner</div>
-      <div class="atab" id="atab-chat" onclick="aGoTab
-
-('chat')" style="padding:11px 14px; font-size:12px; color:var
-
-(--color-text-secondary); border-bottom:2px solid transparent; 
-
-cursor:pointer; white-space:nowrap;">Customers</div>
+secondary); border-bottom:2px solid transparent; cursor:pointer; white-space:nowrap;">Customers</div>
     </div>
 
     <div id="ap-dash" style="padding:14px 16px;">
-      <div style="display:grid; grid-template-columns:1fr 1fr; 
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:16px;">
+        <div style="background:var(--color-background-secondary); border-radius:10px; padding:12px; text-align:center;"><p 
 
-gap:10px; margin-bottom:16px;">
-        <div style="background:var(--color-background-
+style="font-size:20px; font-weight:500; color:#185FA5; margin:0;" id="a-stat-orders">3</p><p style="font-size:11px; color:var(--
 
-secondary); border-radius:10px; padding:12px; text-
+color-text-secondary); margin:4px 0 0;">Naye Orders</p></div>
+        <div style="background:var(--color-background-secondary); border-radius:10px; padding:12px; text-align:center;"><p 
 
-align:center;"><p style="font-size:20px; font-weight:500; 
+style="font-size:20px; font-weight:500; color:#185FA5; margin:0;">Rs. 2,840</p><p style="font-size:11px; color:var(--color-text-
 
-color:#185FA5; margin:0;" id="a-stat-orders">3</p><p 
+secondary); margin:4px 0 0;">Aaj ki Kamai</p></div>
+        <div style="background:var(--color-background-secondary); border-radius:10px; padding:12px; text-align:center;"><p 
 
-style="font-size:11px; color:var(--color-text-secondary); 
+style="font-size:20px; font-weight:500; color:#185FA5; margin:0;">18</p><p style="font-size:11px; color:var(--color-text-secondary); 
 
-margin:4px 0 0;">Naye Orders</p></div>
-        <div style="background:var(--color-background-
+margin:4px 0 0;">Customers</p></div>
+        <div style="background:var(--color-background-secondary); border-radius:10px; padding:12px; text-align:center;"><p 
 
-secondary); border-radius:10px; padding:12px; text-
+style="font-size:20px; font-weight:500; color:#185FA5; margin:0;">Rs. 18,400</p><p style="font-size:11px; color:var(--color-text-
 
-align:center;"><p style="font-size:20px; font-weight:500; 
-
-color:#185FA5; margin:0;">Rs. 2,840</p><p style="font-
-
-size:11px; color:var(--color-text-secondary); margin:4px 0 
-
-0;">Aaj ki Kamai</p></div>
-        <div style="background:var(--color-background-
-
-secondary); border-radius:10px; padding:12px; text-
-
-align:center;"><p style="font-size:20px; font-weight:500; 
-
-color:#185FA5; margin:0;">18</p><p style="font-size:11px; 
-
-color:var(--color-text-secondary); margin:4px 0 
-
-0;">Customers</p></div>
-        <div style="background:var(--color-background-
-
-secondary); border-radius:10px; padding:12px; text-
-
-align:center;"><p style="font-size:20px; font-weight:500; 
-
-color:#185FA5; margin:0;">Rs. 18,400</p><p style="font-
-
-size:11px; color:var(--color-text-secondary); margin:4px 0 
-
-0;">Is Mahine</p></div>
+secondary); margin:4px 0 0;">Is Mahine</p></div>
       </div>
-      <p style="font-size:13px; font-weight:500; color:var(--
-
-color-text-secondary); margin:0 0 10px;">Pending Orders</p>
+      <p style="font-size:13px; font-weight:500; color:var(--color-text-secondary); margin:0 0 10px;">Pending Orders</p>
       <div id="a-dash-orders"></div>
     </div>
 
-    <div id="ap-orders" style="display:none; padding:14px 
+    <div id="ap-orders" style="display:none; padding:14px 16px;">
+      <div style="display:flex; gap:8px; margin-bottom:12px; overflow-x:auto;">
+        <span class="oflt active-oflt" onclick="aFilterOrders('all',this)" style="background:#185FA5; color:#fff; padding:5px 12px; 
 
-16px;">
-      <div style="display:flex; gap:8px; margin-bottom:12px; 
+border-radius:20px; font-size:11px; cursor:pointer; white-space:nowrap;">Sab</span>
+        <span class="oflt" onclick="aFilterOrders('new',this)" style="background:var(--color-background-secondary); color:var(--
 
-overflow-x:auto;">
-        <span class="oflt active-oflt" onclick="aFilterOrders
+color-text-secondary); padding:5px 12px; border-radius:20px; font-size:11px; cursor:pointer; white-space:nowrap;">Naye</span>
+        <span class="oflt" onclick="aFilterOrders('processing',this)" style="background:var(--color-background-secondary); color:var
 
-('all',this)" style="background:#185FA5; color:#fff; 
+(--color-text-secondary); padding:5px 12px; border-radius:20px; font-size:11px; cursor:pointer; white-
 
-padding:5px 12px; border-radius:20px; font-size:11px; 
+space:nowrap;">Processing</span>
+        <span class="oflt" onclick="aFilterOrders('delivered',this)" style="background:var(--color-background-secondary); color:var
 
-cursor:pointer; white-space:nowrap;">Sab</span>
-        <span class="oflt" onclick="aFilterOrders('new',this)" 
-
-style="background:var(--color-background-secondary); 
-
-color:var(--color-text-secondary); padding:5px 12px; border-
-
-radius:20px; font-size:11px; cursor:pointer; white-
-
-space:nowrap;">Naye</span>
-        <span class="oflt" onclick="aFilterOrders
-
-('processing',this)" style="background:var(--color-
-
-background-secondary); color:var(--color-text-secondary); 
-
-padding:5px 12px; border-radius:20px; font-size:11px; 
-
-cursor:pointer; white-space:nowrap;">Processing</span>
-        <span class="oflt" onclick="aFilterOrders
-
-('delivered',this)" style="background:var(--color-background-
-
-secondary); color:var(--color-text-secondary); padding:5px 
-
-12px; border-radius:20px; font-size:11px; cursor:pointer; 
-
-white-space:nowrap;">Delivered</span>
+(--color-text-secondary); padding:5px 12px; border-radius:20px; font-size:11px; cursor:pointer; white-space:nowrap;">Delivered</span>
       </div>
       <div id="a-orders-list"></div>
     </div>
 
-    <div id="ap-products" style="display:none; padding:14px 
+    <div id="ap-products" style="display:none; padding:14px 16px; max-height:560px; overflow-y:auto;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <p style="font-size:13px; font-weight:500; color:var(--color-text-primary); margin:0;">Products</p>
+        <button onclick="openAddP()" style="background:#185FA5; color:#fff; border:none; border-radius:8px; padding:7px 12px; font-
 
-16px; max-height:560px; overflow-y:auto;">
-      <div style="display:flex; justify-content:space-between; 
-
-align-items:center; margin-bottom:12px;">
-        <p style="font-size:13px; font-weight:500; color:var
-
-(--color-text-primary); margin:0;">Products</p>
-        <button onclick="openAddP()" 
-
-style="background:#185FA5; color:#fff; border:none; border-
-
-radius:8px; padding:7px 12px; font-size:12px; 
-
-cursor:pointer;">+ Add</button>
+size:12px; cursor:pointer;">+ Add</button>
       </div>
       <div id="a-products-list"></div>
     </div>
 
     <!-- BANNER MANAGER TAB -->
     <div id="ap-banner" style="display:none; padding:16px;">
-      <p style="font-size:14px; font-weight:500; color:var(--
+      <p style="font-size:14px; font-weight:500; color:var(--color-text-primary); margin:0 0 14px;">Offer Banner Manage Karein</p>
+      <div style="background:var(--color-background-secondary); border-radius:12px; padding:14px; margin-bottom:14px;">
+        <label style="font-size:11px; color:var(--color-text-secondary);">Banner Image URL</label>
+        <input id="banner-url-inp" type="text" placeholder="Image ka URL paste karein..." style="width:100%; margin-top:6px; 
 
-color-text-primary); margin:0 0 14px;">Offer Banner Manage 
+padding:10px; border-radius:8px; font-size:12px; box-sizing:border-box; border:1px solid var(--color-border-tertiary); color:var(--
 
-Karein</p>
-      <div style="background:var(--color-background-
+color-text-primary); background:var(--color-background-primary);" />
+        <label style="font-size:11px; color:var(--color-text-secondary); margin-top:10px; display:block;">Offer Text</label>
+        <input id="banner-text-inp" type="text" placeholder="Offer text likho..." style="width:100%; margin-top:6px; padding:10px; 
 
-secondary); border-radius:12px; padding:14px; margin-
+border-radius:8px; font-size:12px; box-sizing:border-box; border:1px solid var(--color-border-tertiary); color:var(--color-text-
 
-bottom:14px;">
-        <label style="font-size:11px; color:var(--color-text-
+primary); background:var(--color-background-primary);" value="Aaj ka offer — Code ZAIQAH10 use karein, 10% off!" />
+        <button onclick="updateBanner()" style="width:100%; background:#1D9E75; color:#fff; border:none; border-radius:10px; 
 
-secondary);">Banner Image URL</label>
-        <input id="banner-url-inp" type="text" 
-
-placeholder="Image ka URL paste karein..." style="width:100%; 
-
-margin-top:6px; padding:10px; border-radius:8px; font-
-
-size:12px; box-sizing:border-box; border:1px solid var(--
-
-color-border-tertiary); color:var(--color-text-primary); 
-
-background:var(--color-background-primary);" />
-        <label style="font-size:11px; color:var(--color-text-
-
-secondary); margin-top:10px; display:block;">Offer 
-
-Text</label>
-        <input id="banner-text-inp" type="text" 
-
-placeholder="Offer text likho..." style="width:100%; margin-
-
-top:6px; padding:10px; border-radius:8px; font-size:12px; 
-
-box-sizing:border-box; border:1px solid var(--color-border-
-
-tertiary); color:var(--color-text-primary); background:var(--
-
-color-background-primary);" value="Aaj ka offer — Code 
-
-ZAIQAH10 use karein, 10% off!" />
-        <button onclick="updateBanner()" style="width:100%; 
-
-background:#1D9E75; color:#fff; border:none; border-
-
-radius:10px; padding:11px; font-size:13px; cursor:pointer; 
-
-margin-top:12px; font-weight:500;">Banner Update 
-
-Karein</button>
+padding:11px; font-size:13px; cursor:pointer; margin-top:12px; font-weight:500;">Banner Update Karein</button>
       </div>
-      <p style="font-size:12px; font-weight:500; color:var(--
+      <p style="font-size:12px; font-weight:500; color:var(--color-text-secondary); margin:0 0 8px;">Current Banner Preview:</p>
+      <div style="border-radius:12px; overflow:hidden; position:relative; height:80px; background:#0a5c42;">
+        <img id="banner-preview-img" src="https://static.vecteezy.com/system/resources/previews/015/258/820/non_2x/new-offer-tag-
 
-color-text-secondary); margin:0 0 8px;">Current Banner 
+red-discount-label-isolated-on-yellow-background-vector.jpg" style="width:100%; height:100%; object-fit:cover; display:block;" />
+        <div style="position:absolute; inset:0; background:rgba(0,0,0,0.35); display:flex; align-items:center; padding:0 14px;">
+          <p id="banner-preview-text" style="color:#fff; font-size:12px; margin:0; font-weight:500;">Aaj ka offer — Code 
 
-Preview:</p>
-      <div style="border-radius:12px; overflow:hidden; 
-
-position:relative; height:80px; background:#0a5c42;">
-        <img id="banner-preview-img" 
-
-src="https://static.vecteezy.com/system/resources/previews/015
-
-/258/820/non_2x/new-offer-tag-red-discount-label-isolated-on-
-
-yellow-background-vector.jpg" style="width:100%; height:100%; 
-
-object-fit:cover; display:block;" />
-        <div style="position:absolute; inset:0; 
-
-background:rgba(0,0,0,0.35); display:flex; align-items:center; 
-
-padding:0 14px;">
-          <p id="banner-preview-text" style="color:#fff; 
-
-font-size:12px; margin:0; font-weight:500;">Aaj ka offer — 
-
-Code <b>ZAIQAH10</b> use karein, 10% off!</p>
+<b>ZAIQAH10</b> use karein, 10% off!</p>
         </div>
       </div>
     </div>
 
     <div id="ap-chat" style="display:none;">
       <div style="display:flex; height:480px;">
-        <div style="width:120px; border-right:0.5px solid var
+        <div style="width:120px; border-right:0.5px solid var(--color-border-tertiary); overflow-y:auto;" id="a-cust-list"></div>
+        <div style="flex:1; display:flex; flex-direction:column;">
+          <div style="padding:10px 12px; border-bottom:0.5px solid var(--color-border-tertiary);">
+            <p style="font-size:13px; font-weight:500; margin:0; color:var(--color-text-primary);" id="a-chat-name">Customer 
 
-(--color-border-tertiary); overflow-y:auto;" id="a-cust-
-
-list"></div>
-        <div style="flex:1; display:flex; flex-
-
-direction:column;">
-          <div style="padding:10px 12px; border-bottom:0.5px 
-
-solid var(--color-border-tertiary);">
-            <p style="font-size:13px; font-weight:500; 
-
-margin:0; color:var(--color-text-primary);" id="a-chat-
-
-name">Customer chunein</p>
-            <p style="font-size:11px; color:#1D9E75; 
-
-margin:2px 0 0;" id="a-chat-phone"></p>
+chunein</p>
+            <p style="font-size:11px; color:#1D9E75; margin:2px 0 0;" id="a-chat-phone"></p>
           </div>
-          <div id="a-chat-msgs" style="flex:1; overflow-
+          <div id="a-chat-msgs" style="flex:1; overflow-y:auto; padding:10px 12px; display:flex; flex-direction:column; 
 
-y:auto; padding:10px 12px; display:flex; flex-
+gap:8px;"></div>
+          <div style="padding:8px 12px; border-top:0.5px solid var(--color-border-tertiary); display:flex; gap:8px;">
+            <input id="a-msg-inp" type="text" placeholder="Message..." style="flex:1; padding:8px 10px; border-radius:10px; font-
 
-direction:column; gap:8px;"></div>
-          <div style="padding:8px 12px; border-top:0.5px solid 
+size:13px;" onkeydown="if(event.key==='Enter')aSendMsg()" />
+            <button onclick="aSendMsg()" style="background:#185FA5; color:#fff; border:none; border-radius:8px; padding:8px 12px; 
 
-var(--color-border-tertiary); display:flex; gap:8px;">
-            <input id="a-msg-inp" type="text" 
-
-placeholder="Message..." style="flex:1; padding:8px 10px; 
-
-border-radius:10px; font-size:13px;" onkeydown="if
-
-(event.key==='Enter')aSendMsg()" />
-            <button onclick="aSendMsg()" 
-
-style="background:#185FA5; color:#fff; border:none; border-
-
-radius:8px; padding:8px 12px; cursor:pointer;"><i class="ti 
-
-ti-send" aria-hidden="true"></i></button>
+cursor:pointer;"><i class="ti ti-send" aria-hidden="true"></i></button>
           </div>
         </div>
       </div>
@@ -804,148 +370,74 @@ ti-send" aria-hidden="true"></i></button>
 </div>
 
 <!-- PRODUCT MODAL -->
-<div id="p-modal-wrap" style="display:none; min-height:500px; 
-
-background:rgba(0,0,0,0.4); align-items:center; justify-
+<div id="p-modal-wrap" style="display:none; min-height:500px; background:rgba(0,0,0,0.4); align-items:center; justify-
 
 content:center;">
-  <div style="background:var(--color-background-primary); 
+  <div style="background:var(--color-background-primary); border-radius:16px; padding:20px; width:320px; max-height:85vh; overflow-
 
-border-radius:16px; padding:20px; width:320px; max-
+y:auto; margin:20px auto;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+      <h3 id="p-modal-title" style="font-size:15px; font-weight:500; margin:0; color:var(--color-text-primary);">Product</h3>
+      <i class="ti ti-x" onclick="closeModal()" style="font-size:18px; cursor:pointer; color:var(--color-text-secondary);" aria-
 
-height:85vh; overflow-y:auto; margin:20px auto;">
-    <div style="display:flex; justify-content:space-between; 
-
-align-items:center; margin-bottom:14px;">
-      <h3 id="p-modal-title" style="font-size:15px; font-
-
-weight:500; margin:0; color:var(--color-text-
-
-primary);">Product</h3>
-      <i class="ti ti-x" onclick="closeModal()" style="font-
-
-size:18px; cursor:pointer; color:var(--color-text-secondary);" 
-
-aria-hidden="true"></i>
+hidden="true"></i>
     </div>
-    <div onclick="document.getElementById('p-img-inp').click
+    <div onclick="document.getElementById('p-img-inp').click()" style="height:100px; background:#EAF3DE; border-radius:10px; 
 
-()" style="height:100px; background:#EAF3DE; border-
+display:flex; align-items:center; justify-content:center; cursor:pointer; border:1.5px dashed #1D9E75; margin-bottom:8px; 
 
-radius:10px; display:flex; align-items:center; justify-
+overflow:hidden;">
+      <div id="p-img-prev" style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-
 
-content:center; cursor:pointer; border:1.5px dashed #1D9E75; 
-
-margin-bottom:8px; overflow:hidden;">
-      <div id="p-img-prev" style="width:100%; height:100%; 
-
-display:flex; align-items:center; justify-content:center; 
-
-font-size:40px;"></div>
+size:40px;"></div>
     </div>
-    <input type="file" id="p-img-inp" accept="image/*" 
-
-style="display:none;" onchange="prevImg(this)" />
+    <input type="file" id="p-img-inp" accept="image/*" style="display:none;" onchange="prevImg(this)" />
     <div style="margin-bottom:8px;">
-      <label style="font-size:11px; color:var(--color-text-
-
-secondary);">Ya Image URL paste karein</label>
+      <label style="font-size:11px; color:var(--color-text-secondary);">Ya Image URL paste karein</label>
       <div style="display:flex; gap:6px; margin-top:4px;">
-        <input id="pm-img-url" type="text" 
+        <input id="pm-img-url" type="text" placeholder="https://..." style="flex:1; padding:8px; border-radius:8px; font-size:12px; 
 
-placeholder="https://..." style="flex:1; padding:8px; border-
+box-sizing:border-box; border:1px solid var(--color-border-tertiary);" />
+        <button onclick="applyImgUrl()" style="background:#1D9E75; color:#fff; border:none; border-radius:8px; padding:8px 10px; 
 
-radius:8px; font-size:12px; box-sizing:border-box; border:1px 
-
-solid var(--color-border-tertiary);" />
-        <button onclick="applyImgUrl()" 
-
-style="background:#1D9E75; color:#fff; border:none; border-
-
-radius:8px; padding:8px 10px; font-size:11px; 
-
-cursor:pointer;">OK</button>
+font-size:11px; cursor:pointer;">OK</button>
       </div>
     </div>
-    <div style="display:flex; flex-direction:column; 
+    <div style="display:flex; flex-direction:column; gap:9px;">
+      <div><label style="font-size:11px; color:var(--color-text-secondary);">Naam</label><input id="pm-name" type="text" 
 
-gap:9px;">
-      <div><label style="font-size:11px; color:var(--color-
+style="width:100%; margin-top:3px; padding:9px; border-radius:8px; font-size:13px; box-sizing:border-box;" /></div>
+      <div><label style="font-size:11px; color:var(--color-text-secondary);">Urdu Naam</label><input id="pm-urdu" type="text" 
 
-text-secondary);">Naam</label><input id="pm-name" type="text" 
+style="width:100%; margin-top:3px; padding:9px; border-radius:8px; font-size:13px; box-sizing:border-box; direction:rtl;" /></div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:9px;">
+        <div><label style="font-size:11px; color:var(--color-text-secondary);">Price</label><input id="pm-price" type="number" 
 
-style="width:100%; margin-top:3px; padding:9px; border-
+style="width:100%; margin-top:3px; padding:9px; border-radius:8px; font-size:13px; box-sizing:border-box;" /></div>
+        <div><label style="font-size:11px; color:var(--color-text-secondary);">Unit</label><input id="pm-unit" type="text" 
 
-radius:8px; font-size:13px; box-sizing:border-box;" /></div>
-      <div><label style="font-size:11px; color:var(--color-
-
-text-secondary);">Urdu Naam</label><input id="pm-urdu" 
-
-type="text" style="width:100%; margin-top:3px; padding:9px; 
-
-border-radius:8px; font-size:13px; box-sizing:border-box; 
-
-direction:rtl;" /></div>
-      <div style="display:grid; grid-template-columns:1fr 1fr; 
-
-gap:9px;">
-        <div><label style="font-size:11px; color:var(--color-
-
-text-secondary);">Price</label><input id="pm-price" 
-
-type="number" style="width:100%; margin-top:3px; padding:9px; 
-
-border-radius:8px; font-size:13px; box-sizing:border-box;" 
+style="width:100%; margin-top:3px; padding:9px; border-radius:8px; font-size:13px; box-sizing:border-box;" placeholder="100g" 
 
 /></div>
-        <div><label style="font-size:11px; color:var(--color-
-
-text-secondary);">Unit</label><input id="pm-unit" type="text" 
-
-style="width:100%; margin-top:3px; padding:9px; border-
-
-radius:8px; font-size:13px; box-sizing:border-box;" 
-
-placeholder="100g" /></div>
       </div>
-      <div><label style="font-size:11px; color:var(--color-
+      <div><label style="font-size:11px; color:var(--color-text-secondary);">Category</label><select id="pm-cat" style="width:100%; 
 
-text-secondary);">Category</label><select id="pm-cat" 
+margin-top:3px; padding:9px; border-radius:8px; font-size:13px; box-sizing:border-box;"><option value="whole">Sabut</option><option 
 
-style="width:100%; margin-top:3px; padding:9px; border-
+value="ground">Pesa</option><option value="dry-fruit">Dry Fruit</option></select></div>
+      <div><label style="font-size:11px; color:var(--color-text-secondary);">Description</label><textarea id="pm-desc" rows="2" 
 
-radius:8px; font-size:13px; box-sizing:border-box;"><option 
-
-value="whole">Sabut</option><option 
-
-value="ground">Pesa</option><option value="dry-fruit">Dry 
-
-Fruit</option></select></div>
-      <div><label style="font-size:11px; color:var(--color-
-
-text-secondary);">Description</label><textarea id="pm-desc" 
-
-rows="2" style="width:100%; margin-top:3px; padding:9px; 
-
-border-radius:8px; font-size:13px; box-sizing:border-box; 
+style="width:100%; margin-top:3px; padding:9px; border-radius:8px; font-size:13px; box-sizing:border-box; 
 
 resize:none;"></textarea></div>
     </div>
     <div style="display:flex; gap:8px; margin-top:14px;">
-      <button onclick="closeModal()" style="flex:1; 
+      <button onclick="closeModal()" style="flex:1; padding:11px; border-radius:10px; font-size:13px; cursor:pointer; color:var(--
 
-padding:11px; border-radius:10px; font-size:13px; 
+color-text-primary);">Cancel</button>
+      <button onclick="saveProduct()" style="flex:1; background:#185FA5; color:#fff; border:none; border-radius:10px; padding:11px; 
 
-cursor:pointer; color:var(--color-text-
-
-primary);">Cancel</button>
-      <button onclick="saveProduct()" style="flex:1; 
-
-background:#185FA5; color:#fff; border:none; border-
-
-radius:10px; padding:11px; font-size:13px; 
-
-cursor:pointer;">Save</button>
+font-size:13px; cursor:pointer;">Save</button>
     </div>
   </div>
 </div>
@@ -955,191 +447,73 @@ cursor:pointer;">Save</button>
 <script>
 // ===================== DATA =====================
 let products = [
-  {id:1,name:'Badam',urdu:'بادام',cat:'dry-
+  {id:1,name:'Badam',urdu:'بادام',cat:'dry-fruit',emoji:'🟤',price:280,unit:'100g',desc:'Kashmiri badam — ekdum fresh.',
+   img:'https://www.google.com/imgres?q=new%20offer&imgurl=https%3A%2F%2Fpng.pngtree.com%2Fpng-vector%2F20220705%2Fourmid%2Fpngtree-
 
-fruit',emoji:'🟤',price:280,unit:'100g',desc:'Kashmiri badam — 
+star-and-red-ribbon-new-offer-sticker-free-vector-png-design-png-image_5684174.png&imgrefurl=https%3A%2F%2Fpngtree.com%2Ffree-png-
 
-ekdum fresh.',
-   img:'https://www.google.com/imgres?q=new
+vectors%2Fnew-offer-sticker-free-vector&docid=Ei2f7iUjhRks-
 
-%20offer&imgurl=https%3A%2F%2Fpng.pngtree.com%2Fpng-vector
+M&tbnid=oYjsBg770maQEM&vet=12ahUKEwijtrXdrY6VAxXj87sIHQuGFE8QnPAOegQIWhAA..i&w=360&h=360&hcb=2&ved=2ahUKEwijtrXdrY6VAxXj87sIHQuGFE8Qn
 
-%2F20220705%2Fourmid%2Fpngtree-star-and-red-ribbon-new-offer-
-
-sticker-free-vector-png-design-png-
-
-image_5684174.png&imgrefurl=https%3A%2F%2Fpngtree.com%2Ffree-
-
-png-vectors%2Fnew-offer-sticker-free-
-
-vector&docid=Ei2f7iUjhRks-
-
-M&tbnid=oYjsBg770maQEM&vet=12ahUKEwijtrXdrY6VAxXj87sIHQuGFE8Qn
-
-PAOegQIWhAA..i&w=360&h=360&hcb=2&ved=2ahUKEwijtrXdrY6VAxXj87sI
-
-HQuGFE8QnPAOegQIWhAA'},
-  {id:2,name:'Kali Mirch',urdu:'کالی 
-
-مرچ',cat:'whole',emoji:'⚫',price:120,unit:'50g',desc:'Sabut 
-
-kali mirch — tez khushbu.',
-   
-
-img:'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54
-
-/Black_pepper_closeup.jpg/320px-Black_pepper_closeup.jpg'},
-  {id:3,name:'Lal Mirch Pesi',urdu:'لال مرچ 
-
-پسی',cat:'ground',emoji:'🔴',price:90,unit:'100g',desc:'Ghar 
-
-mein pesi lal mirch.',
-   
-
-img:'https://upload.wikimedia.org/wikipedia/commons/thumb/9/96
-
-/Red_chili_powder.jpg/320px-Red_chili_powder.jpg'},
-  {id:4,name:'Dhaniya Sabut',urdu:'دھنیا 
-
-سبوت',cat:'whole',emoji:'🟡',price:60,unit:'100g',desc:'Khushbu
-
-dar sabut dhaniya.',
-   
-
-img:'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e
-
-/Coriander_seeds.jpg/320px-Coriander_seeds.jpg'},
-  {id:5,name:'Dhaniya Pesa',urdu:'دھنیا 
-
-پسا',cat:'ground',emoji:'🟢',price:70,unit:'100g',desc:'Taaza 
-
-pesa dhaniya.',
-   
-
-img:'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10
-
-/Ground_coriander.jpg/320px-Ground_coriander.jpg'},
-  {id:6,name:'Garam Masala',urdu:'گرم 
-
-مصالحہ',cat:'ground',emoji:'🟤',price:150,unit:'50g',desc:'Zaiqa
-
-h ka khaas blend.',
-   
-
-img:'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9
-
-/Garam_Masala.jpg/320px-Garam_Masala.jpg'},
-  {id:7,name:'Haldi',urdu:'
-
-ہلدی',cat:'ground',emoji:'🟡',price:80,unit:'100g',desc:'Khalis 
-
-peeli haldi.',
-   
-
-img:'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e
-
-/Turmeric-powder.jpg/320px-Turmeric-powder.jpg'},
-  {id:8,name:'Zeera Sabut',urdu:'زیرہ 
-
-سبوت',cat:'whole',emoji:'🟤',price:100,unit:'50g',desc:'Asli 
-
-sabut zeera.',
-   
-
-img:'https://upload.wikimedia.org/wikipedia/commons/thumb/2/26
-
-/Cuminum_cyminum_-_Köhler–s_Medizinal-Pflanzen-198.jpg/200px-
+PAOegQIWhAA'},
+  {id:2,name:'Kali Mirch',urdu:'کالی مرچ',cat:'whole',emoji:'⚫',price:120,unit:'50g',desc:'Sabut kali mirch — tez khushbu.',
+   img:'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Black_pepper_closeup.jpg/320px-Black_pepper_closeup.jpg'},
+  {id:3,name:'Lal Mirch Pesi',urdu:'لال مرچ پسی',cat:'ground',emoji:'🔴',price:90,unit:'100g',desc:'Ghar mein pesi lal mirch.',
+   img:'https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Red_chili_powder.jpg/320px-Red_chili_powder.jpg'},
+  {id:4,name:'Dhaniya Sabut',urdu:'دھنیا سبوت',cat:'whole',emoji:'🟡',price:60,unit:'100g',desc:'Khushbudar sabut dhaniya.',
+   img:'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Coriander_seeds.jpg/320px-Coriander_seeds.jpg'},
+  {id:5,name:'Dhaniya Pesa',urdu:'دھنیا پسا',cat:'ground',emoji:'🟢',price:70,unit:'100g',desc:'Taaza pesa dhaniya.',
+   img:'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Ground_coriander.jpg/320px-Ground_coriander.jpg'},
+  {id:6,name:'Garam Masala',urdu:'گرم مصالحہ',cat:'ground',emoji:'🟤',price:150,unit:'50g',desc:'Zaiqah ka khaas blend.',
+   img:'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Garam_Masala.jpg/320px-Garam_Masala.jpg'},
+  {id:7,name:'Haldi',urdu:'ہلدی',cat:'ground',emoji:'🟡',price:80,unit:'100g',desc:'Khalis peeli haldi.',
+   img:'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Turmeric-powder.jpg/320px-Turmeric-powder.jpg'},
+  {id:8,name:'Zeera Sabut',urdu:'زیرہ سبوت',cat:'whole',emoji:'🟤',price:100,unit:'50g',desc:'Asli sabut zeera.',
+   img:'https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Cuminum_cyminum_-_Köhler–s_Medizinal-Pflanzen-198.jpg/200px-
 
 Cuminum_cyminum_-_Köhler–s_Medizinal-Pflanzen-198.jpg'},
-  {id:9,name:'Kishmish',urdu:'کشمش',cat:'dry-
+  {id:9,name:'Kishmish',urdu:'کشمش',cat:'dry-fruit',emoji:'🟣',price:200,unit:'100g',desc:'Meethi aur fresh kishmish.',
+   img:'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Raisins_01.jpg/320px-Raisins_01.jpg'},
+  {id:10,name:'Kaju',urdu:'کاجو',cat:'dry-fruit',emoji:'🔵',price:350,unit:'100g',desc:'Premium kaju — crispy aur tasty.',
+   img:'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Cashew_nut_%28Anacardium_occidentale%29.jpg/320px-Cashew_nut_
 
-fruit',emoji:'🟣',price:200,unit:'100g',desc:'Meethi aur fresh 
-
-kishmish.',
-   
-
-img:'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6
-
-/Raisins_01.jpg/320px-Raisins_01.jpg'},
-  {id:10,name:'Kaju',urdu:'کاجو',cat:'dry-
-
-fruit',emoji:'🔵',price:350,unit:'100g',desc:'Premium kaju — 
-
-crispy aur tasty.',
-   
-
-img:'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43
-
-/Cashew_nut_%28Anacardium_occidentale%29.jpg/320px-
-
-Cashew_nut_%28Anacardium_occidentale%29.jpg'},
+%28Anacardium_occidentale%29.jpg'},
 ];
 
 let orders = [
-  {id:'ZAQ-003',customer:'Ahmed 
-
-Bhai',phone:'03001234567',items:'Lal Mirch × 2, Garam Masala × 
-
-1',total:330,status:'new',time:'10 min 
+  {id:'ZAQ-003',customer:'Ahmed Bhai',phone:'03001234567',items:'Lal Mirch × 2, Garam Masala × 1',total:330,status:'new',time:'10 min 
 
 pehle',address:'Hyderabad, Block 5'},
-  {id:'ZAQ-004',customer:'Fatima 
-
-Apa',phone:'03111234567',items:'Badam × 1, Dhaniya × 
-
-2',total:400,status:'new',time:'25 min 
+  {id:'ZAQ-004',customer:'Fatima Apa',phone:'03111234567',items:'Badam × 1, Dhaniya × 2',total:400,status:'new',time:'25 min 
 
 pehle',address:'Latifabad No.8'},
-  {id:'ZAQ-005',customer:'Kareem 
-
-Store',phone:'03211234567',items:'Kali Mirch × 
-
-5',total:600,status:'new',time:'1 ghanta 
+  {id:'ZAQ-005',customer:'Kareem Store',phone:'03211234567',items:'Kali Mirch × 5',total:600,status:'new',time:'1 ghanta 
 
 pehle',address:'Qasimabad Market'},
-  {id:'ZAQ-001',customer:'Zara 
-
-Bibi',phone:'03331234567',items:'Garam Masala × 
+  {id:'ZAQ-001',customer:'Zara Bibi',phone:'03331234567',items:'Garam Masala × 
 
 2',total:300,status:'processing',time:'Kal',address:'Unit 6'},
-  {id:'ZAQ-002',customer:'Usman 
-
-Bhai',phone:'03441234567',items:'Badam × 2, Kali Mirch × 
-
-1',total:680,status:'delivered',time:'3 din 
+  {id:'ZAQ-002',customer:'Usman Bhai',phone:'03441234567',items:'Badam × 2, Kali Mirch × 1',total:680,status:'delivered',time:'3 din 
 
 pehle',address:'Hirabad'},
 ];
 
 let customers = [
-  {id:1,name:'Ahmed Bhai',phone:'03001234567',unread:2,msgs:
-
-[{from:'customer',text:'Assalam o Alaikum!',time:'10:30'},
+  {id:1,name:'Ahmed Bhai',phone:'03001234567',unread:2,msgs:[{from:'customer',text:'Assalam o Alaikum!',time:'10:30'},
 
 {from:'customer',text:'Badam available hai?',time:'10:31'}]},
-  {id:2,name:'Fatima Apa',phone:'03111234567',unread:1,msgs:
-
-[{from:'customer',text:'Delivery kab hogi?',time:'11:00'},
+  {id:2,name:'Fatima Apa',phone:'03111234567',unread:1,msgs:[{from:'customer',text:'Delivery kab hogi?',time:'11:00'},
 
 {from:'admin',text:'Aaj shaam tak InshAllah!',time:'11:05'}]},
-  {id:3,name:'Kareem 
+  {id:3,name:'Kareem Store',phone:'03211234567',unread:0,msgs:[{from:'customer',text:'5kg ka rate chahiye',time:'09:00'},
 
-Store',phone:'03211234567',unread:0,msgs:
-
-[{from:'customer',text:'5kg ka rate chahiye',time:'09:00'},
-
-{from:'admin',text:'Rate list bhej raha hun',time:'09:10'},
-
-{from:'customer',text:'Shukriya!',time:'09:12'}]},
+{from:'admin',text:'Rate list bhej raha hun',time:'09:10'},{from:'customer',text:'Shukriya!',time:'09:12'}]},
 ];
 
 let orderHistory = [
-  {id:'ZAQ-001',date:'10 Jun 2025',items:'Lal Mirch × 
-
-2',total:180,status:'delivered'},
-  {id:'ZAQ-002',date:'14 Jun 2025',items:'Badam × 
-
-1',total:280,status:'delivered'},
+  {id:'ZAQ-001',date:'10 Jun 2025',items:'Lal Mirch × 2',total:180,status:'delivered'},
+  {id:'ZAQ-002',date:'14 Jun 2025',items:'Badam × 1',total:280,status:'delivered'},
 ];
 
 let cart = {};
@@ -1147,9 +521,7 @@ let discPct = 0;
 let detailProduct = null;
 let editingPid = null;
 let activeCust = null;
-const discCodes = 
-
-{'ZAIQAH10':10,'WELCOME15':15,'DUKAAN20':20};
+const discCodes = {'ZAIQAH10':10,'WELCOME15':15,'DUKAAN20':20};
 
 // ADMIN CREDENTIALS
 const ADMIN_USER = 'imtiazalee786110';
@@ -1157,24 +529,16 @@ const ADMIN_PASS = '786110';  // You can change this
 
 // ===================== LOGIN =====================
 function doUnifiedLogin() {
-  const u = document.getElementById('login-user').value.trim
-
-();
-  const p = document.getElementById('login-pass').value.trim
-
-();
+  const u = document.getElementById('login-user').value.trim();
+  const p = document.getElementById('login-pass').value.trim();
   document.getElementById('login-err').style.display = 'none';
 
   // Admin check
   if (u === ADMIN_USER) {
     // Admin: open BOTH windows
-    document.getElementById('view-login').style.display = 
-
-'none';
+    document.getElementById('view-login').style.display = 'none';
     // Open admin panel in current view
-    document.getElementById('view-admin').style.display = 
-
-'block';
+    document.getElementById('view-admin').style.display = 'block';
     aGoTab('dash');
     // Also open customer app in a new popup window
     setTimeout(()=>{
@@ -1185,22 +549,14 @@ function doUnifiedLogin() {
 
   // If user typed something but not admin credentials
   if (u !== '' && u !== ADMIN_USER) {
-    document.getElementById('login-err').style.display = 
-
-'block';
+    document.getElementById('login-err').style.display = 'block';
     return;
   }
 
   // Empty fields = go to customer app
-  document.getElementById('view-login').style.display = 
-
-'none';
-  document.getElementById('view-customer').style.display = 
-
-'flex';
-  document.getElementById('view-customer').style.flexDirection 
-
-= 'column';
+  document.getElementById('view-login').style.display = 'none';
+  document.getElementById('view-customer').style.display = 'flex';
+  document.getElementById('view-customer').style.flexDirection = 'column';
   renderCGrid('all');
   renderB2B();
   csGo('home');
@@ -1208,297 +564,155 @@ function doUnifiedLogin() {
 
 function launchCustomerPopup() {
   // Open a small customer window
-  const w = window.open('', 'CustomerApp', 
-
-'width=430,height=700,scrollbars=yes');
+  const w = window.open('', 'CustomerApp', 'width=430,height=700,scrollbars=yes');
   if (!w) {
-    // Popup blocked fallback: show customer in main and add 
+    // Popup blocked fallback: show customer in main and add toggle
+    alert('Customer App bhi khulna chahti thi lekin popup block ho gaya. Browser mein popup allow karein ya directly customer app use 
 
-toggle
-    alert('Customer App bhi khulna chahti thi lekin popup 
-
-block ho gaya. Browser mein popup allow karein ya directly 
-
-customer app use karein.');
+karein.');
     return;
   }
-  w.document.write('<!DOCTYPE html><html><head><title>Zaiqah — 
+  w.document.write('<!DOCTYPE html><html><head><title>Zaiqah — Customer App</title><link rel="stylesheet" 
 
-Customer App</title><link rel="stylesheet" 
+href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/><style>body{margin:0;font-family:sans-
 
-href="https://cdn.jsdelivr.net/npm/@tabler/icons-
+serif;background:#f5f5f5;} :root{--font-sans:system-ui,sans-serif;--color-background-primary:#fff;--color-background-
 
-webfont@latest/tabler-icons.min.css"/><style>body
-
-{margin:0;font-family:sans-serif;background:#f5f5f5;} :root
-
-{--font-sans:system-ui,sans-serif;--color-background-
-
-primary:#fff;--color-background-secondary:#f4f4f4;--color-
-
-text-primary:#111;--color-text-secondary:#666;--color-border-
-
-tertiary:#e0e0e0;--border-radius-lg:12px;}
+secondary:#f4f4f4;--color-text-primary:#111;--color-text-secondary:#666;--color-border-tertiary:#e0e0e0;--border-radius-lg:12px;}
 
 </style></head><body>');
-  w.document.write('<div style="max-width:420px;margin:0 
+  w.document.write('<div style="max-width:420px;margin:0 auto;background:#fff;min-height:100vh;">');
+  w.document.write('<div style="background:linear-gradient(135deg,#1D9E75,#0F6E56);padding:20px;text-align:center;"><h2 
 
-auto;background:#fff;min-height:100vh;">');
-  w.document.write('<div style="background:linear-gradient
+style="color:#fff;margin:0;">Zaiqah Customer App</h2><p style="color:#9FE1CB;font-size:12px;margin:4px 0 0;">خالص مصالحے</p></div>');
+  w.document.write('<div style="padding:20px;text-align:center;"><p style="color:#666;">Yeh window customer app ke liye hai.</p><p 
 
-(135deg,#1D9E75,#0F6E56);padding:20px;text-align:center;"><h2 
+style="color:#1D9E75;font-weight:500;">Main window mein Admin Panel khul gaya hai ✓</p><button onclick="window.close()" 
 
-style="color:#fff;margin:0;">Zaiqah Customer App</h2><p 
+style="background:#1D9E75;color:#fff;border:none;border-radius:12px;padding:12px 24px;font-size:14px;cursor:pointer;margin-
 
-style="color:#9FE1CB;font-size:12px;margin:4px 0 0;">خالص 
-
-مصالحے</p></div>');
-  w.document.write('<div style="padding:20px;text-
-
-align:center;"><p style="color:#666;">Yeh window customer app 
-
-ke liye hai.</p><p style="color:#1D9E75;font-weight:500;">Main 
-
-window mein Admin Panel khul gaya hai ✓</p><button 
-
-onclick="window.close()" 
-
-style="background:#1D9E75;color:#fff;border:none;border-
-
-radius:12px;padding:12px 24px;font-
-
-size:14px;cursor:pointer;margin-top:10px;">OK, Samajh 
-
-Gaya</button></div>');
+top:10px;">OK, Samajh Gaya</button></div>');
   w.document.write('</div></body></html>');
   w.document.close();
 }
 
 function goBackToLogin() {
-  document.getElementById('view-login').style.display = 
-
-'block';
-  document.getElementById('view-customer').style.display = 
-
-'none';
-  document.getElementById('view-admin').style.display = 
-
-'none';
+  document.getElementById('view-login').style.display = 'block';
+  document.getElementById('view-customer').style.display = 'none';
+  document.getElementById('view-admin').style.display = 'none';
   document.getElementById('login-user').value = '';
   document.getElementById('login-pass').value = '';
 }
 
 // ===================== BANNER =====================
 function updateBanner() {
-  const url = document.getElementById('banner-url-
-
-inp').value.trim();
-  const text = document.getElementById('banner-text-
-
-inp').value.trim();
+  const url = document.getElementById('banner-url-inp').value.trim();
+  const text = document.getElementById('banner-text-inp').value.trim();
   if (url) {
     document.getElementById('offer-img').src = url;
     document.getElementById('banner-preview-img').src = url;
   }
   if (text) {
     document.getElementById('offer-text').innerHTML = text;
-    document.getElementById('banner-preview-text').innerHTML = 
-
-text;
+    document.getElementById('banner-preview-text').innerHTML = text;
   }
   alert('Banner update ho gaya!');
 }
 
 // ===================== CUSTOMER =====================
 function csGo(sc) {
-  document.querySelectorAll('.cs-screen').forEach
-
-(s=>s.style.display='none');
+  document.querySelectorAll('.cs-screen').forEach(s=>s.style.display='none');
   document.getElementById('cs-'+sc).style.display='block';
-  document.getElementById('c-nav').style.display = 
-
-sc==='success'?'none':'flex';
+  document.getElementById('c-nav').style.display = sc==='success'?'none':'flex';
   if(sc==='cart') renderCart();
   if(sc==='orders') renderCOrders();
 }
 
 function renderCGrid(f) {
-  const list = f==='all'?products:products.filter
-
-(p=>p.cat===f);
+  const list = f==='all'?products:products.filter(p=>p.cat===f);
   document.getElementById('c-grid').innerHTML = list.map(p=>`
-    <div onclick="openDetail(${p.id})" style="background:var
+    <div onclick="openDetail(${p.id})" style="background:var(--color-background-primary); border:0.5px solid var(--color-border-
 
-(--color-background-primary); border:0.5px solid var(--color-
+tertiary); border-radius:var(--border-radius-lg); padding:10px; cursor:pointer; box-shadow:0 1px 4px rgba(0,0,0,0.06);">
+      <div style="height:80px; background:#EAF3DE; border-radius:8px; display:flex; align-items:center; justify-content:center; 
 
-border-tertiary); border-radius:var(--border-radius-lg); 
+font-size:32px; margin-bottom:8px; overflow:hidden;">
+        ${p.img?`<img src="${p.img}" style="width:100%;height:100%;object-fit:cover;" 
 
-padding:10px; cursor:pointer; box-shadow:0 1px 4px rgba
-
-(0,0,0,0.06);">
-      <div style="height:80px; background:#EAF3DE; border-
-
-radius:8px; display:flex; align-items:center; justify-
-
-content:center; font-size:32px; margin-bottom:8px; 
-
-overflow:hidden;">
-        ${p.img?`<img src="${p.img}" 
-
-style="width:100%;height:100%;object-fit:cover;" 
-
-onerror="this.parentElement.innerHTML='${p.emoji}'" />`:`
-
-${p.emoji}`}
+onerror="this.parentElement.innerHTML='${p.emoji}'" />`:`${p.emoji}`}
       </div>
-      <p style="font-size:12px; font-weight:500; margin:0; 
+      <p style="font-size:12px; font-weight:500; margin:0; color:var(--color-text-primary);">${p.name}</p>
+      <p style="font-size:10px; color:var(--color-text-secondary); margin:2px 0 6px;">${p.urdu} · ${p.unit}</p>
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span style="font-size:13px; font-weight:500; color:#1D9E75;">Rs.${p.price}</span>
+        <div onclick="event.stopPropagation();qAdd(${p.id})" style="width:26px; height:26px; background:#1D9E75; border-radius:50%; 
 
-color:var(--color-text-primary);">${p.name}</p>
-      <p style="font-size:10px; color:var(--color-text-
-
-secondary); margin:2px 0 6px;">${p.urdu} · ${p.unit}</p>
-      <div style="display:flex; justify-content:space-between; 
-
-align-items:center;">
-        <span style="font-size:13px; font-weight:500; 
-
-color:#1D9E75;">Rs.${p.price}</span>
-        <div onclick="event.stopPropagation();qAdd(${p.id})" 
-
-style="width:26px; height:26px; background:#1D9E75; border-
-
-radius:50%; display:flex; align-items:center; justify-
-
-content:center; cursor:pointer;">
-          <i class="ti ti-plus" style="font-size:14px; 
-
-color:#fff;" aria-hidden="true"></i>
+display:flex; align-items:center; justify-content:center; cursor:pointer;">
+          <i class="ti ti-plus" style="font-size:14px; color:#fff;" aria-hidden="true"></i>
         </div>
       </div>
     </div>`).join('');
 }
 
 function cFilter(f,el) {
-  document.querySelectorAll('.ccat').forEach(c=>
+  document.querySelectorAll('.ccat').forEach(c=>{c.style.background='var(--color-background-secondary)';c.style.color='var(--color-
 
-{c.style.background='var(--color-background-
-
-secondary)';c.style.color='var(--color-text-
-
-secondary)';c.style.fontWeight='400';});
-  el.style.background='#1D9E75'; el.style.color='#fff'; 
-
-el.style.fontWeight='600';
+text-secondary)';c.style.fontWeight='400';});
+  el.style.background='#1D9E75'; el.style.color='#fff'; el.style.fontWeight='600';
   renderCGrid(f);
 }
 
 function openDetail(id) {
   detailProduct = products.find(p=>p.id===id);
   document.getElementById('c-detail-content').innerHTML = `
-    <div style="background:#1D9E75; height:180px; 
+    <div style="background:#1D9E75; height:180px; display:flex; align-items:center; justify-content:center; font-size:64px; 
 
-display:flex; align-items:center; justify-content:center; 
+position:relative; overflow:hidden;">
+      ${detailProduct.img?`<img src="${detailProduct.img}" style="width:100%;height:100%;object-fit:cover;" 
 
-font-size:64px; position:relative; overflow:hidden;">
-      ${detailProduct.img?`<img src="${detailProduct.img}" 
+onerror="this.style.display='none'" />`:`${detailProduct.emoji}`}
+      <div onclick="csGo('home')" style="position:absolute; top:14px; left:14px; width:32px; height:32px; background:rgba
 
-style="width:100%;height:100%;object-fit:cover;" 
-
-onerror="this.style.display='none'" />`:`
-
-${detailProduct.emoji}`}
-      <div onclick="csGo('home')" style="position:absolute; 
-
-top:14px; left:14px; width:32px; height:32px; background:rgba
-
-(0,0,0,0.25); border-radius:50%; display:flex; align-
-
-items:center; justify-content:center; cursor:pointer;">
-        <i class="ti ti-arrow-left" style="font-size:16px; 
-
-color:#fff;" aria-hidden="true"></i>
+(0,0,0,0.25); border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer;">
+        <i class="ti ti-arrow-left" style="font-size:16px; color:#fff;" aria-hidden="true"></i>
       </div>
     </div>
     <div style="padding:16px;">
-      <div style="display:flex; justify-content:space-between; 
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div><h2 style="font-size:18px; font-weight:600; margin:0; color:var(--color-text-primary);">${detailProduct.name}</h2>
+        <p style="font-size:12px; color:var(--color-text-secondary); margin:3px 0 0;">${detailProduct.urdu} · ${detailProduct.unit}
 
-align-items:flex-start;">
-        <div><h2 style="font-size:18px; font-weight:600; 
-
-margin:0; color:var(--color-text-primary);">
-
-${detailProduct.name}</h2>
-        <p style="font-size:12px; color:var(--color-text-
-
-secondary); margin:3px 0 0;">${detailProduct.urdu} · 
-
-${detailProduct.unit}</p></div>
-        <span style="font-size:20px; font-weight:600; 
-
-color:#1D9E75;">Rs.${detailProduct.price}</span>
+</p></div>
+        <span style="font-size:20px; font-weight:600; color:#1D9E75;">Rs.${detailProduct.price}</span>
       </div>
       <div style="display:flex; gap:6px; margin:12px 0;">
-        <span style="background:#EAF3DE; color:#3B6D11; font-
-
-size:11px; padding:3px 10px; border-radius:20px;">100% 
-
-Khalis</span>
-        <span style="background:#EAF3DE; color:#3B6D11; font-
-
-size:11px; padding:3px 10px; border-radius:20px;">No 
-
-Milawat</span>
+        <span style="background:#EAF3DE; color:#3B6D11; font-size:11px; padding:3px 10px; border-radius:20px;">100% Khalis</span>
+        <span style="background:#EAF3DE; color:#3B6D11; font-size:11px; padding:3px 10px; border-radius:20px;">No Milawat</span>
       </div>
-      <p style="font-size:13px; color:var(--color-text-
+      <p style="font-size:13px; color:var(--color-text-secondary); line-height:1.6; margin:0 0 14px;">${detailProduct.desc}</p>
+      <div style="background:var(--color-background-secondary); border-radius:10px; padding:12px; display:flex; align-items:center; 
 
-secondary); line-height:1.6; margin:0 0 14px;">
+gap:12px;">
+        <div onclick="dQty(-1)" style="width:32px; height:32px; border:0.5px solid var(--color-border-tertiary); border-radius:50%; 
 
-${detailProduct.desc}</p>
-      <div style="background:var(--color-background-
-
-secondary); border-radius:10px; padding:12px; display:flex; 
-
-align-items:center; gap:12px;">
-        <div onclick="dQty(-1)" style="width:32px; 
-
-height:32px; border:0.5px solid var(--color-border-tertiary); 
-
-border-radius:50%; display:flex; align-items:center; justify-
-
-content:center; cursor:pointer; font-size:18px; color:var(--
-
-color-text-primary);">−</div>
-        <span id="d-qty" style="font-size:16px; font-
-
-weight:500; color:var(--color-text-primary);">1</span>
-        <div onclick="dQty(1)" style="width:32px; height:32px; 
-
-background:#1D9E75; border-radius:50%; display:flex; align-
+display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:18px; color:var(--color-text-primary);">−</div>
+        <span id="d-qty" style="font-size:16px; font-weight:500; color:var(--color-text-primary);">1</span>
+        <div onclick="dQty(1)" style="width:32px; height:32px; background:#1D9E75; border-radius:50%; display:flex; align-
 
 items:center; justify-content:center; cursor:pointer;">
-          <i class="ti ti-plus" style="font-size:16px; 
-
-color:#fff;" aria-hidden="true"></i>
+          <i class="ti ti-plus" style="font-size:16px; color:#fff;" aria-hidden="true"></i>
         </div>
       </div>
     </div>`;
   csGo('detail');
 }
 
-function dQty(d){const el=document.getElementById('d-qty');let 
+function dQty(d){const el=document.getElementById('d-qty');let v=parseInt(el.textContent)+d;if(v<1)v=1;el.textContent=v;}
+function addFromDetail(){const q=parseInt(document.getElementById('d-qty').textContent);cart[detailProduct.id]=(cart
 
-v=parseInt(el.textContent)+d;if(v<1)v=1;el.textContent=v;}
-function addFromDetail(){const q=parseInt
-
-(document.getElementById('d-qty').textContent);cart
-
-[detailProduct.id]=(cart[detailProduct.id]||0)+q;updBadge
-
-();csGo('home');}
+[detailProduct.id]||0)+q;updBadge();csGo('home');}
 function qAdd(id){cart[id]=(cart[id]||0)+1;updBadge();}
-function updBadge(){const t=Object.values(cart).reduce
-
-((a,b)=>a+b,0);const b=document.getElementById('c-
+function updBadge(){const t=Object.values(cart).reduce((a,b)=>a+b,0);const b=document.getElementById('c-
 
 badge');b.textContent=t;b.style.display=t>0?'flex':'none';}
 
@@ -1507,66 +721,30 @@ function renderCart(){
   const empty=document.getElementById('c-cart-empty');
   const total=document.getElementById('c-cart-total');
   const items=document.getElementById('c-cart-items');
-  if(!keys.length)
-
-{empty.style.display='block';total.style.display='none';items.
-
-innerHTML='';return;}
+  if(!keys.length){empty.style.display='block';total.style.display='none';items.innerHTML='';return;}
   empty.style.display='none';total.style.display='block';
-  items.innerHTML=keys.map(k=>{const p=products.find
+  items.innerHTML=keys.map(k=>{const p=products.find(x=>x.id==k);return`
+    <div style="display:flex; align-items:center; gap:10px; background:var(--color-background-primary); border:0.5px solid var(--
 
-(x=>x.id==k);return`
-    <div style="display:flex; align-items:center; gap:10px; 
+color-border-tertiary); border-radius:10px; padding:10px; margin-bottom:8px;">
+      <div style="width:42px;height:42px;background:#EAF3DE;border-radius:8px;display:flex;align-items:center;justify-
 
-background:var(--color-background-primary); border:0.5px solid 
+content:center;font-size:20px;flex-shrink:0;overflow:hidden;">${p.img?`<img src="${p.img}" style="width:100%;height:100%;object-
 
-var(--color-border-tertiary); border-radius:10px; 
+fit:cover;" />`:`${p.emoji}`}</div>
+      <div style="flex:1;"><p style="font-size:13px;font-weight:500;margin:0;color:var(--color-text-primary);">${p.name}</p><p 
 
-padding:10px; margin-bottom:8px;">
-      <div 
-
-style="width:42px;height:42px;background:#EAF3DE;border-
-
-radius:8px;display:flex;align-items:center;justify-
-
-content:center;font-size:20px;flex-
-
-shrink:0;overflow:hidden;">${p.img?`<img src="${p.img}" 
-
-style="width:100%;height:100%;object-fit:cover;" />`:`
-
-${p.emoji}`}</div>
-      <div style="flex:1;"><p style="font-size:13px;font-
-
-weight:500;margin:0;color:var(--color-text-primary);">
-
-${p.name}</p><p style="font-size:11px;color:var(--color-text-
-
-secondary);margin:2px 0 0;">Rs.${p.price} × ${cart[k]}
-
-</p></div>
+style="font-size:11px;color:var(--color-text-secondary);margin:2px 0 0;">Rs.${p.price} × ${cart[k]}</p></div>
       <div style="display:flex;align-items:center;gap:6px;">
-        <div onclick="cQty(${k},-1)" 
+        <div onclick="cQty(${k},-1)" style="width:24px;height:24px;border:0.5px solid var(--color-border-tertiary);border-
 
-style="width:24px;height:24px;border:0.5px solid var(--color-
+radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:15px;color:var(--color-text-primary);">
 
-border-tertiary);border-radius:50%;display:flex;align-
+−</div>
+        <span style="font-size:13px;font-weight:500;color:var(--color-text-primary);">${cart[k]}</span>
+        <div onclick="cQty(${k},1)" style="width:24px;height:24px;background:#1D9E75;border-radius:50%;display:flex;align-
 
-items:center;justify-content:center;cursor:pointer;font-
-
-size:15px;color:var(--color-text-primary);">−</div>
-        <span style="font-size:13px;font-weight:500;color:var
-
-(--color-text-primary);">${cart[k]}</span>
-        <div onclick="cQty(${k},1)" 
-
-style="width:24px;height:24px;background:#1D9E75;border-
-
-radius:50%;display:flex;align-items:center;justify-
-
-content:center;cursor:pointer;"><i class="ti ti-plus" 
-
-style="font-size:13px;color:#fff;" aria-
+items:center;justify-content:center;cursor:pointer;"><i class="ti ti-plus" style="font-size:13px;color:#fff;" aria-
 
 hidden="true"></i></div>
       </div>
@@ -1574,81 +752,45 @@ hidden="true"></i></div>
   updTotals();
 }
 
-function cQty(id,d){cart[id]=Math.max(0,(cart[id]||
-
-0)+d);updBadge();renderCart();}
+function cQty(id,d){cart[id]=Math.max(0,(cart[id]||0)+d);updBadge();renderCart();}
 
 function updTotals(){
   const keys=Object.keys(cart).filter(k=>cart[k]>0);
-  let sub=0; keys.forEach(k=>{const p=products.find
-
-(x=>x.id==k);sub+=p.price*cart[k];});
+  let sub=0; keys.forEach(k=>{const p=products.find(x=>x.id==k);sub+=p.price*cart[k];});
   const disc=Math.round(sub*discPct/100);
   document.getElementById('c-sub').textContent='Rs.'+sub;
-  document.getElementById('c-disc-val').textContent='-
-
-Rs.'+disc;
-  document.getElementById('c-total').textContent='Rs.'+(sub-
-
-disc);
-  document.getElementById('c-disc-
-
-row').style.display=discPct>0?'flex':'none';
+  document.getElementById('c-disc-val').textContent='-Rs.'+disc;
+  document.getElementById('c-total').textContent='Rs.'+(sub-disc);
+  document.getElementById('c-disc-row').style.display=discPct>0?'flex':'none';
 }
 
 function applyDisc(){
-  const code=document.getElementById('disc-inp').value.trim
-
-().toUpperCase();
+  const code=document.getElementById('disc-inp').value.trim().toUpperCase();
   const msg=document.getElementById('disc-msg');
   msg.style.display='block';
-  if(discCodes[code]){discPct=discCodes
-
-[code];msg.style.color='#1D9E75';msg.textContent='✓ '+discPct
-
-+'% discount apply ho gaya!';}
-  else{discPct=0;msg.style.color='#E24B4A';msg.textContent='✗ 
-
-Galat code';}
+  if(discCodes[code]){discPct=discCodes[code];msg.style.color='#1D9E75';msg.textContent='✓ '+discPct+'% discount apply ho gaya!';}
+  else{discPct=0;msg.style.color='#E24B4A';msg.textContent='✗ Galat code';}
   updTotals();
 }
 
 function placeOrder(){
-  const keys=Object.keys(cart).filter(k=>cart[k]>0);if(!
-
-keys.length)return;
+  const keys=Object.keys(cart).filter(k=>cart[k]>0);if(!keys.length)return;
   let sub=0;let itemsStr='';
-  keys.forEach(k=>{const p=products.find(x=>x.id==k);sub
-
-+=p.price*cart[k];itemsStr+=p.name+' ×'+cart[k]+', ';});
+  keys.forEach(k=>{const p=products.find(x=>x.id==k);sub+=p.price*cart[k];itemsStr+=p.name+' ×'+cart[k]+', ';});
   const disc=Math.round(sub*discPct/100);const total=sub-disc;
-  const oid='ZAQ-0'+String(orderHistory.length+3).padStart
+  const oid='ZAQ-0'+String(orderHistory.length+3).padStart(2,'0');
+  const today=new Date().toLocaleDateString('en-PK',{day:'numeric',month:'short',year:'numeric'});
+  orderHistory.push({id:oid,date:today,items:itemsStr.slice(0,-2),total,status:'processing'});
+  const newO={id:oid,customer:'App User',phone:'03000000000',items:itemsStr.slice(0,-2),total,status:'new',time:'Abhi',address:'App 
 
-(2,'0');
-  const today=new Date().toLocaleDateString('en-PK',
-
-{day:'numeric',month:'short',year:'numeric'});
-  orderHistory.push({id:oid,date:today,items:itemsStr.slice
-
-(0,-2),total,status:'processing'});
-  const newO={id:oid,customer:'App 
-
-User',phone:'03000000000',items:itemsStr.slice(0,-
-
-2),total,status:'new',time:'Abhi',address:'App se order'};
+se order'};
   orders.unshift(newO);
-  document.getElementById('c-success-id').textContent='Order 
-
-ID: '+oid;
+  document.getElementById('c-success-id').textContent='Order ID: '+oid;
   let msg='Assalam o Alaikum! Zaiqah se order:%0A%0A';
-  keys.forEach(k=>{const p=products.find(x=>x.id==k);msg+=`• 
-
-${p.name} × ${cart[k]} = Rs.${p.price*cart[k]}%0A`;});
+  keys.forEach(k=>{const p=products.find(x=>x.id==k);msg+=`• ${p.name} × ${cart[k]} = Rs.${p.price*cart[k]}%0A`;});
   if(discPct) msg+=`%0ADiscount: -Rs.${disc}%0A`;
   msg+=`Total: Rs.${total}%0A%0AOrder ID: ${oid}`;
-  window.open('https://wa.me/923001234567?
-
-text='+msg,'_blank');
+  window.open('https://wa.me/923001234567?text='+msg,'_blank');
   cart={};discPct=0;updBadge();
   const newCnt=orders.filter(o=>o.status==='new').length;
   document.getElementById('a-stat-orders').textContent=newCnt;
@@ -1659,52 +801,26 @@ text='+msg,'_blank');
 
 function renderCOrders(){
   const el=document.getElementById('c-orders-list');
-  if(!orderHistory.length){el.innerHTML='<p style="color:var
+  if(!orderHistory.length){el.innerHTML='<p style="color:var(--color-text-secondary);font-size:13px;text-align:center;padding:30px 
 
-(--color-text-secondary);font-size:13px;text-
-
-align:center;padding:30px 0;">Abhi koi order 
-
-nahi</p>';return;}
+0;">Abhi koi order nahi</p>';return;}
   el.innerHTML=[...orderHistory].reverse().map(o=>{
-    const sl=o.status==='delivered'?
+    const sl=o.status==='delivered'?{bg:'#EAF3DE',c:'#3B6D11',t:'Deliver Ho Gaya'}:o.status==='processing'?
 
-{bg:'#EAF3DE',c:'#3B6D11',t:'Deliver Ho 
+{bg:'#E6F1FB',c:'#185FA5',t:'Tayar Ho Raha'}:{bg:'#FAEEDA',c:'#854F0B',t:'Naya'};
+    return`<div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-
 
-Gaya'}:o.status==='processing'?
-
-{bg:'#E6F1FB',c:'#185FA5',t:'Tayar Ho Raha'}:
-
-{bg:'#FAEEDA',c:'#854F0B',t:'Naya'};
-    return`<div style="background:var(--color-background-
-
-primary);border:0.5px solid var(--color-border-
-
-tertiary);border-radius:10px;padding:12px;">
-      <div style="display:flex;justify-content:space-
-
-between;align-items:center;margin-bottom:6px;">
-        <span style="font-size:13px;font-weight:500;color:var
-
-(--color-text-primary);">${o.id}</span>
-        <span style="background:${sl.bg};color:${sl.c};font-
-
-size:10px;padding:2px 8px;border-radius:20px;">${sl.t}</span>
+radius:10px;padding:12px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+        <span style="font-size:13px;font-weight:500;color:var(--color-text-primary);">${o.id}</span>
+        <span style="background:${sl.bg};color:${sl.c};font-size:10px;padding:2px 8px;border-radius:20px;">${sl.t}</span>
       </div>
-      <p style="font-size:11px;color:var(--color-text-
+      <p style="font-size:11px;color:var(--color-text-secondary);margin:0 0 4px;">${o.items}</p>
+      <div style="display:flex;justify-content:space-between;margin-top:6px;padding-top:6px;border-top:0.5px solid var(--color-
 
-secondary);margin:0 0 4px;">${o.items}</p>
-      <div style="display:flex;justify-content:space-
-
-between;margin-top:6px;padding-top:6px;border-top:0.5px solid 
-
-var(--color-border-tertiary);">
-        <span style="font-size:11px;color:var(--color-text-
-
-secondary);">${o.date}</span>
-        <span style="font-size:13px;font-
-
-weight:500;color:#1D9E75;">Rs.${o.total}</span>
+border-tertiary);">
+        <span style="font-size:11px;color:var(--color-text-secondary);">${o.date}</span>
+        <span style="font-size:13px;font-weight:500;color:#1D9E75;">Rs.${o.total}</span>
       </div>
     </div>`;}).join('');
 }
@@ -1716,51 +832,25 @@ function renderB2B(){
     {name:'Garam Masala',unit:'1kg',wPrice:2200,rPrice:3000},
     {name:'Dhaniya Pesa',unit:'1kg',wPrice:580,rPrice:700},
   ];
-  document.getElementById('b2b-list').innerHTML=wholesale.map
+  document.getElementById('b2b-list').innerHTML=wholesale.map(w=>`
+    <div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-
 
-(w=>`
-    <div style="background:var(--color-background-
+radius:10px;padding:12px;display:flex;justify-content:space-between;align-items:center;">
+      <div><p style="font-size:13px;font-weight:500;margin:0;color:var(--color-text-primary);">${w.name}</p><p style="font-
 
-primary);border:0.5px solid var(--color-border-
+size:11px;color:var(--color-text-secondary);margin:2px 0 0;">${w.unit} bag</p></div>
+      <div style="text-align:right;"><p style="font-size:13px;font-weight:500;color:#1D9E75;margin:0;">Rs.${w.wPrice}</p><p 
 
-tertiary);border-
-
-radius:10px;padding:12px;display:flex;justify-content:space-
-
-between;align-items:center;">
-      <div><p style="font-size:13px;font-
-
-weight:500;margin:0;color:var(--color-text-primary);">
-
-${w.name}</p><p style="font-size:11px;color:var(--color-text-
-
-secondary);margin:2px 0 0;">${w.unit} bag</p></div>
-      <div style="text-align:right;"><p style="font-
-
-size:13px;font-weight:500;color:#1D9E75;margin:0;">Rs.
-
-${w.wPrice}</p><p style="font-size:10px;color:var(--color-
-
-text-secondary);margin:2px 0 0;">Retail: Rs.${w.rPrice}
-
-</p></div>
+style="font-size:10px;color:var(--color-text-secondary);margin:2px 0 0;">Retail: Rs.${w.rPrice}</p></div>
     </div>`).join('');
 }
 
 // ===================== ADMIN =====================
 function aGoTab(t){
   ['dash','orders','products','banner','chat'].forEach(x=>{
-    const p=document.getElementById('ap-'+x);if
-
-(p)p.style.display=x===t?'block':'none';
+    const p=document.getElementById('ap-'+x);if(p)p.style.display=x===t?'block':'none';
     const tab=document.getElementById('atab-'+x);
-    if(tab){tab.style.color=x===t?'#185FA5':'var(--color-
-
-text-
-
-secondary)';tab.style.borderBottomColor=x===t?'#185FA5':'trans
-
-parent';}
+    if(tab){tab.style.color=x===t?'#185FA5':'var(--color-text-secondary)';tab.style.borderBottomColor=x===t?'#185FA5':'transparent';}
   });
   if(t==='dash') aRenderDash();
   if(t==='orders') aRenderOrders('all');
@@ -1769,92 +859,46 @@ parent';}
 }
 
 function aOCard(o){
-  const sl=o.status==='new'?
-
-{bg:'#FAEEDA',c:'#854F0B',t:'Naya'}:o.status==='processing'?
-
-{bg:'#E6F1FB',c:'#185FA5',t:'Processing'}:
+  const sl=o.status==='new'?{bg:'#FAEEDA',c:'#854F0B',t:'Naya'}:o.status==='processing'?{bg:'#E6F1FB',c:'#185FA5',t:'Processing'}:
 
 {bg:'#EAF3DE',c:'#3B6D11',t:'Delivered'};
-  return`<div style="background:var(--color-background-
+  return`<div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-
 
-primary);border:0.5px solid var(--color-border-
+radius:10px;padding:12px;margin-bottom:8px;">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+      <div><p style="font-size:13px;font-weight:500;margin:0;color:var(--color-text-primary);">${o.customer}</p><p style="font-
 
-tertiary);border-radius:10px;padding:12px;margin-bottom:8px;">
-    <div style="display:flex;justify-content:space-
+size:10px;color:var(--color-text-secondary);margin:2px 0 0;">${o.id} · ${o.time}</p></div>
+      <span style="background:${sl.bg};color:${sl.c};font-size:10px;padding:2px 8px;border-radius:20px;white-space:nowrap;">${sl.t}
 
-between;align-items:flex-start;margin-bottom:6px;">
-      <div><p style="font-size:13px;font-
-
-weight:500;margin:0;color:var(--color-text-primary);">
-
-${o.customer}</p><p style="font-size:10px;color:var(--color-
-
-text-secondary);margin:2px 0 0;">${o.id} · ${o.time}</p></div>
-      <span style="background:${sl.bg};color:${sl.c};font-
-
-size:10px;padding:2px 8px;border-radius:20px;white-
-
-space:nowrap;">${sl.t}</span>
+</span>
     </div>
-    <p style="font-size:11px;color:var(--color-text-
-
-secondary);margin:0 0 8px;">${o.items}</p>
-    <div style="display:flex;justify-content:space-
-
-between;align-items:center;">
-      <span style="font-size:13px;font-
-
-weight:500;color:#185FA5;">Rs.${o.total}</span>
+    <p style="font-size:11px;color:var(--color-text-secondary);margin:0 0 8px;">${o.items}</p>
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <span style="font-size:13px;font-weight:500;color:#185FA5;">Rs.${o.total}</span>
       <div style="display:flex;gap:6px;">
-        <a href="https://wa.me/92${o.phone.slice(1)}" 
+        <a href="https://wa.me/92${o.phone.slice(1)}" target="_blank" style="text-
 
-target="_blank" style="text-
+decoration:none;background:#25D366;color:#fff;border-radius:7px;padding:5px 9px;font-size:11px;display:flex;align-
 
-decoration:none;background:#25D366;color:#fff;border-
+items:center;gap:3px;"><i class="ti ti-brand-whatsapp" aria-hidden="true"></i> WA</a>
+        ${o.status!=='delivered'?`<button onclick="aNextStatus('${o.id}')" style="background:#185FA5;color:#fff;border:none;border-
 
-radius:7px;padding:5px 9px;font-size:11px;display:flex;align-
-
-items:center;gap:3px;"><i class="ti ti-brand-whatsapp" aria-
-
-hidden="true"></i> WA</a>
-        ${o.status!=='delivered'?`<button 
-
-onclick="aNextStatus('${o.id}')" 
-
-style="background:#185FA5;color:#fff;border:none;border-
-
-radius:7px;padding:5px 9px;font-size:11px;cursor:pointer;">
-
-${o.status==='new'?'Process':'Deliver'}</button>`:''}
+radius:7px;padding:5px 9px;font-size:11px;cursor:pointer;">${o.status==='new'?'Process':'Deliver'}</button>`:''}
       </div>
     </div>
   </div>`;
 }
 
-function aRenderDash(){document.getElementById('a-dash-
+function aRenderDash(){document.getElementById('a-dash-orders').innerHTML=orders.filter(o=>o.status!=='delivered').map(o=>aOCard
 
-orders').innerHTML=orders.filter(o=>o.status!
+(o)).join('')||'<p style="color:var(--color-text-secondary);font-size:13px;">Koi pending nahi</p>';}
+function aRenderOrders(f){document.getElementById('a-orders-list').innerHTML=(f==='all'?orders:orders.filter(o=>o.status===f)).map
 
-=='delivered').map(o=>aOCard(o)).join('')||'<p 
+(o=>aOCard(o)).join('');}
+function aFilterOrders(f,el){document.querySelectorAll('.oflt').forEach(c=>{c.style.background='var(--color-background-
 
-style="color:var(--color-text-secondary);font-size:13px;">Koi 
-
-pending nahi</p>';}
-function aRenderOrders(f){document.getElementById('a-orders-
-
-list').innerHTML=(f==='all'?orders:orders.filter
-
-(o=>o.status===f)).map(o=>aOCard(o)).join('');}
-function aFilterOrders(f,el){document.querySelectorAll
-
-('.oflt').forEach(c=>{c.style.background='var(--color-
-
-background-secondary)';c.style.color='var(--color-text-
-
-secondary)';});el.style.background='#185FA5';el.style.color='#
-
-fff';aRenderOrders(f);}
+secondary)';c.style.color='var(--color-text-secondary)';});el.style.background='#185FA5';el.style.color='#fff';aRenderOrders(f);}
 
 function aNextStatus(id){
   const o=orders.find(x=>x.id===id);
@@ -1868,255 +912,117 @@ function aNextStatus(id){
 }
 
 function aRenderProducts(){
-  document.getElementById('a-products-
+  document.getElementById('a-products-list').innerHTML=products.map(p=>`
+    <div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-
 
-list').innerHTML=products.map(p=>`
-    <div style="background:var(--color-background-
+radius:10px;padding:10px;margin-bottom:8px;display:flex;align-items:center;gap:10px;">
+      <div style="width:44px;height:44px;background:#EAF3DE;border-radius:8px;display:flex;align-items:center;justify-
 
-primary);border:0.5px solid var(--color-border-
+content:center;font-size:22px;flex-shrink:0;overflow:hidden;">${p.img?`<img src="${p.img}" style="width:100%;height:100%;object-
 
-tertiary);border-radius:10px;padding:10px;margin-
+fit:cover;" onerror="this.parentElement.innerHTML='${p.emoji}'" />`:`${p.emoji}`}</div>
+      <div style="flex:1;"><p style="font-size:13px;font-weight:500;margin:0;color:var(--color-text-primary);">${p.name}</p><p 
 
-bottom:8px;display:flex;align-items:center;gap:10px;">
-      <div 
-
-style="width:44px;height:44px;background:#EAF3DE;border-
-
-radius:8px;display:flex;align-items:center;justify-
-
-content:center;font-size:22px;flex-
-
-shrink:0;overflow:hidden;">${p.img?`<img src="${p.img}" 
-
-style="width:100%;height:100%;object-fit:cover;" 
-
-onerror="this.parentElement.innerHTML='${p.emoji}'" />`:`
-
-${p.emoji}`}</div>
-      <div style="flex:1;"><p style="font-size:13px;font-
-
-weight:500;margin:0;color:var(--color-text-primary);">
-
-${p.name}</p><p style="font-size:11px;color:var(--color-text-
-
-secondary);margin:2px 0 0;">${p.urdu} · Rs.${p.price} / 
-
-${p.unit}</p></div>
+style="font-size:11px;color:var(--color-text-secondary);margin:2px 0 0;">${p.urdu} · Rs.${p.price} / ${p.unit}</p></div>
       <div style="display:flex;gap:6px;">
-        <button onclick="openEditP(${p.id})" 
+        <button onclick="openEditP(${p.id})" style="background:var(--color-background-secondary);border:0.5px solid var(--color-
 
-style="background:var(--color-background-
-
-secondary);border:0.5px solid var(--color-border-
-
-tertiary);border-radius:7px;padding:5px 9px;font-
-
-size:11px;cursor:pointer;color:var(--color-text-
-
-primary);">Edit</button>
-        <button onclick="delProduct(${p.id})" 
-
-style="background:#FCEBEB;border:none;border-
-
-radius:7px;padding:5px 9px;font-
+border-tertiary);border-radius:7px;padding:5px 9px;font-size:11px;cursor:pointer;color:var(--color-text-primary);">Edit</button>
+        <button onclick="delProduct(${p.id})" style="background:#FCEBEB;border:none;border-radius:7px;padding:5px 9px;font-
 
 size:11px;cursor:pointer;color:#A32D2D;">Del</button>
       </div>
     </div>`).join('');
 }
 
-function openAddP(){editingPid=null;document.getElementById
+function openAddP(){editingPid=null;document.getElementById('p-modal-title').textContent='Naya Product';['pm-name','pm-urdu','pm-
 
-('p-modal-title').textContent='Naya Product';['pm-name','pm-
+price','pm-unit','pm-desc','pm-img-url'].forEach(id=>document.getElementById(id).value='');document.getElementById('p-img-
 
-urdu','pm-price','pm-unit','pm-desc','pm-img-url'].forEach
+prev').innerHTML='<i class="ti ti-camera" style="font-size:28px;color:#1D9E75;" aria-hidden="true"></i>';document.getElementById('p-
 
-(id=>document.getElementById
+img-prev').dataset.src='';showModal();}
+function openEditP(id){editingPid=id;const p=products.find(x=>x.id===id);document.getElementById('p-modal-title').textContent='Edit 
 
-(id).value='');document.getElementById('p-img-
+Product';document.getElementById('pm-name').value=p.name;document.getElementById('pm-urdu').value=p.urdu;document.getElementById
 
-prev').innerHTML='<i class="ti ti-camera" style="font-
+('pm-price').value=p.price;document.getElementById('pm-unit').value=p.unit;document.getElementById('pm-
 
-size:28px;color:#1D9E75;" aria-
+desc').value=p.desc;document.getElementById('pm-cat').value=p.cat;document.getElementById('pm-img-
 
-hidden="true"></i>';document.getElementById('p-img-
+url').value=p.img||'';document.getElementById('p-img-prev').innerHTML=p.img?`<img src="${p.img}" 
 
-prev').dataset.src='';showModal();}
-function openEditP(id){editingPid=id;const p=products.find
+style="width:100%;height:100%;object-fit:cover;border-radius:10px;" />`:`<span style="font-size:40px;">${p.emoji}
 
-(x=>x.id===id);document.getElementById('p-modal-
+</span>`;document.getElementById('p-img-prev').dataset.src=p.img||'';showModal();}
+function showModal(){document.getElementById('p-modal-wrap').style.display='flex';}
+function closeModal(){document.getElementById('p-modal-wrap').style.display='none';}
+function applyImgUrl(){const url=document.getElementById('pm-img-url').value.trim();if(url){document.getElementById('p-img-
 
-title').textContent='Edit Product';document.getElementById
+prev').innerHTML=`<img src="${url}" style="width:100%;height:100%;object-fit:cover;border-radius:10px;" />`;document.getElementById
 
-('pm-name').value=p.name;document.getElementById('pm-
+('p-img-prev').dataset.src=url;}}
+function prevImg(inp){if(inp.files&&inp.files[0]){const r=new FileReader();r.onload=e=>{document.getElementById('p-img-
 
-urdu').value=p.urdu;document.getElementById('pm-
+prev').innerHTML=`<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover;border-radius:10px;" 
 
-price').value=p.price;document.getElementById('pm-
-
-unit').value=p.unit;document.getElementById('pm-
-
-desc').value=p.desc;document.getElementById('pm-
-
-cat').value=p.cat;document.getElementById('pm-img-
-
-url').value=p.img||'';document.getElementById('p-img-
-
-prev').innerHTML=p.img?`<img src="${p.img}" 
-
-style="width:100%;height:100%;object-fit:cover;border-
-
-radius:10px;" />`:`<span style="font-size:40px;">${p.emoji}
-
-</span>`;document.getElementById('p-img-
-
-prev').dataset.src=p.img||'';showModal();}
-function showModal(){document.getElementById('p-modal-
-
-wrap').style.display='flex';}
-function closeModal(){document.getElementById('p-modal-
-
-wrap').style.display='none';}
-function applyImgUrl(){const url=document.getElementById('pm-
-
-img-url').value.trim();if(url){document.getElementById('p-
-
-img-prev').innerHTML=`<img src="${url}" 
-
-style="width:100%;height:100%;object-fit:cover;border-
-
-radius:10px;" />`;document.getElementById('p-img-
-
-prev').dataset.src=url;}}
-function prevImg(inp){if(inp.files&&inp.files[0]){const r=new 
-
-FileReader();r.onload=e=>{document.getElementById('p-img-
-
-prev').innerHTML=`<img src="${e.target.result}" 
-
-style="width:100%;height:100%;object-fit:cover;border-
-
-radius:10px;" />`;document.getElementById('p-img-
-
-prev').dataset.src=e.target.result;};r.readAsDataURL
-
-(inp.files[0]);}}
+/>`;document.getElementById('p-img-prev').dataset.src=e.target.result;};r.readAsDataURL(inp.files[0]);}}
 function saveProduct(){
-  const name=document.getElementById('pm-name').value.trim
+  const name=document.getElementById('pm-name').value.trim();const price=parseInt(document.getElementById('pm-price').value);if(!
 
-();const price=parseInt(document.getElementById('pm-
+name||!price){alert('Naam aur price zaroor!');return;}
+  const imgSrc=document.getElementById('p-img-prev').dataset.src||document.getElementById('pm-img-url').value.trim()||null;
+  const data={name,urdu:document.getElementById('pm-urdu').value.trim(),price,unit:document.getElementById('pm-unit').value.trim
 
-price').value);if(!name||!price){alert('Naam aur price 
-
-zaroor!');return;}
-  const imgSrc=document.getElementById('p-img-
-
-prev').dataset.src||document.getElementById('pm-img-
-
-url').value.trim()||null;
-  const data={name,urdu:document.getElementById('pm-
-
-urdu').value.trim(),price,unit:document.getElementById('pm-
-
-unit').value.trim()||'100g',cat:document.getElementById('pm-
-
-cat').value,desc:document.getElementById('pm-
-
-desc').value.trim(),img:imgSrc};
-  if(editingPid){const p=products.find
-
-(x=>x.id===editingPid);Object.assign(p,data);}
+()||'100g',cat:document.getElementById('pm-cat').value,desc:document.getElementById('pm-desc').value.trim(),img:imgSrc};
+  if(editingPid){const p=products.find(x=>x.id===editingPid);Object.assign(p,data);}
   else{products.push({id:Date.now(),emoji:'🟤',...data});}
   closeModal();aRenderProducts();
 }
-function delProduct(id){if(confirm('Delete karein?'))
-
-{products=products.filter(x=>x.id!==id);aRenderProducts();}}
+function delProduct(id){if(confirm('Delete karein?')){products=products.filter(x=>x.id!==id);aRenderProducts();}}
 
 function aRenderCustList(){
-  document.getElementById('a-cust-
+  document.getElementById('a-cust-list').innerHTML=customers.map(c=>`
+    <div onclick="aOpenChat(${c.id})" style="padding:10px;cursor:pointer;border-bottom:0.5px solid var(--color-border-
 
-list').innerHTML=customers.map(c=>`
-    <div onclick="aOpenChat(${c.id})" 
+tertiary);background:${activeCust===c.id?'var(--color-background-secondary)':'transparent'};">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+        <div style="width:28px;height:28px;border-radius:50%;background:#E6F1FB;display:flex;align-items:center;justify-
 
-style="padding:10px;cursor:pointer;border-bottom:0.5px solid 
+content:center;font-size:11px;font-weight:500;color:#185FA5;">${c.name[0]}</div>
+        ${c.unread>0?`<span style="background:#FA8C3A;color:#fff;font-size:9px;width:16px;height:16px;border-
 
-var(--color-border-tertiary);background:
-
-${activeCust===c.id?'var(--color-background-
-
-secondary)':'transparent'};">
-      <div style="display:flex;justify-content:space-
-
-between;align-items:center;margin-bottom:4px;">
-        <div style="width:28px;height:28px;border-
-
-radius:50%;background:#E6F1FB;display:flex;align-
-
-items:center;justify-content:center;font-size:11px;font-
-
-weight:500;color:#185FA5;">${c.name[0]}</div>
-        ${c.unread>0?`<span 
-
-style="background:#FA8C3A;color:#fff;font-
-
-size:9px;width:16px;height:16px;border-
-
-radius:50%;display:flex;align-items:center;justify-
-
-content:center;">${c.unread}</span>`:''}
+radius:50%;display:flex;align-items:center;justify-content:center;">${c.unread}</span>`:''}
       </div>
-      <p style="font-size:11px;font-
+      <p style="font-size:11px;font-weight:500;margin:0;color:var(--color-text-primary);overflow:hidden;text-
 
-weight:500;margin:0;color:var(--color-text-
-
-primary);overflow:hidden;text-overflow:ellipsis;white-
-
-space:nowrap;">${c.name}</p>
+overflow:ellipsis;white-space:nowrap;">${c.name}</p>
     </div>`).join('');
 }
 
 function aOpenChat(id){
-  activeCust=id;const c=customers.find
-
-(x=>x.id===id);c.unread=0;
+  activeCust=id;const c=customers.find(x=>x.id===id);c.unread=0;
   document.getElementById('a-chat-name').textContent=c.name;
   document.getElementById('a-chat-phone').textContent=c.phone;
-  document.getElementById('a-chat-msgs').innerHTML=c.msgs.map
+  document.getElementById('a-chat-msgs').innerHTML=c.msgs.map(m=>`
+    <div style="display:flex;justify-content:${m.from==='admin'?'flex-end':'flex-start'};">
+      <div style="max-width:78%;background:${m.from==='admin'?'#185FA5':'var(--color-background-secondary)'};color:
 
-(m=>`
-    <div style="display:flex;justify-content:
-
-${m.from==='admin'?'flex-end':'flex-start'};">
-      <div style="max-width:78%;background:
-
-${m.from==='admin'?'#185FA5':'var(--color-background-
-
-secondary)'};color:${m.from==='admin'?'#fff':'var(--color-
-
-text-primary)'};border-radius:10px;padding:7px 10px;">
+${m.from==='admin'?'#fff':'var(--color-text-primary)'};border-radius:10px;padding:7px 10px;">
         <p style="font-size:12px;margin:0;">${m.text}</p>
-        <p style="font-size:9px;margin:3px 0 0;opacity:0.7;">
-
-${m.time}</p>
+        <p style="font-size:9px;margin:3px 0 0;opacity:0.7;">${m.time}</p>
       </div>
     </div>`).join('');
-  const msgs=document.getElementById('a-chat-
-
-msgs');msgs.scrollTop=msgs.scrollHeight;
+  const msgs=document.getElementById('a-chat-msgs');msgs.scrollTop=msgs.scrollHeight;
   aRenderCustList();
 }
 
 function aSendMsg(){
   if(!activeCust)return;
-  const inp=document.getElementById('a-msg-inp');const 
-
-text=inp.value.trim();if(!text)return;
+  const inp=document.getElementById('a-msg-inp');const text=inp.value.trim();if(!text)return;
   const c=customers.find(x=>x.id===activeCust);
   const now=new Date();
-  c.msgs.push({from:'admin',text,time:now.getHours
-
-()+':'+String(now.getMinutes()).padStart(2,'0')});
+  c.msgs.push({from:'admin',text,time:now.getHours()+':'+String(now.getMinutes()).padStart(2,'0')});
   inp.value='';aOpenChat(activeCust);
 }
 </script>
