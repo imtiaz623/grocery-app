@@ -1,3 +1,4 @@
+cat > /mnt/user-data/outputs/zaiqah.html << 'HTMLEOF'
 <!DOCTYPE html>
 <html lang="ur">
 <head>
@@ -29,80 +30,95 @@ space:nowrap;font-weight:500;transition:all .2s;}
 button{font-family:inherit;transition:opacity .15s,transform .1s;}
 button:active{opacity:.85;transform:scale(.98);}
 .card{background:var(--bg);border:1px solid var(--brd);border-radius:14px;box-shadow:var(--shadow);}
+/* Loading Overlay */
+#app-loader{position:fixed;inset:0;background:#fff;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-
+
+content:center;gap:16px;}
+.spinner{width:44px;height:44px;border:4px solid var(--brd);border-top-color:var(--sabz);border-radius:50%;animation:spin .8s linear 
+
+infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#111827;color:#fff;padding:10px 20px;border-
+
+radius:30px;font-size:13px;font-weight:600;z-index:8888;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;}
+.toast.show{opacity:1;}
 </style>
 </head>
 <body>
 <div class="app">
 
-<!-- LOGIN SCREEN -->
-<div id="view-login" style="display:flex;padding:0;flex-direction:column;justify-content:center;min-
+<!-- LOADER -->
+<div id="app-loader">
+  <div style="width:64px;height:64px;background:linear-gradient(135deg,var(--sabz),var(--sabz-d));border-
+
+radius:20px;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(29,158,117,0.3);">
+    <i class="ti ti-leaf" style="font-size:32px;color:#fff;"></i>
+  </div>
+  <div class="spinner"></div>
+  <p style="font-size:13px;color:var(--txt2);">Zaiqah load ho raha hai...</p>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- ===================== LOGIN ===================== -->
+<div id="view-login" style="display:none;flex-direction:column;justify-content:center;min-
 
 height:100vh;position:relative;overflow:hidden;">
-
-  <!-- Decorative background blobs -->
   <div style="position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba
 
 (29,158,117,0.15),transparent);border-radius:50%;pointer-events:none;"></div>
   <div style="position:absolute;bottom:-40px;left:-40px;width:160px;height:160px;background:radial-gradient(circle,rgba
 
 (24,95,165,0.1),transparent);border-radius:50%;pointer-events:none;"></div>
-
   <div style="padding:40px 28px;position:relative;z-index:1;">
-    <!-- Logo -->
     <div style="width:80px;height:80px;background:linear-gradient(135deg,var(--sabz),var(--sabz-d));border-
 
 radius:24px;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;box-shadow:0 10px 32px rgba(29,158,117,0.35);">
       <i class="ti ti-leaf" style="font-size:38px;color:#fff;"></i>
     </div>
-
     <h1 style="font-size:28px;font-weight:800;margin:0 0 6px;color:var(--txt);text-align:center;">Zaiqah ذائقہ</h1>
-    <p style="font-size:13px;color:var(--txt2);margin:0 0 40px;text-align:center;">خالص مصالحے — بالکل اصلی</p>
-
-    <!-- Login Card -->
+    <p style="font-size:13px;color:var(--txt2);margin:0 0 32px;text-align:center;">خالص مصالحے — بالکل اصلی</p>
     <div style="background:var(--bg);border:1.5px solid var(--brd);border-radius:20px;padding:24px;box-shadow:0 8px 32px rgba
 
 (0,0,0,0.07);">
       <p style="font-size:13px;font-weight:600;color:var(--txt2);margin:0 0 16px;text-align:center;">اپنا نام اور پاسورڈ ڈالیں</p>
-
       <div style="margin-bottom:14px;">
         <label style="font-size:11px;font-weight:600;color:var(--txt2);display:block;margin-bottom:6px;">Username</label>
-        <input type="text" id="inp-user"
-          placeholder="Username yahan likhein"
-          style="width:100%;padding:13px 14px;border-radius:12px;font-size:14px;"/>
-      </div>
+        <input type="text" id="inp-user" placeholder="Username yahan likhein" style="width:100%;padding:13px 14px;border-
 
+radius:12px;font-size:14px;"/>
+      </div>
       <div style="margin-bottom:20px;">
         <label style="font-size:11px;font-weight:600;color:var(--txt2);display:block;margin-bottom:6px;">Password</label>
-        <input type="password" id="inp-pass"
-          placeholder="Password yahan likhein"
-          style="width:100%;padding:13px 14px;border-radius:12px;font-size:14px;"
-          onkeydown="if(event.key==='Enter')doLogin()"/>
+        <input type="password" id="inp-pass" placeholder="Password yahan likhein" style="width:100%;padding:13px 14px;border-
+
+radius:12px;font-size:14px;" onkeydown="if(event.key==='Enter')doLogin()"/>
       </div>
+      <button onclick="doLogin()" id="login-btn" style="width:100%;background:linear-gradient(135deg,var(--sabz),var(--sabz-
 
-      <button onclick="doLogin()"
-        style="width:100%;background:linear-gradient(135deg,var(--sabz),var(--sabz-d));color:#fff;border:none;border-
+d));color:#fff;border:none;border-radius:12px;padding:15px;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 6px 20px rgba
 
-radius:12px;padding:15px;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 6px 20px rgba(29,158,117,0.35);">
+(29,158,117,0.35);">
         داخل ہوں ↩
       </button>
-
       <p id="login-err" style="display:none;font-size:12px;color:var(--lal);margin-top:14px;font-weight:600;text-
 
 align:center;background:#FEF2F2;border-radius:8px;padding:10px;">
-        ❌ Galat username ya password — dobara koshish karein
+        ❌ Galat username ya password
       </p>
     </div>
+    <p style="font-size:11px;color:var(--txt2);text-align:center;margin-top:16px;opacity:.7;">Guest ke tor par browse karne ke liye 
+
+khali chor ke login karein</p>
   </div>
 </div>
 
-
-<!-- CUSTOMER VIEW -->
+<!-- ===================== CUSTOMER VIEW ===================== -->
 <div id="view-customer" style="display:none;flex-direction:column;min-height:100vh;">
 
-  <!-- HOME SCREEN -->
+  <!-- HOME -->
   <div id="cs-home" class="screen" style="flex-direction:column;min-height:100vh;">
-
-    <!-- Header -->
     <div style="background:linear-gradient(135deg,var(--sabz),var(--sabz-d));padding:20px 16px 14px;flex-shrink:0;">
       <div style="display:flex;justify-content:space-between;align-items:center;">
         <div>
@@ -119,60 +135,53 @@ size:9px;border-radius:50%;width:18px;height:18px;align-items:center;justify-con
           <i class="ti ti-logout" style="font-size:22px;color:#fff;cursor:pointer;" onclick="goBack()"></i>
         </div>
       </div>
-
-      <!-- Offer Banner -->
       <div onclick="csGo('cart')" style="margin-top:12px;border-
 
 radius:14px;overflow:hidden;cursor:pointer;position:relative;height:80px;background:#0a5c42;">
-        <img id="offer-img"
-          src="https://static.vecteezy.com/system/resources/previews/015/258/820/non_2x/new-offer-tag-red-discount-label-isolated-
+        <img id="offer-img" src="" style="width:100%;height:100%;object-fit:cover;display:block;" 
 
-on-yellow-background-vector.jpg"
-          style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display='none'"/>
+onerror="this.style.display='none'"/>
         <div style="position:absolute;inset:0;background:rgba(0,0,0,0.38);display:flex;align-items:center;padding:0 16px;">
-          <p id="offer-text" style="color:#fff;font-size:13px;margin:0;font-weight:600;line-height:1.4;">
-            Aaj ka offer — Code <b>ZAIQAH10</b> lagaein, 10% off!
-          </p>
+          <p id="offer-text" style="color:#fff;font-size:13px;margin:0;font-weight:600;line-height:1.4;">Aaj ka offer — Code 
+
+<b>ZAIQAH10</b> lagaein, 10% off!</p>
         </div>
       </div>
     </div>
-
-    <!-- Category Filter -->
     <div style="padding:12px 16px 4px;overflow-x:auto;display:flex;gap:8px;flex-shrink:0;">
-      <button onclick="cFilter('all',this)"   style="background:var(--sabz);color:#fff;padding:6px 16px;border-radius:20px;font-
+      <button onclick="cFilter('all',this)"       style="background:var(--sabz);color:#fff;padding:6px 16px;border-radius:20px;font-
 
 size:12px;border:none;cursor:pointer;font-weight:600;white-space:nowrap;">Sab</button>
-      <button onclick="cFilter('whole',this)" style="background:var(--bg2);color:var(--txt2);padding:6px 16px;border-
+      <button onclick="cFilter('whole',this)"     style="background:var(--bg2);color:var(--txt2);padding:6px 16px;border-
 
 radius:20px;font-size:12px;border:none;cursor:pointer;white-space:nowrap;">Sabut</button>
-      <button onclick="cFilter('ground',this)"style="background:var(--bg2);color:var(--txt2);padding:6px 16px;border-
+      <button onclick="cFilter('ground',this)"    style="background:var(--bg2);color:var(--txt2);padding:6px 16px;border-
 
 radius:20px;font-size:12px;border:none;cursor:pointer;white-space:nowrap;">Pesa</button>
       <button onclick="cFilter('dry-fruit',this)" style="background:var(--bg2);color:var(--txt2);padding:6px 16px;border-
 
 radius:20px;font-size:12px;border:none;cursor:pointer;white-space:nowrap;">Dry Fruit</button>
     </div>
-
-    <!-- Products Grid -->
     <div style="padding:10px 16px 100px;overflow-y:auto;flex:1;">
       <div id="c-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"></div>
     </div>
   </div>
 
-  <!-- PRODUCT DETAIL SCREEN -->
+  <!-- DETAIL -->
   <div id="cs-detail" class="screen" style="flex-direction:column;min-height:100vh;">
     <div id="c-detail-body" style="flex:1;overflow-y:auto;"></div>
     <div style="padding:14px 16px;border-top:1px solid var(--brd);background:var(--bg);">
-      <button onclick="addFromDetail()"
-        style="width:100%;background:linear-gradient(135deg,var(--sabz),var(--sabz-d));color:#fff;border:none;border-radius:var(--
+      <button onclick="addFromDetail()" style="width:100%;background:linear-gradient(135deg,var(--sabz),var(--sabz-
 
-r);padding:14px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 4px 16px rgba(29,158,117,0.3);">
+d));color:#fff;border:none;border-radius:var(--r);padding:14px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 4px 16px 
+
+rgba(29,158,117,0.3);">
         🛒 Basket mein Daalein
       </button>
     </div>
   </div>
 
-  <!-- CART SCREEN -->
+  <!-- CART -->
   <div id="cs-cart" class="screen" style="padding:16px 16px 100px;overflow-y:auto;min-height:100vh;">
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
       <i class="ti ti-arrow-left" onclick="csGo('home')" style="font-size:22px;cursor:pointer;color:var(--txt);"></i>
@@ -185,12 +194,12 @@ r);padding:14px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 4px 1
     </div>
     <div id="c-cart-total" style="display:none;margin-top:14px;">
       <div style="display:flex;gap:8px;margin-bottom:10px;">
-        <input id="disc-inp" type="text" placeholder="Discount code daalein..."
-          style="flex:1;padding:10px 12px;border-radius:10px;font-size:13px;"/>
-        <button onclick="applyDisc()"
-          style="background:var(--sabz);color:#fff;border:none;border-radius:10px;padding:10px 16px;font-
+        <input id="disc-inp" type="text" placeholder="Discount code daalein..." style="flex:1;padding:10px 12px;border-
 
-size:13px;cursor:pointer;font-weight:600;">Apply</button>
+radius:10px;font-size:13px;"/>
+        <button onclick="applyDisc()" style="background:var(--sabz);color:#fff;border:none;border-radius:10px;padding:10px 
+
+16px;font-size:13px;cursor:pointer;font-weight:600;">Apply</button>
       </div>
       <div id="disc-msg" style="font-size:12px;margin:-4px 0 10px;display:none;padding:8px 12px;border-radius:8px;"></div>
       <div style="background:var(--bg2);border-radius:14px;padding:14px;margin-bottom:14px;">
@@ -207,62 +216,17 @@ size:13px;cursor:pointer;font-weight:600;">Apply</button>
           <span id="c-total" style="font-size:15px;font-weight:700;color:var(--sabz);">Rs.0</span>
         </div>
       </div>
+      <button onclick="placeOrder()" style="width:100%;background:linear-gradient
 
-      <!-- DELIVERY DETAILS -->
-      <div style="background:var(--bg2);border-radius:14px;padding:14px;margin-bottom:14px;">
-        <p style="font-size:13px;font-weight:700;color:var(--txt);margin:0 0 10px;">📦 Delivery Details</p>
+(135deg,#25D366,#1da851);color:#fff;border:none;border-radius:var(--r);padding:14px;font-size:15px;font-
 
-        <div style="margin-bottom:10px;">
-          <label style="font-size:11px;font-weight:600;color:var(--txt2);display:block;margin-bottom:5px;">Pura Naam</label>
-          <input id="co-name" type="text" placeholder="Aapka naam"
-            style="width:100%;padding:10px 12px;border-radius:10px;font-size:13px;background:var(--bg);"/>
-        </div>
-
-        <div style="margin-bottom:10px;">
-          <label style="font-size:11px;font-weight:600;color:var(--txt2);display:block;margin-bottom:5px;">Contact Number</label>
-          <input id="co-phone" type="tel" placeholder="03XXXXXXXXX"
-            style="width:100%;padding:10px 12px;border-radius:10px;font-size:13px;background:var(--bg);"/>
-        </div>
-
-        <div style="margin-bottom:10px;position:relative;">
-          <label style="font-size:11px;font-weight:600;color:var(--txt2);display:block;margin-bottom:5px;">City</label>
-          <div style="display:flex;gap:8px;">
-            <input id="co-city" type="text" placeholder="City search karein..." autocomplete="off"
-              oninput="filterCities();updateDeliveryNote()" onfocus="filterCities()"
-              style="flex:1;padding:10px 12px;border-radius:10px;font-size:13px;background:var(--bg);"/>
-            <button type="button" onclick="filterCities()"
-              style="background:var(--neela);color:#fff;border:none;border-radius:10px;padding:0 16px;font-
-
-size:15px;cursor:pointer;">🔍</button>
-          </div>
-          <div id="co-city-list" style="display:none;position:absolute;top:100%;left:0;right:46px;background:var(--bg);border:1px 
-
-solid var(--brd);border-radius:10px;margin-top:4px;max-height:180px;overflow-y:auto;z-index:30;box-shadow:var(--shadow);"></div>
-        </div>
-
-        <div style="margin-bottom:0;">
-          <label style="font-size:11px;font-weight:600;color:var(--txt2);display:block;margin-bottom:5px;">Pura Address</label>
-          <textarea id="co-address" rows="2" placeholder="Ghar/Dukaan ka pura address, area, landmark..."
-            style="width:100%;padding:10px 12px;border-radius:10px;font-size:13px;resize:none;background:var(--bg);"></textarea>
-        </div>
-
-        <p id="co-delivery-note" style="font-size:11px;color:var(--sabz-d);margin:10px 0 0;font-
-
-weight:600;background:#EAF7F2;padding:8px 10px;border-radius:8px;">
-          🚚 Free Home Delivery — sirf Hyderabad ke liye
-        </p>
-      </div>
-
-      <button onclick="placeOrder()"
-        style="width:100%;background:linear-gradient(135deg,#25D366,#1da851);color:#fff;border:none;border-radius:var(--
-
-r);padding:14px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(37,211,102,0.3);">
+weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(37,211,102,0.3);">
         <i class="ti ti-brand-whatsapp"></i> WhatsApp pe Order Karein
       </button>
     </div>
   </div>
 
-  <!-- ORDER HISTORY SCREEN -->
+  <!-- ORDERS -->
   <div id="cs-orders" class="screen" style="padding:16px 16px 100px;min-height:100vh;">
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
       <i class="ti ti-arrow-left" onclick="csGo('home')" style="font-size:22px;cursor:pointer;color:var(--txt);"></i>
@@ -271,7 +235,7 @@ r);padding:14px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 1
     <div id="c-orders-list" style="display:flex;flex-direction:column;gap:10px;"></div>
   </div>
 
-  <!-- WHOLESALE B2B SCREEN -->
+  <!-- B2B -->
   <div id="cs-b2b" class="screen" style="min-height:100vh;">
     <div style="background:linear-gradient(135deg,var(--sabz),var(--sabz-d));padding:24px 20px 20px;">
       <i class="ti ti-arrow-left" onclick="csGo('home')" style="font-size:22px;cursor:pointer;color:#fff;display:block;margin-
@@ -283,16 +247,17 @@ bottom:10px;"></i>
     <div style="padding:16px;">
       <p style="font-size:13px;font-weight:600;color:var(--txt2);margin:0 0 12px;">Wholesale Rates (Kam se Kam 1kg)</p>
       <div id="b2b-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;"></div>
-      <button onclick="window.open('https://wa.me/923069348405?text=Assalam+o+Alaikum,+bulk+order+karna+hai','_blank')"
-        style="width:100%;background:linear-gradient(135deg,#25D366,#1da851);color:#fff;border:none;border-radius:var(--
+      <button onclick="window.open('https://wa.me/923069348405?text=Assalam+o+Alaikum,+bulk+order+karna+hai','_blank')" 
 
-r);padding:14px;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(37,211,102,0.3);">
+style="width:100%;background:linear-gradient(135deg,#25D366,#1da851);color:#fff;border:none;border-radius:var(--
+
+r);padding:14px;font-size:14px;font-weight:700;cursor:pointer;">
         📦 Bulk Order — WhatsApp pe Karein
       </button>
     </div>
   </div>
 
-  <!-- USERS SECTION -->
+  <!-- USERS (admin only) -->
   <div id="cs-users" class="screen" style="padding:0 0 100px;min-height:100vh;">
     <div style="background:linear-gradient(135deg,#7c3aed,#5b21b6);padding:20px 16px 16px;">
       <i class="ti ti-arrow-left" onclick="csGo('home')" style="font-size:22px;cursor:pointer;color:#fff;display:block;margin-
@@ -301,12 +266,10 @@ bottom:10px;"></i>
       <p style="color:#c4b5fd;font-size:11px;margin:0;">Admin Only</p>
       <h2 style="color:#fff;font-size:20px;font-weight:700;margin:4px 0 0;">Users / Customers</h2>
     </div>
-    <div style="padding:14px 16px;">
-      <div id="users-list" style="display:flex;flex-direction:column;gap:12px;"></div>
-    </div>
+    <div style="padding:14px 16px;"><div id="users-list" style="display:flex;flex-direction:column;gap:12px;"></div></div>
   </div>
 
-  <!-- ORDER SUCCESS SCREEN -->
+  <!-- SUCCESS -->
   <div id="cs-success" class="screen" style="padding:60px 20px;text-align:center;min-height:100vh;flex-direction:column;align-
 
 items:center;justify-content:center;">
@@ -318,51 +281,48 @@ items:center;justify-content:center;margin:0 auto 20px;box-shadow:0 8px 24px rgb
     <h2 style="font-size:24px;font-weight:800;margin:0 0 8px;">Shukriya! 🎉</h2>
     <p style="font-size:13px;color:var(--txt2);margin:0 0 6px;">Aapka order WhatsApp pe bhej diya gaya</p>
     <p id="c-success-id" style="font-size:13px;color:var(--sabz);margin:0 0 30px;font-weight:600;"></p>
-    <button onclick="csGo('orders')"
-      style="width:100%;background:var(--bg2);border:1.5px solid var(--brd);border-radius:var(--r);padding:13px;font-
+    <button onclick="csGo('orders')" style="width:100%;background:var(--bg2);border:1.5px solid var(--brd);border-radius:var(--
 
-size:14px;cursor:pointer;margin-bottom:10px;font-weight:500;">
-      Orders Dekhein
-    </button>
-    <button onclick="csGo('home')"
-      style="width:100%;background:linear-gradient(135deg,var(--sabz),var(--sabz-d));color:#fff;border:none;border-radius:var(--
+r);padding:13px;font-size:14px;cursor:pointer;margin-bottom:10px;font-weight:500;">Orders Dekhein</button>
+    <button onclick="csGo('home')" style="width:100%;background:linear-gradient(135deg,var(--sabz),var(--sabz-
 
-r);padding:13px;font-size:14px;cursor:pointer;font-weight:600;box-shadow:0 4px 16px rgba(29,158,117,0.3);">
-      Wapis Jayein
-    </button>
+d));color:#fff;border:none;border-radius:var(--r);padding:13px;font-size:14px;cursor:pointer;font-weight:600;">Wapis Jayein</button>
   </div>
 
-  <!-- BOTTOM NAVIGATION -->
+  <!-- BOTTOM NAV -->
   <div id="c-nav" style="position:fixed;bottom:0;width:100%;max-width:430px;border-top:1px solid var(--
 
 brd);display:flex;background:var(--bg);z-index:50;box-shadow:0 -4px 16px rgba(0,0,0,0.08);">
-    <div onclick="csGo('home')" style="flex:1;text-align:center;cursor:pointer;padding:9px 0;">
-      <i class="ti ti-home" style="font-size:22px;color:var(--sabz);display:block;"></i>
-      <p style="font-size:10px;margin:2px 0 0;color:var(--sabz);font-weight:600;">Home</p>
-    </div>
-    <div onclick="csGo('cart')" style="flex:1;text-align:center;cursor:pointer;padding:9px 0;">
-      <i class="ti ti-shopping-cart" style="font-size:22px;color:var(--neela);display:block;"></i>
-      <p style="font-size:10px;margin:2px 0 0;color:var(--neela);">Basket</p>
-    </div>
-    <div onclick="csGo('orders')" style="flex:1;text-align:center;cursor:pointer;padding:9px 0;">
-      <i class="ti ti-receipt" style="font-size:22px;color:var(--narangi);display:block;"></i>
-      <p style="font-size:10px;margin:2px 0 0;color:var(--narangi);">Orders</p>
-    </div>
-    <div onclick="csGo('b2b')" style="flex:1;text-align:center;cursor:pointer;padding:9px 0;">
-      <i class="ti ti-building-store" style="font-size:22px;color:var(--lal);display:block;"></i>
-      <p style="font-size:10px;margin:2px 0 0;color:var(--lal);">Dukaan</p>
-    </div>
-    <div id="nav-users-btn" onclick="csGo('users')" style="flex:1;text-align:center;cursor:pointer;padding:9px 0;display:none;">
-      <i class="ti ti-users" style="font-size:22px;color:#7c3aed;display:block;"></i>
-      <p style="font-size:10px;margin:2px 0 0;color:#7c3aed;">Users</p>
-    </div>
+    <div onclick="csGo('home')"   style="flex:1;text-align:center;cursor:pointer;padding:9px 0;"><i class="ti ti-home" style="font-
+
+size:22px;color:var(--sabz);display:block;"></i><p style="font-size:10px;margin:2px 0 0;color:var(--sabz);font-
+
+weight:600;">Home</p></div>
+    <div onclick="csGo('cart')"   style="flex:1;text-align:center;cursor:pointer;padding:9px 0;"><i class="ti ti-shopping-cart" 
+
+style="font-size:22px;color:var(--neela);display:block;"></i><p style="font-size:10px;margin:2px 0 0;color:var(--
+
+neela);">Basket</p></div>
+    <div onclick="csGo('orders')" style="flex:1;text-align:center;cursor:pointer;padding:9px 0;"><i class="ti ti-receipt" 
+
+style="font-size:22px;color:var(--narangi);display:block;"></i><p style="font-size:10px;margin:2px 0 0;color:var(--
+
+narangi);">Orders</p></div>
+    <div onclick="csGo('b2b')"    style="flex:1;text-align:center;cursor:pointer;padding:9px 0;"><i class="ti ti-building-store" 
+
+style="font-size:22px;color:var(--lal);display:block;"></i><p style="font-size:10px;margin:2px 0 0;color:var(--
+
+lal);">Dukaan</p></div>
+    <div id="nav-users-btn" onclick="csGo('users')" style="flex:1;text-align:center;cursor:pointer;padding:9px 0;display:none;"><i 
+
+class="ti ti-users" style="font-size:22px;color:#7c3aed;display:block;"></i><p style="font-size:10px;margin:2px 0 
+
+0;color:#7c3aed;">Users</p></div>
   </div>
 </div>
 
-
-<!-- ADMIN PANEL -->
+<!-- ===================== ADMIN PANEL ===================== -->
 <div id="view-admin" style="display:none;min-height:100vh;background:var(--bg);">
-
   <div style="background:linear-gradient(135deg,var(--neela),#0f4a8a);padding:16px 20px;display:flex;align-items:center;justify-
 
 content:space-between;">
@@ -377,14 +337,10 @@ content:space-between;">
 
 radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-weight:700;">0</span>
       </div>
-      <i class="ti ti-layout-2" title="Customer View" style="font-size:22px;color:#fff;cursor:pointer;" onclick="switchToCustomer
-
-()"></i>
+      <i class="ti ti-layout-2" style="font-size:22px;color:#fff;cursor:pointer;" onclick="switchToCustomer()"></i>
       <i class="ti ti-logout" style="font-size:22px;color:#fff;cursor:pointer;" onclick="goBack()"></i>
     </div>
   </div>
-
-  <!-- Admin Tabs -->
   <div style="display:flex;border-bottom:1px solid var(--brd);overflow-x:auto;background:var(--bg);">
     <div id="at-dash"     class="tab-btn" onclick="aGoTab('dash')"     style="color:var(--neela);border-bottom-color:var(--
 
@@ -396,8 +352,7 @@ narangi);color:#fff;font-size:9px;padding:1px 5px;border-radius:10px;margin-left
     <div id="at-banner"   class="tab-btn" onclick="aGoTab('banner')">Banner</div>
     <div id="at-chat"     class="tab-btn" onclick="aGoTab('chat')">Customers</div>
   </div>
-
-  <!-- DASHBOARD TAB -->
+  <!-- DASH -->
   <div id="ap-dash" style="padding:14px 16px;">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">
       <div style="background:linear-gradient(135deg,#E6F1FB,#d0e4f7);border-radius:14px;padding:16px;text-align:center;border:1px 
@@ -421,23 +376,21 @@ solid #ffc896;">
       <div style="background:linear-gradient(135deg,#EAF7F2,#c6f0e2);border-radius:14px;padding:16px;text-align:center;border:1px 
 
 solid #a8e4cc;">
-        <p style="font-size:16px;font-weight:800;color:var(--sabz);margin:0;">🟢 Active</p>
-        <p style="font-size:11px;color:var(--sabz);margin:4px 0 0;font-weight:600;">App Status</p>
+        <p style="font-size:16px;font-weight:800;color:var(--sabz);margin:0;">🟢 Live</p>
+        <p style="font-size:11px;color:var(--sabz);margin:4px 0 0;font-weight:600;">Supabase DB</p>
       </div>
     </div>
     <p style="font-size:13px;font-weight:700;color:var(--txt);margin:0 0 10px;">Pending Orders</p>
     <div id="a-dash-orders"></div>
     <div style="margin-top:14px;">
-      <button onclick="switchToCustomer()"
-        style="width:100%;background:linear-gradient(135deg,var(--sabz),var(--sabz-d));color:#fff;border:none;border-
+      <button onclick="switchToCustomer()" style="width:100%;background:linear-gradient(135deg,var(--sabz),var(--sabz-
 
-radius:12px;padding:12px;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 4px 16px rgba(29,158,117,0.3);">
-        Customer App Dekhein
-      </button>
+d));color:#fff;border:none;border-radius:12px;padding:12px;font-size:14px;font-weight:600;cursor:pointer;">Customer App 
+
+Dekhein</button>
     </div>
   </div>
-
-  <!-- ORDERS TAB -->
+  <!-- ORDERS -->
   <div id="ap-orders" style="display:none;padding:14px 16px;">
     <div style="display:flex;gap:8px;margin-bottom:12px;overflow-x:auto;padding-bottom:4px;">
       <button onclick="aFiltO('all',this)"        style="background:var(--neela);color:#fff;padding:5px 12px;border-
@@ -455,64 +408,44 @@ radius:20px;font-size:11px;border:none;cursor:pointer;white-space:nowrap;">Deliv
     </div>
     <div id="a-orders-list"></div>
   </div>
-
-  <!-- PRODUCTS TAB -->
+  <!-- PRODUCTS -->
   <div id="ap-products" style="display:none;padding:14px 16px;">
-    <button onclick="openAddP()"
-      style="width:100%;background:linear-gradient(135deg,var(--neela),#0f4a8a);color:#fff;border:none;border-
+    <button onclick="openAddP()" style="width:100%;background:linear-gradient(135deg,var(--
 
-radius:12px;padding:12px;font-size:14px;font-weight:600;cursor:pointer;margin-bottom:14px;box-shadow:0 4px 16px rgba
+neela),#0f4a8a);color:#fff;border:none;border-radius:12px;padding:12px;font-size:14px;font-weight:600;cursor:pointer;margin-
 
-(24,95,165,0.3);">
-      + Naya Product Jodein
-    </button>
+bottom:14px;">+ Naya Product Jodein</button>
     <div id="a-products-list"></div>
   </div>
-
-  <!-- BANNER TAB -->
+  <!-- BANNER -->
   <div id="ap-banner" style="display:none;padding:14px 16px;">
     <p style="font-size:14px;font-weight:700;color:var(--txt);margin:0 0 14px;">Offer Banner Update Karein</p>
     <div style="margin-bottom:12px;">
       <label style="font-size:12px;color:var(--txt2);font-weight:500;">Banner Image URL</label>
-      <input id="banner-url" type="text" placeholder="https://i.ibb.co/xxxxxx/image.jpg"
-        style="width:100%;margin-top:6px;padding:10px;border-radius:10px;font-size:13px;"/>
+      <input id="banner-url" type="text" placeholder="https://i.ibb.co/..." style="width:100%;margin-top:6px;padding:10px;border-
+
+radius:10px;font-size:13px;"/>
     </div>
     <div style="margin-bottom:16px;">
       <label style="font-size:12px;color:var(--txt2);font-weight:500;">Banner Text</label>
-      <input id="banner-text" type="text" placeholder="Maslan: Eid Sale — Sab pe 20% off!"
-        style="width:100%;margin-top:6px;padding:10px;border-radius:10px;font-size:13px;"/>
-    </div>
-    <button onclick="updateBanner()"
-      style="width:100%;background:linear-gradient(135deg,var(--neela),#0f4a8a);color:#fff;border:none;border-
+      <input id="banner-text" type="text" placeholder="Maslan: Eid Sale — Sab pe 20% off!" style="width:100%;margin-
 
-radius:12px;padding:13px;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 4px 16px rgba(24,95,165,0.3);">
-      Banner Update Karein
-    </button>
-    <p style="font-size:12px;color:var(--txt2);margin:14px 0 8px;font-weight:600;">Preview:</p>
-    <div style="border-radius:12px;overflow:hidden;position:relative;height:80px;background:#0a5c42;">
-      <img id="banner-prev-img"
-        src="https://static.vecteezy.com/system/resources/previews/015/258/820/non_2x/new-offer-tag-red-discount-label-isolated-on-
-
-yellow-background-vector.jpg"
-        style="width:100%;height:100%;object-fit:cover;"/>
-      <div style="position:absolute;inset:0;background:rgba(0,0,0,0.38);display:flex;align-items:center;padding:0 14px;">
-        <p id="banner-prev-txt" style="color:#fff;font-size:13px;margin:0;font-weight:600;">
-          Aaj ka offer — Code ZAIQAH10, 10% off!
-        </p>
-      </div>
+top:6px;padding:10px;border-radius:10px;font-size:13px;"/>
     </div>
-    <p style="font-size:14px;font-weight:700;color:var(--txt);margin:20px 0 10px;">Active Discount Codes</p>
+    <button onclick="updateBanner()" style="width:100%;background:linear-gradient(135deg,var(--
+
+neela),#0f4a8a);color:#fff;border:none;border-radius:12px;padding:13px;font-size:14px;font-weight:600;cursor:pointer;">Banner Update 
+
+Karein (DB mein Save)</button>
+    <p style="font-size:12px;color:var(--txt2);margin:14px 0 8px;font-weight:600;">Active Discount Codes</p>
     <div id="disc-codes-list" style="background:var(--bg2);border-radius:12px;padding:12px;display:flex;flex-
 
 direction:column;gap:6px;"></div>
   </div>
-
-  <!-- CUSTOMERS CHAT TAB -->
+  <!-- CHAT -->
   <div id="ap-chat" style="display:none;height:480px;flex-direction:column;">
     <div style="display:flex;height:100%;">
-      <div style="width:110px;border-right:1px solid var(--brd);overflow-y:auto;flex-shrink:0;">
-        <div id="a-cust-list"></div>
-      </div>
+      <div style="width:110px;border-right:1px solid var(--brd);overflow-y:auto;flex-shrink:0;"><div id="a-cust-list"></div></div>
       <div style="flex:1;display:flex;flex-direction:column;">
         <div style="padding:10px 12px;border-bottom:1px solid var(--brd);background:var(--bg2);">
           <p id="a-chat-name" style="font-size:13px;font-weight:700;margin:0;color:var(--txt);">Customer select karein</p>
@@ -522,22 +455,19 @@ direction:column;gap:6px;"></div>
 
 height:200px;"></div>
         <div style="padding:10px;border-top:1px solid var(--brd);display:flex;gap:8px;">
-          <input id="a-msg-inp" type="text" placeholder="Message likhein..."
-            style="flex:1;padding:9px 12px;border-radius:10px;font-size:13px;"
-            onkeydown="if(event.key==='Enter')aSendMsg()"/>
-          <button onclick="aSendMsg()"
-            style="background:linear-gradient(135deg,var(--neela),#0f4a8a);color:#fff;border:none;border-radius:10px;padding:9px 
+          <input id="a-msg-inp" type="text" placeholder="Message likhein..." style="flex:1;padding:9px 12px;border-radius:10px;font-
 
-14px;font-size:13px;cursor:pointer;font-weight:700;">
-            Bhejo
-          </button>
+size:13px;" onkeydown="if(event.key==='Enter')aSendMsg()"/>
+          <button onclick="aSendMsg()" style="background:linear-gradient(135deg,var(--neela),#0f4a8a);color:#fff;border:none;border-
+
+radius:10px;padding:9px 14px;font-size:13px;cursor:pointer;font-weight:700;">Bhejo</button>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- PRODUCT ADD/EDIT MODAL -->
+<!-- PRODUCT MODAL -->
 <div id="p-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:999;align-items:flex-end;justify-
 
 content:center;">
@@ -552,158 +482,161 @@ y:auto;">
     <div style="margin-bottom:12px;">
       <label style="font-size:11px;color:var(--txt2);font-weight:500;">Image URL</label>
       <div style="display:flex;gap:8px;margin-top:6px;">
-        <input id="pm-img-url" type="text" placeholder="https://i.ibb.co/.../image.jpg"
-          style="flex:1;padding:9px;border-radius:8px;font-size:12px;"/>
-        <button onclick="applyImgUrl()"
-          style="background:var(--neela);color:#fff;border:none;border-radius:8px;padding:9px 12px;font-
+        <input id="pm-img-url" type="text" placeholder="https://..." style="flex:1;padding:9px;border-radius:8px;font-size:12px;"/>
+        <button onclick="applyImgUrl()" style="background:var(--neela);color:#fff;border:none;border-radius:8px;padding:9px 
 
-size:12px;cursor:pointer;white-space:nowrap;font-weight:600;">
-          Preview
-        </button>
+12px;font-size:12px;cursor:pointer;white-space:nowrap;font-weight:600;">Preview</button>
       </div>
     </div>
-    <div id="p-img-prev" data-src=""
-      style="width:80px;height:80px;background:var(--bg2);border-radius:12px;display:flex;align-items:center;justify-
+    <div id="p-img-prev" data-src="" style="width:80px;height:80px;background:var(--bg2);border-radius:12px;display:flex;align-
 
-content:center;margin:0 0 14px;overflow:hidden;">
+items:center;justify-content:center;margin:0 0 14px;overflow:hidden;">
       <i class="ti ti-camera" style="font-size:30px;color:var(--sabz);"></i>
     </div>
     <div style="display:flex;flex-direction:column;gap:10px;">
-      <div>
-        <label style="font-size:11px;color:var(--txt2);font-weight:500;">Naam (English)</label>
-        <input id="pm-name" type="text" placeholder="Maslan: Kali Mirch"
-          style="width:100%;margin-top:4px;padding:10px;border-radius:8px;font-size:13px;"/>
-      </div>
-      <div>
-        <label style="font-size:11px;color:var(--txt2);font-weight:500;">Naam (Urdu)</label>
-        <input id="pm-urdu" type="text" placeholder="کالی مرچ"
-          style="width:100%;margin-top:4px;padding:10px;border-radius:8px;font-size:13px;"/>
-      </div>
-      <div>
-        <label style="font-size:11px;color:var(--txt2);font-weight:500;">Qeemat — Rs. mein</label>
-        <input id="pm-price" type="number" placeholder="Maslan: 120"
-          style="width:100%;margin-top:4px;padding:10px;border-radius:8px;font-size:13px;"/>
-      </div>
-      <div>
-        <label style="font-size:11px;color:var(--txt2);font-weight:500;">Unit</label>
-        <input id="pm-unit" type="text" placeholder="Maslan: 100g, 1kg, 250ml"
-          style="width:100%;margin-top:4px;padding:10px;border-radius:8px;font-size:13px;"/>
-      </div>
-      <div>
-        <label style="font-size:11px;color:var(--txt2);font-weight:500;">Category</label>
+      <div><label style="font-size:11px;color:var(--txt2);font-weight:500;">Naam (English)</label><input id="pm-name" type="text" 
+
+placeholder="Maslan: Kali Mirch" style="width:100%;margin-top:4px;padding:10px;border-radius:8px;font-size:13px;"/></div>
+      <div><label style="font-size:11px;color:var(--txt2);font-weight:500;">Naam (Urdu)</label><input id="pm-urdu" type="text" 
+
+placeholder="کالی مرچ" style="width:100%;margin-top:4px;padding:10px;border-radius:8px;font-size:13px;"/></div>
+      <div><label style="font-size:11px;color:var(--txt2);font-weight:500;">Qeemat (Rs.)</label><input id="pm-price" type="number" 
+
+placeholder="120" style="width:100%;margin-top:4px;padding:10px;border-radius:8px;font-size:13px;"/></div>
+      <div><label style="font-size:11px;color:var(--txt2);font-weight:500;">Unit</label><input id="pm-unit" type="text" 
+
+placeholder="100g / 1kg / 250ml" style="width:100%;margin-top:4px;padding:10px;border-radius:8px;font-size:13px;"/></div>
+      <div><label style="font-size:11px;color:var(--txt2);font-weight:500;">Category</label>
         <select id="pm-cat" style="width:100%;margin-top:4px;padding:10px;border-radius:8px;font-size:13px;">
-          <option value="whole">Sabut</option>
-          <option value="ground">Pesa</option>
-          <option value="dry-fruit">Dry Fruit</option>
+          <option value="whole">Sabut</option><option value="ground">Pesa</option><option value="dry-fruit">Dry Fruit</option>
         </select>
       </div>
-      <div>
-        <label style="font-size:11px;color:var(--txt2);font-weight:500;">Chhoti description</label>
-        <textarea id="pm-desc" rows="2" placeholder="Product ke baare mein..."
-          style="width:100%;margin-top:4px;padding:10px;border-radius:8px;font-size:13px;resize:none;"></textarea>
-      </div>
+      <div><label style="font-size:11px;color:var(--txt2);font-weight:500;">Description</label><textarea id="pm-desc" rows="2" 
+
+placeholder="Product ke baare mein..." style="width:100%;margin-top:4px;padding:10px;border-radius:8px;font-
+
+size:13px;resize:none;"></textarea></div>
     </div>
     <div style="display:flex;gap:8px;margin-top:16px;">
-      <button onclick="closeModal()"
-        style="flex:1;padding:12px;border-radius:10px;font-size:13px;cursor:pointer;font-weight:500;border:1.5px solid var(--
+      <button onclick="closeModal()" style="flex:1;padding:12px;border-radius:10px;font-size:13px;cursor:pointer;font-
 
-brd);background:var(--bg);">Cancel</button>
-      <button onclick="saveProduct()"
-        style="flex:1;background:linear-gradient(135deg,var(--neela),#0f4a8a);color:#fff;border:none;border-
+weight:500;border:1.5px solid var(--brd);background:var(--bg);">Cancel</button>
+      <button onclick="saveProduct()" style="flex:1;background:linear-gradient(135deg,var(--
 
-radius:10px;padding:12px;font-size:13px;cursor:pointer;font-weight:700;">
-        Save Karein
-      </button>
+neela),#0f4a8a);color:#fff;border:none;border-radius:10px;padding:12px;font-size:13px;cursor:pointer;font-weight:700;">Save 
+
+(DB)</button>
     </div>
   </div>
 </div>
 
-
 <script>
-// ADMIN CREDENTIALS
+// ============================================================
+// SUPABASE CONFIG
+// ============================================================
+const SB_URL  = 'https://kdsialrtvbywlauyzloy.supabase.co';
+const SB_KEY  = 
+
+'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtkc2lhbHJ0dmJ5d2xhdXl6bG95Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE
+
+3ODU1NDQsImV4cCI6MjA5NzM2MTU0NH0.5DjQ8xkzIp692FN-dAT_4DTYbc5ijZCQ16kK6U2Qt8M';
+
+const H = {
+  'Content-Type': 'application/json',
+  'apikey': SB_KEY,
+  'Authorization': 'Bearer ' + SB_KEY,
+  'Prefer': 'return=representation'
+};
+
+async function sbGet(table, query=''){
+  const r = await fetch(`${SB_URL}/rest/v1/${table}?${query}`, {headers: H});
+  if(!r.ok) throw new Error(await r.text());
+  return r.json();
+}
+async function sbPost(table, body){
+  const r = await fetch(`${SB_URL}/rest/v1/${table}`, {method:'POST', headers: H, body: JSON.stringify(body)});
+  if(!r.ok) throw new Error(await r.text());
+  return r.json();
+}
+async function sbPatch(table, id_col, id_val, body){
+  const r = await fetch(`${SB_URL}/rest/v1/${table}?${id_col}=eq.${id_val}`, {method:'PATCH', headers: H, body: JSON.stringify
+
+(body)});
+  if(!r.ok) throw new Error(await r.text());
+  return r.json();
+}
+async function sbDelete(table, id_col, id_val){
+  const r = await fetch(`${SB_URL}/rest/v1/${table}?${id_col}=eq.${id_val}`, {method:'DELETE', headers: H});
+  if(!r.ok) throw new Error(await r.text());
+}
+
+// ============================================================
+// STATE
+// ============================================================
+let products=[], orders=[], customers=[], discCodes={}, bannerData={};
+let cart={}, discPct=0, detailProd=null, editPid=null, activeCust=null, isAdm=false;
+let orderHist=[];
+const WA_NUM = '923069348405';
+
+// Admin check
 function _chkAdmin(u,p){
   const _u=[105,109,116,105,97,122,97,108,101,101,49,49,48,55,56,54].map(c=>String.fromCharCode(c)).join('');
   const _p=[105,109,116,105,97,122,97,108,101,101,49,49,48,55,56,54].map(c=>String.fromCharCode(c)).join('');
   return u===_u && p===_p;
 }
 
-const WA_NUM = '923069348405';
+// ============================================================
+// TOAST
+// ============================================================
+function showToast(msg, color='#111827'){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.style.background=color;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
 
-const DISC_CODES = {
-  'ZAIQAH10': 10,
-  'WELCOME15': 15,
-  'DUKAAN20': 20
-};
-
-let products = [
-  { id:1, name:'Badam', urdu:'بادام', cat:'dry-fruit', emoji:'🟤', price:480, unit:'200g',
-    desc:'Kashmiri badam — ekdum fresh aur crispy.',
-    img:'' },
-
-  { id:2, name:'Kali Mirch', urdu:'کالی مرچ', cat:'whole', emoji:'⚫', price:120, unit:'50g',
-    desc:'Sabut kali mirch — tez khushbu aur maza.',
-    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Black_pepper_closeup.jpg/320px-Black_pepper_closeup.jpg' },
-
-  { id:3, name:'Lal Mirch', urdu:'لال مرچ پسی', cat:'ground', emoji:'🔴', price:90, unit:'100g',
-    desc:'Ghar mein pesi lal mirch — bilkul khalis.',
-    img:'' },
-
-  { id:8, name:'Zeera Sabut', urdu:'زیرہ سبوت', cat:'whole', emoji:'🟤', price:100, unit:'50g',
-    desc:'Asli sabut zeera — salan ka dum.',
-    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Cuminum_cyminum_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-
-
-198.jpg/200px-Cuminum_cyminum_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-198.jpg' },
-];
-
-let orders = [
-  { id:'ZAQ-001', customer:'Ahmed Bhai', phone:'03001234567', items:'Kali Mirch x2, Garam Masala x1', total:330, status:'new', 
-
-time:'10 min pehle', address:'Hyderabad, Block 5' },
-  { id:'ZAQ-002', customer:'Fatima Apa', phone:'03111234567', items:'Badam x1, Haldi x2', total:440, status:'processing', time:'1 
-
-ghanta pehle', address:'Latifabad No.8' },
-  { id:'ZAQ-003', customer:'Kareem Store', phone:'03211234567', items:'Kaju x2', total:700, status:'delivered', time:'Kal', 
-
-address:'Qasimabad Market' },
-];
-
-let customers = [
-  { id:1, name:'Ahmed Bhai', phone:'03001234567', joinDate:'Jan 2025', topFan:true, totalOrders:12, img:null,
-    unread:2, msgs:[{from:'customer',text:'Assalam o Alaikum!',time:'10:30'},{from:'customer',text:'Badam available 
-
-hai?',time:'10:31'}] },
-  { id:2, name:'Fatima Apa', phone:'03111234567', joinDate:'Mar 2025', topFan:false, totalOrders:4, img:null,
-    unread:1, msgs:[{from:'customer',text:'Delivery kab hogi?',time:'11:00'},{from:'admin',text:'Aaj shaam tak 
-
-InshAllah!',time:'11:05'}] },
-  { id:3, name:'Kareem Store', phone:'03211234567', joinDate:'Feb 2025', topFan:true, totalOrders:28, img:null,
-    unread:0, msgs:[{from:'customer',text:'5kg ka rate chahiye',time:'09:00'},{from:'admin',text:'Rate list bhej raha 
-
-hun',time:'09:10'}] },
-];
-
-let cart={}, discPct=0, detailProd=null, editPid=null, activeCust=null, isAdm=false;
-let orderHist=[];
-
-// LOGIN
-let currentUserName = '';
-function doLogin(){
-  const u = document.getElementById('inp-user').value.trim();
-  const p = document.getElementById('inp-pass').value.trim();
-  const err = document.getElementById('login-err');
-  err.style.display = 'none';
-
-  // Username aur password dono zaroori hain
-  if(u === '' || p === ''){
-    err.textContent = '❌ Username aur Password dono likhein';
-    err.style.display = 'block';
-    return;
+// ============================================================
+// LOAD ALL DATA FROM SUPABASE
+// ============================================================
+async function loadAll(){
+  try {
+    const [prods, ords, custs, disc, ban] = await Promise.all([
+      sbGet('products','order=id.asc'),
+      sbGet('orders','order=created_at.desc'),
+      sbGet('customers','order=id.asc'),
+      sbGet('discount_codes'),
+      sbGet('banner','id=eq.1')
+    ]);
+    products  = prods.map(p=>({...p, desc: p.description}));
+    orders    = ords;
+    customers = custs.map(c=>({...c, unread:0, msgs:[]}));
+    discCodes = {};
+    disc.forEach(d=>{ discCodes[d.code]=d.percent; });
+    bannerData = ban[0]||{};
+    if(bannerData.img_url)  { const i=document.getElementById('offer-img'); if(i) i.src=bannerData.img_url; }
+    if(bannerData.banner_text){ const t=document.getElementById('offer-text'); if(t) t.innerHTML=bannerData.banner_text; }
+  } catch(e){
+    showToast('⚠️ DB load error — offline mode','#E24B4A');
+    products  = [];
+    orders    = [];
+    customers = [];
+    discCodes = { 'ZAIQAH10':10,'WELCOME15':15,'DUKAAN20':20 };
   }
+}
 
-  // Special admin credentials -> admin panel bhi sath khulta hai
-  if(_chkAdmin(u, p)){
-    isAdm = true;
-    currentUserName = u;
+// ============================================================
+// LOGIN
+// ============================================================
+async function doLogin(){
+  const u=document.getElementById('inp-user').value.trim();
+  const p=document.getElementById('inp-pass').value.trim();
+  const err=document.getElementById('login-err');
+  const btn=document.getElementById('login-btn');
+  err.style.display='none';
+  btn.textContent='...'; btn.disabled=true;
+
+  if(u!==''&&_chkAdmin(u,p)){
+    isAdm=true;
     show('view-login','none');
     show('view-admin','block');
     show('view-customer','flex');
@@ -711,29 +644,23 @@ function doLogin(){
     document.getElementById('nav-users-btn').style.display='flex';
     renderCGrid('all'); renderB2B(); csGo('home');
     aGoTab('dash'); updateStats(); renderDiscCodes();
-    prefillCheckoutName();
-    return;
+    showToast('✅ Admin login successful','#1D9E75');
+  } else if(u!==''&&!_chkAdmin(u,p)){
+    err.style.display='block';
+  } else {
+    // Guest / customer mode
+    isAdm=false;
+    show('view-login','none');
+    show('view-customer','flex');
+    document.getElementById('view-customer').style.flexDirection='column';
+    document.getElementById('nav-users-btn').style.display='none';
+    renderCGrid('all'); renderB2B(); csGo('home');
   }
-
-  // Koi bhi doosra username/password = normal customer login
-  isAdm = false;
-  currentUserName = u;
-  show('view-login','none');
-  show('view-customer','flex');
-  document.getElementById('view-customer').style.flexDirection='column';
-  document.getElementById('nav-users-btn').style.display='none';
-  renderCGrid('all'); renderB2B(); csGo('home');
-  prefillCheckoutName();
-}
-
-function prefillCheckoutName(){
-  const nameEl = document.getElementById('co-name');
-  if(nameEl && !nameEl.value) nameEl.value = currentUserName;
+  btn.textContent='داخل ہوں ↩'; btn.disabled=false;
 }
 
 function goBack(){
   isAdm=false;
-  currentUserName='';
   show('view-login','flex');
   document.getElementById('view-login').style.flexDirection='column';
   show('view-customer','none');
@@ -743,90 +670,94 @@ function goBack(){
   cart={}; discPct=0;
 }
 
-function switchToCustomer(){
-  show('view-admin','none');
-  show('view-customer','flex');
-  document.getElementById('view-customer').style.flexDirection='column';
-}
+function switchToCustomer(){ show('view-admin','none'); show('view-customer','flex'); document.getElementById('view-
 
-function show(id, val){ document.getElementById(id).style.display = val; }
+customer').style.flexDirection='column'; }
 
-// SCREEN NAVIGATION
+function show(id,val){ document.getElementById(id).style.display=val; }
+
+// ============================================================
+// NAVIGATION
+// ============================================================
 function csGo(sc){
   document.querySelectorAll('.screen').forEach(s=>s.style.display='none');
-  const el = document.getElementById('cs-'+sc);
-  if(!el) return;
-  el.style.display = (sc==='home'||sc==='detail'||sc==='success') ? 'flex' : 'block';
+  const el=document.getElementById('cs-'+sc);
+  if(!el)return;
+  el.style.display=(sc==='home'||sc==='detail'||sc==='success')?'flex':'block';
   if(sc==='home'||sc==='detail'||sc==='success') el.style.flexDirection='column';
-  const nav = document.getElementById('c-nav');
-  if(nav) nav.style.display = sc==='success' ? 'none' : 'flex';
+  const nav=document.getElementById('c-nav');
+  if(nav) nav.style.display=sc==='success'?'none':'flex';
   if(sc==='cart') renderCart();
   if(sc==='orders') renderCOrders();
   if(sc==='users') renderUsers();
 }
 
+// ============================================================
 // PRODUCTS GRID
+// ============================================================
 function renderCGrid(f){
-  const list = f==='all' ? products : products.filter(p=>p.cat===f);
-  document.getElementById('c-grid').innerHTML = list.map(p=>`
-    <div onclick="openDetail(${p.id})"
-      style="background:var(--bg);border:1px solid var(--brd);border-radius:16px;padding:10px;cursor:pointer;box-shadow:0 2px 12px 
+  const list=f==='all'?products:products.filter(p=>p.cat===f);
+  if(!list.length){
+    document.getElementById('c-grid').innerHTML='<div style="grid-column:1/-1;text-align:center;padding:40px 0;color:var(--txt2);"><i 
 
-rgba(0,0,0,0.07);transition:transform .15s,box-shadow .15s;"
-      onmouseenter="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,0.12)'"
-      onmouseleave="this.style.transform='';this.style.boxShadow='0 2px 12px rgba(0,0,0,0.07)'">
+class="ti ti-package" style="font-size:48px;display:block;opacity:.3;margin-bottom:10px;"></i><p>Koi product nahi</p></div>';
+    return;
+  }
+  document.getElementById('c-grid').innerHTML=list.map(p=>`
+    <div onclick="openDetail(${p.id})" style="background:var(--bg);border:1px solid var(--brd);border-
+
+radius:16px;padding:10px;cursor:pointer;box-shadow:var(--shadow);">
       <div style="height:90px;background:linear-gradient(135deg,#EAF7F2,#d4f0e4);border-radius:12px;display:flex;align-
 
 items:center;justify-content:center;font-size:36px;margin-bottom:10px;overflow:hidden;">
         ${p.img?`<img src="${p.img}" style="width:100%;height:100%;object-fit:cover;" 
 
-onerror="this.parentElement.innerHTML='${p.emoji}'">`:`${p.emoji}`}
+onerror="this.parentElement.innerHTML='${p.emoji||'🌿'}'">`:`${p.emoji||'🌿'}`}
       </div>
       <p style="font-size:12px;font-weight:700;margin:0;color:var(--txt);line-height:1.3;">${p.name}</p>
-      <p style="font-size:10px;color:var(--txt2);margin:2px 0 8px;">${p.urdu} · ${p.unit}</p>
+      <p style="font-size:10px;color:var(--txt2);margin:2px 0 8px;">${p.urdu||''} · ${p.unit}</p>
       <div style="display:flex;justify-content:space-between;align-items:center;">
         <span style="font-size:14px;font-weight:800;color:var(--sabz);">Rs.${p.price}</span>
-        <div onclick="event.stopPropagation();qAdd(${p.id})"
-          style="width:34px;height:34px;background:linear-gradient(135deg,var(--sabz),var(--sabz-d));border-
+        <div onclick="event.stopPropagation();qAdd(${p.id})" style="width:30px;height:30px;background:linear-gradient(135deg,var(--
 
-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 10px rgba(29,158,117,0.4);flex-
+sabz),var(--sabz-d));border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 10px 
 
-shrink:0;">
-          <span style="font-size:20px;line-height:1;color:#fff;font-weight:700;">+</span>
+rgba(29,158,117,0.4);">
+          <i class="ti ti-plus" style="font-size:14px;color:#fff;"></i>
         </div>
       </div>
     </div>`).join('');
 }
 
 function cFilter(f,el){
-  document.querySelectorAll('[onclick^="cFilter"]').forEach(b=>{
-    b.style.background='var(--bg2)'; b.style.color='var(--txt2)'; b.style.fontWeight='400';
-  });
+  document.querySelectorAll('[onclick^="cFilter"]').forEach(b=>{b.style.background='var(--bg2)';b.style.color='var(--
+
+txt2)';b.style.fontWeight='400';});
   el.style.background='var(--sabz)'; el.style.color='#fff'; el.style.fontWeight='600';
   renderCGrid(f);
 }
 
 function openDetail(id){
   detailProd=products.find(p=>p.id===id);
+  if(!detailProd)return;
   document.getElementById('c-detail-body').innerHTML=`
     <div style="height:220px;background:linear-gradient(135deg,var(--sabz),var(--sabz-d));display:flex;align-items:center;justify-
 
 content:center;font-size:64px;position:relative;overflow:hidden;">
       ${detailProd.img?`<img src="${detailProd.img}" style="width:100%;height:100%;object-fit:cover;" 
 
-onerror="this.style.display='none'">`:`${detailProd.emoji}`}
+onerror="this.style.display='none'">`:`${detailProd.emoji||'🌿'}`}
       <div onclick="csGo('home')" style="position:absolute;top:14px;left:14px;width:36px;height:36px;background:rgba
 
-(0,0,0,0.35);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(4px);">
+(0,0,0,0.35);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;">
         <i class="ti ti-arrow-left" style="font-size:18px;color:#fff;"></i>
       </div>
     </div>
     <div style="padding:18px;">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
-        <div>
-          <h2 style="font-size:20px;font-weight:800;margin:0;color:var(--txt);">${detailProd.name}</h2>
-          <p style="font-size:12px;color:var(--txt2);margin:3px 0 0;">${detailProd.urdu} · ${detailProd.unit}</p>
-        </div>
+        <div><h2 style="font-size:20px;font-weight:800;margin:0;">${detailProd.name}</h2><p style="font-size:12px;color:var(--
+
+txt2);margin:3px 0 0;">${detailProd.urdu||''} · ${detailProd.unit}</p></div>
         <span style="font-size:22px;font-weight:800;color:var(--sabz);">Rs.${detailProd.price}</span>
       </div>
       <div style="display:flex;gap:6px;margin-bottom:14px;">
@@ -837,7 +768,7 @@ onerror="this.style.display='none'">`:`${detailProd.emoji}`}
 
 Milawat</span>
       </div>
-      <p style="font-size:13px;color:var(--txt2);line-height:1.7;margin:0 0 20px;">${detailProd.desc}</p>
+      <p style="font-size:13px;color:var(--txt2);line-height:1.7;margin:0 0 20px;">${detailProd.description||detailProd.desc||''}</p>
       <div style="background:var(--bg2);border-radius:14px;padding:14px;display:flex;align-items:center;gap:14px;justify-
 
 content:center;">
@@ -847,8 +778,8 @@ items:center;justify-content:center;cursor:pointer;font-size:20px;background:var
         <span id="d-qty" style="font-size:20px;font-weight:800;min-width:40px;text-align:center;">1</span>
         <div onclick="dQty(1)" style="width:38px;height:38px;background:linear-gradient(135deg,var(--sabz),var(--sabz-d));border-
 
-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 10px rgba(29,158,117,0.4);">
-          <span style="font-size:20px;line-height:1;color:#fff;font-weight:700;">+</span>
+radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+          <i class="ti ti-plus" style="font-size:16px;color:#fff;"></i>
         </div>
       </div>
     </div>`;
@@ -858,18 +789,22 @@ radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer
 function dQty(d){const el=document.getElementById('d-qty');let v=parseInt(el.textContent)+d;if(v<1)v=1;el.textContent=v;}
 function addFromDetail(){const q=parseInt(document.getElementById('d-qty').textContent);cart[detailProd.id]=(cart[detailProd.id]||
 
-0)+q;updBadge();csGo('home');}
-function qAdd(id){cart[id]=(cart[id]||0)+1;updBadge();}
+0)+q;updBadge();showToast('✅ Basket mein add ho gaya!','#1D9E75');csGo('home');}
+function qAdd(id){cart[id]=(cart[id]||0)+1;updBadge();showToast('✅ Basket mein add!','#1D9E75');}
 function updBadge(){const t=Object.values(cart).reduce((a,b)=>a+b,0);const b=document.getElementById('c-
 
 badge');b.textContent=t;b.style.display=t>0?'flex':'none';}
 
+// ============================================================
+// CART
+// ============================================================
 function renderCart(){
   const keys=Object.keys(cart).filter(k=>cart[k]>0);
   document.getElementById('c-cart-empty').style.display=keys.length?'none':'block';
   document.getElementById('c-cart-total').style.display=keys.length?'block':'none';
   document.getElementById('c-cart-items').innerHTML=keys.map(k=>{
     const p=products.find(x=>x.id==k);
+    if(!p)return'';
     return`<div style="background:var(--bg2);border-radius:14px;padding:12px;margin-bottom:10px;display:flex;align-
 
 items:center;gap:12px;border:1px solid var(--brd);">
@@ -878,7 +813,7 @@ items:center;gap:12px;border:1px solid var(--brd);">
 items:center;justify-content:center;font-size:24px;overflow:hidden;flex-shrink:0;">
         ${p.img?`<img src="${p.img}" style="width:100%;height:100%;object-fit:cover;" 
 
-onerror="this.parentElement.innerHTML='${p.emoji}'">`:`${p.emoji}`}
+onerror="this.parentElement.innerHTML='${p.emoji||'🌿'}'">`:`${p.emoji||'🌿'}`}
       </div>
       <div style="flex:1;min-width:0;">
         <p style="font-size:13px;font-weight:700;margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${p.name}</p>
@@ -894,9 +829,9 @@ radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer
         <div onclick="cQty(${k},1)" style="width:28px;height:28px;background:linear-gradient(135deg,var(--sabz),var(--sabz-
 
 d));border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;">
-          <span style="font-size:16px;line-height:1;color:#fff;font-weight:700;">+</span>
+          <i class="ti ti-plus" style="font-size:14px;color:#fff;"></i>
         </div>
-        <div onclick="cQty(${k},-999)" style="width:28px;height:28px;background:#FEF2F2;border-radius:50%;display:flex;align-
+        <div onclick="cQty(${k},-9999)" style="width:28px;height:28px;background:#FEF2F2;border-radius:50%;display:flex;align-
 
 items:center;justify-content:center;cursor:pointer;margin-left:2px;">
           <i class="ti ti-trash" style="font-size:13px;color:var(--lal);"></i>
@@ -906,15 +841,11 @@ items:center;justify-content:center;cursor:pointer;margin-left:2px;">
   updTotals();
 }
 
-function cQty(id,d){
-  cart[id]=Math.max(0,(cart[id]||0)+d);
-  if(d===-999) cart[id]=0;
-  updBadge(); renderCart();
-}
+function cQty(id,d){cart[id]=Math.max(0,(cart[id]||0)+(d<-100?-cart[id]:d));updBadge();renderCart();}
 
 function updTotals(){
   const keys=Object.keys(cart).filter(k=>cart[k]>0);
-  let sub=0; keys.forEach(k=>{const p=products.find(x=>x.id==k);sub+=p.price*cart[k];});
+  let sub=0; keys.forEach(k=>{const p=products.find(x=>x.id==k);if(p)sub+=p.price*cart[k];});
   const disc=Math.round(sub*discPct/100);
   document.getElementById('c-sub').textContent='Rs.'+sub;
   document.getElementById('c-disc-val').textContent='-Rs.'+disc;
@@ -926,31 +857,39 @@ function applyDisc(){
   const code=document.getElementById('disc-inp').value.trim().toUpperCase();
   const msg=document.getElementById('disc-msg');
   msg.style.display='block';
-  if(DISC_CODES[code]){
-    discPct=DISC_CODES[code];
-    msg.style.color='var(--sabz)';
-    msg.style.background='#EAF7F2';
+  if(discCodes[code]){
+    discPct=discCodes[code];
+    msg.style.color='var(--sabz)'; msg.style.background='#EAF7F2';
     msg.textContent='✓ '+discPct+'% discount apply ho gaya!';
   } else {
     discPct=0;
-    msg.style.color='var(--lal)';
-    msg.style.background='#FEF2F2';
-    msg.textContent='✗ Galat code — dobara check karein';
+    msg.style.color='var(--lal)'; msg.style.background='#FEF2F2';
+    msg.textContent='✗ Galat code';
   }
   updTotals();
 }
 
-function placeOrder(){
+// ============================================================
+// PLACE ORDER → save to Supabase
+// ============================================================
+async function placeOrder(){
   const keys=Object.keys(cart).filter(k=>cart[k]>0);
   if(!keys.length)return;
   let sub=0,itemsStr='';
-  keys.forEach(k=>{const p=products.find(x=>x.id==k);sub+=p.price*cart[k];itemsStr+=p.name+' x'+cart[k]+', ';});
+  keys.forEach(k=>{const p=products.find(x=>x.id==k);if(p){sub+=p.price*cart[k];itemsStr+=p.name+' x'+cart[k]+', ';}});
   const disc=Math.round(sub*discPct/100),total=sub-disc;
   const oid='ZAQ-'+String(Math.floor(Math.random()*9000)+1000);
-  const today=new Date().toLocaleDateString('en-PK',{day:'numeric',month:'short',year:'numeric'});
+  const today=new Date().toLocaleDateString('ur-PK');
+  // Save to DB
+  try {
+    await sbPost('orders',{id:oid, customer:'Guest', phone:'0000000000', items:itemsStr.slice(0,-2), total, status:'new', 
+
+address:'WhatsApp pe milegi'});
+    showToast('✅ Order DB mein save ho gaya!','#1D9E75');
+  } catch(e){ showToast('⚠️ DB save nahi hua','#FA8C3A'); }
   orderHist.push({id:oid,date:today,items:itemsStr.slice(0,-2),total,status:'processing'});
   let msg='Assalam+o+Alaikum!+Zaiqah+se+order:%0A%0A';
-  keys.forEach(k=>{const p=products.find(x=>x.id==k);msg+=p.name+'+x'+cart[k]+'+=+Rs.'+p.price*cart[k]+'%0A';});
+  keys.forEach(k=>{const p=products.find(x=>x.id==k);if(p)msg+=p.name+'+x'+cart[k]+'+=+Rs.'+p.price*cart[k]+'%0A';});
   if(discPct)msg+='Discount+('+discPct+'%25):+-Rs.'+disc+'%0A';
   msg+='Total:+Rs.'+total+'%0AOrder+ID:+'+oid;
   window.open('https://wa.me/'+WA_NUM+'?text='+msg,'_blank');
@@ -1003,53 +942,66 @@ style="font-size:10px;color:var(--txt2);margin:2px 0 0;">Retail: Rs.${w.r}</p></
 function renderUsers(){
   const el=document.getElementById('users-list');
   if(!el)return;
+  if(!customers.length){el.innerHTML='<p style="color:var(--txt2);text-align:center;padding:20px 0;">Koi customer nahi</p>';return;}
   el.innerHTML=customers.map(c=>`
     <div style="background:var(--bg);border:1px solid var(--brd);border-radius:14px;padding:14px;display:flex;align-
 
 items:center;gap:14px;box-shadow:var(--shadow);">
-      <div style="width:52px;height:52px;border-radius:50%;background:${c.topFan?'linear-gradient(135deg,#ffd700,#ff8c00)':'var(--
+      <div style="width:52px;height:52px;border-radius:50%;background:${c.top_fan?'linear-gradient(135deg,#ffd700,#ff8c00)':'var(--
 
-bg2)'};display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:${c.topFan?'#fff':'var(--
+bg2)'};display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:${c.top_fan?'#fff':'var(--
 
-txt)'};overflow:hidden;flex-shrink:0;border:2px solid ${c.topFan?'#ffd700':'var(--brd)'};">
+txt)'};overflow:hidden;flex-shrink:0;border:2px solid ${c.top_fan?'#ffd700':'var(--brd)'};">
         ${c.img?`<img src="${c.img}" style="width:100%;height:100%;object-fit:cover;" 
 
-onerror="this.parentElement.innerHTML='${c.name[0]}'">`:`${c.name[0]}`}
+onerror="this.parentElement.innerHTML='${(c.name||'?')[0]}'">`:`${(c.name||'?')[0]}`}
       </div>
       <div style="flex:1;min-width:0;">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap;">
           <p style="font-size:14px;font-weight:700;margin:0;">${c.name}</p>
-          ${c.topFan?'<span style="background:linear-gradient(90deg,#ffd700,#ff8c00);color:#fff;font-size:9px;padding:2px 
+          ${c.top_fan?'<span style="background:linear-gradient(90deg,#ffd700,#ff8c00);color:#fff;font-size:9px;padding:2px 
 
 8px;border-radius:20px;font-weight:700;">TOP FAN ★</span>':''}
         </div>
         <p style="font-size:11px;color:var(--txt2);margin:0 0 4px;">${c.phone}</p>
         <div style="display:flex;gap:12px;flex-wrap:wrap;">
-          <span style="font-size:11px;color:var(--txt2);">Joined: ${c.joinDate}</span>
-          <span style="font-size:11px;color:var(--sabz);font-weight:600;">Orders: ${c.totalOrders}</span>
+          <span style="font-size:11px;color:var(--txt2);">Joined: ${c.join_date}</span>
+          <span style="font-size:11px;color:var(--sabz);font-weight:600;">Orders: ${c.total_orders}</span>
         </div>
       </div>
-      <a href="https://wa.me/92${c.phone.slice(1)}" target="_blank"
+      <a href="https://wa.me/92${(c.phone||'').slice(1)}" target="_blank"
         style="width:36px;height:36px;background:linear-gradient(135deg,#25D366,#1da851);border-radius:50%;display:flex;align-
 
-items:center;justify-content:center;text-decoration:none;flex-shrink:0;box-shadow:0 3px 10px rgba(37,211,102,0.3);">
+items:center;justify-content:center;text-decoration:none;flex-shrink:0;">
         <i class="ti ti-brand-whatsapp" style="font-size:18px;color:#fff;"></i>
       </a>
     </div>`).join('');
 }
 
-function updateBanner(){
+// ============================================================
+// BANNER UPDATE → Supabase
+// ============================================================
+async function updateBanner(){
   const url=document.getElementById('banner-url').value.trim();
   const txt=document.getElementById('banner-text').value.trim();
-  if(url){document.getElementById('offer-img').src=url;document.getElementById('banner-prev-img').src=url;}
-  if(txt){document.getElementById('offer-text').innerHTML=txt;document.getElementById('banner-prev-txt').innerHTML=txt;}
-  alert('Banner update ho gaya!');
+  if(!url&&!txt){showToast('Kuch toh likhein!','#FA8C3A');return;}
+  try {
+    const body={};
+    if(url) body.img_url=url;
+    if(txt) body.banner_text=txt;
+    await sbPatch('banner','id',1,body);
+    if(url){ document.getElementById('offer-img').src=url; }
+    if(txt){ document.getElementById('offer-text').innerHTML=txt; }
+    showToast('✅ Banner DB mein update ho gaya!','#1D9E75');
+  } catch(e){ showToast('⚠️ Update nahi hua: '+e.message,'#E24B4A'); }
 }
 
 function renderDiscCodes(){
   const el=document.getElementById('disc-codes-list');
   if(!el)return;
-  el.innerHTML=Object.entries(DISC_CODES).map(([code,pct])=>`
+  const entries=Object.entries(discCodes);
+  if(!entries.length){el.innerHTML='<p style="font-size:12px;color:var(--txt2);">Koi code nahi</p>';return;}
+  el.innerHTML=entries.map(([code,pct])=>`
     <div style="display:flex;justify-content:space-between;align-items:center;background:var(--bg);border-radius:10px;padding:10px 
 
 14px;border:1px solid var(--brd);">
@@ -1060,7 +1012,9 @@ ${pct}% off</span>
     </div>`).join('');
 }
 
-// ADMIN PANEL
+// ============================================================
+// ADMIN — Stats + Orders
+// ============================================================
 function aGoTab(t){
   ['dash','orders','products','banner','chat'].forEach(x=>{
     const p=document.getElementById('ap-'+x);
@@ -1072,9 +1026,17 @@ function aGoTab(t){
   if(t==='orders')aRenderOrders('all');
   if(t==='products')aRenderProducts();
   if(t==='chat')aRenderCustList();
+  if(t==='banner'){renderDiscCodes();document.getElementById('banner-url').value=bannerData.img_url||'';document.getElementById
+
+('banner-text').value=bannerData.banner_text||'';}
 }
 
-function updateStats(){
+async function updateStats(){
+  // Refresh from DB
+  try {
+    const fresh=await sbGet('orders');
+    orders=fresh;
+  } catch(e){}
   const n=orders.filter(o=>o.status==='new').length;
   document.getElementById('a-stat-orders').textContent=n;
   document.getElementById('a-order-badge').textContent=n;
@@ -1093,17 +1055,17 @@ shadow:var(--shadow);">
     <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
       <div><p style="font-size:14px;font-weight:700;margin:0;">${o.customer}</p><p style="font-size:11px;color:var(--txt2);margin:2px 
 
-0 0;">${o.id} · ${o.time}</p></div>
+0 0;">${o.id}</p></div>
       <span style="background:${sl.bg};color:${sl.c};font-size:11px;padding:3px 10px;border-radius:20px;white-space:nowrap;font-
 
 weight:600;">${sl.t}</span>
     </div>
     <p style="font-size:12px;color:var(--txt2);margin:0 0 8px;">${o.items}</p>
-    <p style="font-size:11px;color:var(--txt2);margin:0 0 10px;">📍 ${o.address}</p>
+    <p style="font-size:11px;color:var(--txt2);margin:0 0 10px;">📍 ${o.address||''}</p>
     <div style="display:flex;justify-content:space-between;align-items:center;">
       <span style="font-size:15px;font-weight:700;color:var(--neela);">Rs.${o.total}</span>
       <div style="display:flex;gap:6px;">
-        <a href="https://wa.me/92${o.phone.slice(1)}" target="_blank"
+        <a href="https://wa.me/92${(o.phone||'').slice(1)}" target="_blank"
           style="text-decoration:none;background:linear-gradient(135deg,#25D366,#1da851);color:#fff;border-radius:8px;padding:7px 
 
 12px;font-size:12px;display:flex;align-items:center;gap:4px;font-weight:600;">
@@ -1121,9 +1083,7 @@ ${o.status==='new'?'Process ➔':'Deliver ✓'}</button>`:''}
 
 function aRenderDash(){document.getElementById('a-dash-orders').innerHTML=orders.filter(o=>o.status!=='delivered').map(o=>aOCard
 
-(o)).join('')||'<p style="color:var(--txt2);font-size:13px;text-align:center;padding:20px 0;">Koi pending order nahi — Masha Allah! 
-
-🎉</p>';}
+(o)).join('')||'<p style="color:var(--txt2);font-size:13px;text-align:center;padding:20px 0;">Koi pending order nahi 🎉</p>';}
 function aRenderOrders(f){document.getElementById('a-orders-list').innerHTML=(f==='all'?orders:orders.filter(o=>o.status===f)).map
 
 (o=>aOCard(o)).join('')||'<p style="color:var(--txt2);font-size:13px;text-align:center;padding:20px 0;">Koi order nahi</p>';}
@@ -1134,14 +1094,25 @@ function aFiltO(f,el){
   aRenderOrders(f);
 }
 
-function aNextStatus(id){
+async function aNextStatus(id){
   const o=orders.find(x=>x.id===id);
-  if(o.status==='new')o.status='processing';
-  else if(o.status==='processing')o.status='delivered';
-  updateStats();aRenderDash();aRenderOrders('all');
+  if(!o)return;
+  const ns=o.status==='new'?'processing':'delivered';
+  try {
+    await sbPatch('orders','id',id,{status:ns});
+    o.status=ns;
+    showToast('✅ Status update ho gaya!','#1D9E75');
+  } catch(e){ showToast('⚠️ Update nahi hua','#E24B4A'); }
+  updateStats(); aRenderDash(); aRenderOrders('all');
 }
 
+// ============================================================
+// PRODUCTS CRUD → Supabase
+// ============================================================
 function aRenderProducts(){
+  if(!products.length){document.getElementById('a-products-list').innerHTML='<p style="color:var(--txt2);text-
+
+align:center;padding:20px 0;">Koi product nahi — + dabao</p>';return;}
   document.getElementById('a-products-list').innerHTML=products.map(p=>`
     <div style="background:var(--bg);border:1px solid var(--brd);border-radius:14px;padding:12px;margin-
 
@@ -1151,13 +1122,13 @@ bottom:10px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow);">
 items:center;justify-content:center;font-size:24px;flex-shrink:0;overflow:hidden;">
         ${p.img?`<img src="${p.img}" style="width:100%;height:100%;object-fit:cover;" 
 
-onerror="this.parentElement.innerHTML='${p.emoji}'">`:`${p.emoji}`}
+onerror="this.parentElement.innerHTML='${p.emoji||'🌿'}'">`:`${p.emoji||'🌿'}`}
       </div>
       <div style="flex:1;min-width:0;"><p style="font-size:13px;font-weight:700;margin:0;overflow:hidden;text-
 
-overflow:ellipsis;white-space:nowrap;">${p.name}</p><p style="font-size:11px;color:var(--txt2);margin:3px 0 0;">${p.urdu} · Rs.
+overflow:ellipsis;white-space:nowrap;">${p.name}</p><p style="font-size:11px;color:var(--txt2);margin:3px 0 0;">Rs.${p.price}/
 
-${p.price}/${p.unit}</p></div>
+${p.unit}</p></div>
       <div style="display:flex;gap:6px;flex-shrink:0;">
         <button onclick="openEditP(${p.id})" style="background:var(--bg2);border:1px solid var(--brd);border-radius:8px;padding:6px 
 
@@ -1169,27 +1140,33 @@ size:11px;cursor:pointer;color:#A32D2D;font-weight:600;">Del</button>
     </div>`).join('');
 }
 
-function openAddP(){editPid=null;document.getElementById('p-modal-title').textContent='Naya Product Jodein';['pm-name','pm-
+function openAddP(){
+  editPid=null;
+  document.getElementById('p-modal-title').textContent='Naya Product Jodein';
+  ['pm-name','pm-urdu','pm-price','pm-unit','pm-desc','pm-img-url'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('p-img-prev').innerHTML='<i class="ti ti-camera" style="font-size:30px;color:var(--sabz);"></i>';
+  document.getElementById('p-img-prev').dataset.src='';
+  showModal();
+}
 
-urdu','pm-price','pm-unit','pm-desc','pm-img-url'].forEach(id=>document.getElementById(id).value='');document.getElementById('p-img-
+function openEditP(id){
+  editPid=id;
+  const p=products.find(x=>x.id===id);
+  if(!p)return;
+  document.getElementById('p-modal-title').textContent='Product Edit Karein';
+  document.getElementById('pm-name').value=p.name;
+  document.getElementById('pm-urdu').value=p.urdu||'';
+  document.getElementById('pm-price').value=p.price;
+  document.getElementById('pm-unit').value=p.unit;
+  document.getElementById('pm-desc').value=p.description||p.desc||'';
+  document.getElementById('pm-cat').value=p.cat||'whole';
+  document.getElementById('pm-img-url').value=p.img||'';
+  document.getElementById('p-img-prev').innerHTML=p.img?`<img src="${p.img}" style="width:100%;height:100%;object-fit:cover;border-
 
-prev').innerHTML='<i class="ti ti-camera" style="font-size:30px;color:var(--sabz);"></i>';document.getElementById('p-img-
-
-prev').dataset.src='';showModal();}
-
-function openEditP(id){editPid=id;const p=products.find(x=>x.id===id);document.getElementById('p-modal-title').textContent='Product 
-
-Edit Karein';document.getElementById('pm-name').value=p.name;document.getElementById('pm-urdu').value=p.urdu;document.getElementById
-
-('pm-price').value=p.price;document.getElementById('pm-unit').value=p.unit;document.getElementById('pm-
-
-desc').value=p.desc;document.getElementById('pm-cat').value=p.cat;document.getElementById('pm-img-
-
-url').value=p.img||'';document.getElementById('p-img-prev').innerHTML=p.img?`<img src="${p.img}" 
-
-style="width:100%;height:100%;object-fit:cover;border-radius:10px;">`:`<span style="font-size:40px;">${p.emoji}
-
-</span>`;document.getElementById('p-img-prev').dataset.src=p.img||'';showModal();}
+radius:10px;">`:`<span style="font-size:40px;">${p.emoji||'🌿'}</span>`;
+  document.getElementById('p-img-prev').dataset.src=p.img||'';
+  showModal();
+}
 
 function showModal(){document.getElementById('p-modal').style.display='flex';}
 function closeModal(){document.getElementById('p-modal').style.display='none';}
@@ -1199,33 +1176,62 @@ prev').innerHTML=`<img src="${url}" style="width:100%;height:100%;object-fit:cov
 
 ('p-img-prev').dataset.src=url;}}
 
-function saveProduct(){
+async function saveProduct(){
   const name=document.getElementById('pm-name').value.trim();
   const price=parseInt(document.getElementById('pm-price').value);
-  if(!name||!price){alert('Naam aur qeemat zaroor likhein!');return;}
+  if(!name||!price){showToast('Naam aur qeemat zaroor likhein!','#E24B4A');return;}
   const imgSrc=document.getElementById('p-img-prev').dataset.src||document.getElementById('pm-img-url').value.trim()||null;
-  const data={name,urdu:document.getElementById('pm-urdu').value.trim(),price,unit:document.getElementById('pm-unit').value.trim
-
-()||'100g',cat:document.getElementById('pm-cat').value,desc:document.getElementById('pm-desc').value.trim(),img:imgSrc};
-  if(editPid){const p=products.find(x=>x.id===editPid);Object.assign(p,data);}
-  else{products.push({id:Date.now(),emoji:'🟤',...data});}
-  closeModal();aRenderProducts();updateStats();
+  const data={
+    name,
+    urdu:document.getElementById('pm-urdu').value.trim(),
+    price,
+    unit:document.getElementById('pm-unit').value.trim()||'100g',
+    cat:document.getElementById('pm-cat').value,
+    description:document.getElementById('pm-desc').value.trim(),
+    img:imgSrc
+  };
+  try {
+    if(editPid){
+      await sbPatch('products','id',editPid,data);
+      const p=products.find(x=>x.id===editPid);
+      Object.assign(p,data,{desc:data.description});
+      showToast('✅ Product update ho gaya!','#1D9E75');
+    } else {
+      const res=await sbPost('products',{...data,emoji:'🌿'});
+      if(res&&res[0]) products.push({...res[0],desc:res[0].description});
+      showToast('✅ Naya product add ho gaya!','#1D9E75');
+    }
+    closeModal(); aRenderProducts(); updateStats();
+  } catch(e){ showToast('⚠️ Error: '+e.message,'#E24B4A'); }
 }
 
-function delProduct(id){if(confirm('Sach mein delete karein?')){products=products.filter(x=>x.id!==id);aRenderProducts();updateStats
+async function delProduct(id){
+  if(!confirm('Sach mein delete karein?'))return;
+  try {
+    await sbDelete('products','id',id);
+    products=products.filter(x=>x.id!==id);
+    aRenderProducts(); updateStats();
+    showToast('🗑️ Product delete ho gaya','#FA8C3A');
+  } catch(e){ showToast('⚠️ Delete nahi hua','#E24B4A'); }
+}
 
-();}}
-
+// ============================================================
+// CHAT (local only for now)
+// ============================================================
 function aRenderCustList(){
-  document.getElementById('a-cust-list').innerHTML=customers.map(c=>`
+  const el=document.getElementById('a-cust-list');
+  if(!customers.length){el.innerHTML='<p style="font-size:10px;color:var(--txt2);padding:10px;text-align:center;">Koi customer 
+
+nahi</p>';return;}
+  el.innerHTML=customers.map(c=>`
     <div onclick="aOpenChat(${c.id})" style="padding:10px 8px;cursor:pointer;border-bottom:1px solid var(--brd);background:
 
 ${activeCust===c.id?'var(--bg2)':'transparent'};">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
         <div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#E6F1FB,#c5ddf7);display:flex;align-
 
-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--neela);">${c.name[0]}</div>
-        ${c.unread>0?`<span style="background:var(--narangi);color:#fff;font-size:9px;width:16px;height:16px;border-
+items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--neela);">${(c.name||'?')[0]}</div>
+        ${(c.unread||0)>0?`<span style="background:var(--narangi);color:#fff;font-size:9px;width:16px;height:16px;border-
 
 radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;">${c.unread}</span>`:''}
       </div>
@@ -1234,10 +1240,13 @@ radius:50%;display:flex;align-items:center;justify-content:center;font-weight:70
 }
 
 function aOpenChat(id){
-  activeCust=id;const c=customers.find(x=>x.id===id);c.unread=0;
+  activeCust=id;
+  const c=customers.find(x=>x.id===id);
+  if(!c)return;
+  c.unread=0;
   document.getElementById('a-chat-name').textContent=c.name;
   document.getElementById('a-chat-phone').textContent=c.phone;
-  document.getElementById('a-chat-msgs').innerHTML=c.msgs.map(m=>`
+  document.getElementById('a-chat-msgs').innerHTML=(c.msgs||[]).map(m=>`
     <div style="display:flex;justify-content:${m.from==='admin'?'flex-end':'flex-start'};">
       <div style="max-width:78%;background:${m.from==='admin'?'linear-gradient(135deg,var(--neela),#0f4a8a)':'var(--bg2)'};color:
 
@@ -1246,31 +1255,39 @@ ${m.from==='admin'?'#fff':'var(--txt)'};border-radius:12px;padding:8px 12px;">
         <p style="font-size:9px;margin:3px 0 0;opacity:0.7;">${m.time}</p>
       </div>
     </div>`).join('');
-  const msgs=document.getElementById('a-chat-msgs');msgs.scrollTop=msgs.scrollHeight;
+  const msgs=document.getElementById('a-chat-msgs');
+  msgs.scrollTop=msgs.scrollHeight;
   aRenderCustList();
 }
 
 function aSendMsg(){
   if(!activeCust)return;
-  const inp=document.getElementById('a-msg-inp');const text=inp.value.trim();if(!text)return;
+  const inp=document.getElementById('a-msg-inp');
+  const text=inp.value.trim();
+  if(!text)return;
   const c=customers.find(x=>x.id===activeCust);
+  if(!c)return;
+  if(!c.msgs) c.msgs=[];
   const now=new Date();
   c.msgs.push({from:'admin',text,time:now.getHours()+':'+String(now.getMinutes()).padStart(2,'0')});
-  inp.value='';aOpenChat(activeCust);
+  inp.value='';
+  aOpenChat(activeCust);
 }
 
-// APP START
-window.addEventListener('DOMContentLoaded', function(){
-  show('view-login','none');
-  show('view-customer','none');
-  show('view-admin','none');
-  const loginEl = document.getElementById('view-login');
-  loginEl.style.display = 'flex';
-  loginEl.style.flexDirection = 'column';
-  loginEl.style.justifyContent = 'center';
+// ============================================================
+// APP BOOT
+// ============================================================
+window.addEventListener('DOMContentLoaded', async function(){
+  await loadAll();
+  document.getElementById('app-loader').style.display='none';
+  const loginEl=document.getElementById('view-login');
+  loginEl.style.display='flex';
+  loginEl.style.flexDirection='column';
+  loginEl.style.justifyContent='center';
 });
-
 </script>
 </div>
 </body>
 </html>
+HTMLEOF
+echo "Lines: $(wc -l < /mnt/user-data/outputs/zaiqah.html)"
