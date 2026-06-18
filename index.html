@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
 <title>Zaiqah ذائقہ — Khalis Masalay</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/3.35.0/tabler-icons.min.css"/>
 <style>
 :root{
   --sabz:#1D9E75; --sabz-d:#0F6E56; --sabz-l:#EAF7F2;
@@ -207,6 +207,52 @@ size:13px;cursor:pointer;font-weight:600;">Apply</button>
           <span id="c-total" style="font-size:15px;font-weight:700;color:var(--sabz);">Rs.0</span>
         </div>
       </div>
+
+      <!-- DELIVERY DETAILS -->
+      <div style="background:var(--bg2);border-radius:14px;padding:14px;margin-bottom:14px;">
+        <p style="font-size:13px;font-weight:700;color:var(--txt);margin:0 0 10px;">📦 Delivery Details</p>
+
+        <div style="margin-bottom:10px;">
+          <label style="font-size:11px;font-weight:600;color:var(--txt2);display:block;margin-bottom:5px;">Pura Naam</label>
+          <input id="co-name" type="text" placeholder="Aapka naam"
+            style="width:100%;padding:10px 12px;border-radius:10px;font-size:13px;background:var(--bg);"/>
+        </div>
+
+        <div style="margin-bottom:10px;">
+          <label style="font-size:11px;font-weight:600;color:var(--txt2);display:block;margin-bottom:5px;">Contact Number</label>
+          <input id="co-phone" type="tel" placeholder="03XXXXXXXXX"
+            style="width:100%;padding:10px 12px;border-radius:10px;font-size:13px;background:var(--bg);"/>
+        </div>
+
+        <div style="margin-bottom:10px;position:relative;">
+          <label style="font-size:11px;font-weight:600;color:var(--txt2);display:block;margin-bottom:5px;">City</label>
+          <div style="display:flex;gap:8px;">
+            <input id="co-city" type="text" placeholder="City search karein..." autocomplete="off"
+              oninput="filterCities();updateDeliveryNote()" onfocus="filterCities()"
+              style="flex:1;padding:10px 12px;border-radius:10px;font-size:13px;background:var(--bg);"/>
+            <button type="button" onclick="filterCities()"
+              style="background:var(--neela);color:#fff;border:none;border-radius:10px;padding:0 16px;font-
+
+size:15px;cursor:pointer;">🔍</button>
+          </div>
+          <div id="co-city-list" style="display:none;position:absolute;top:100%;left:0;right:46px;background:var(--bg);border:1px 
+
+solid var(--brd);border-radius:10px;margin-top:4px;max-height:180px;overflow-y:auto;z-index:30;box-shadow:var(--shadow);"></div>
+        </div>
+
+        <div style="margin-bottom:0;">
+          <label style="font-size:11px;font-weight:600;color:var(--txt2);display:block;margin-bottom:5px;">Pura Address</label>
+          <textarea id="co-address" rows="2" placeholder="Ghar/Dukaan ka pura address, area, landmark..."
+            style="width:100%;padding:10px 12px;border-radius:10px;font-size:13px;resize:none;background:var(--bg);"></textarea>
+        </div>
+
+        <p id="co-delivery-note" style="font-size:11px;color:var(--sabz-d);margin:10px 0 0;font-
+
+weight:600;background:#EAF7F2;padding:8px 10px;border-radius:8px;">
+          🚚 Free Home Delivery — sirf Hyderabad ke liye
+        </p>
+      </div>
+
       <button onclick="placeOrder()"
         style="width:100%;background:linear-gradient(135deg,#25D366,#1da851);color:#fff;border:none;border-radius:var(--
 
@@ -592,7 +638,7 @@ const DISC_CODES = {
 let products = [
   { id:1, name:'Badam', urdu:'بادام', cat:'dry-fruit', emoji:'🟤', price:480, unit:'200g',
     desc:'Kashmiri badam — ekdum fresh aur crispy.',
-    imBbTg:'' },
+    img:'' },
 
   { id:2, name:'Kali Mirch', urdu:'کالی مرچ', cat:'whole', emoji:'⚫', price:120, unit:'50g',
     desc:'Sabut kali mirch — tez khushbu aur maza.',
@@ -640,14 +686,24 @@ let cart={}, discPct=0, detailProd=null, editPid=null, activeCust=null, isAdm=fa
 let orderHist=[];
 
 // LOGIN
+let currentUserName = '';
 function doLogin(){
   const u = document.getElementById('inp-user').value.trim();
   const p = document.getElementById('inp-pass').value.trim();
   const err = document.getElementById('login-err');
   err.style.display = 'none';
 
-  if(u !== '' && _chkAdmin(u, p)){
+  // Username aur password dono zaroori hain
+  if(u === '' || p === ''){
+    err.textContent = '❌ Username aur Password dono likhein';
+    err.style.display = 'block';
+    return;
+  }
+
+  // Special admin credentials -> admin panel bhi sath khulta hai
+  if(_chkAdmin(u, p)){
     isAdm = true;
+    currentUserName = u;
     show('view-login','none');
     show('view-admin','block');
     show('view-customer','flex');
@@ -655,25 +711,29 @@ function doLogin(){
     document.getElementById('nav-users-btn').style.display='flex';
     renderCGrid('all'); renderB2B(); csGo('home');
     aGoTab('dash'); updateStats(); renderDiscCodes();
+    prefillCheckoutName();
     return;
   }
 
-  if(u !== '' && !_chkAdmin(u, p)){
-    err.style.display = 'block';
-    return;
-  }
-
-  // Khali fields = customer mode
+  // Koi bhi doosra username/password = normal customer login
   isAdm = false;
+  currentUserName = u;
   show('view-login','none');
   show('view-customer','flex');
   document.getElementById('view-customer').style.flexDirection='column';
   document.getElementById('nav-users-btn').style.display='none';
   renderCGrid('all'); renderB2B(); csGo('home');
+  prefillCheckoutName();
+}
+
+function prefillCheckoutName(){
+  const nameEl = document.getElementById('co-name');
+  if(nameEl && !nameEl.value) nameEl.value = currentUserName;
 }
 
 function goBack(){
   isAdm=false;
+  currentUserName='';
   show('view-login','flex');
   document.getElementById('view-login').style.flexDirection='column';
   show('view-customer','none');
@@ -727,10 +787,12 @@ onerror="this.parentElement.innerHTML='${p.emoji}'">`:`${p.emoji}`}
       <div style="display:flex;justify-content:space-between;align-items:center;">
         <span style="font-size:14px;font-weight:800;color:var(--sabz);">Rs.${p.price}</span>
         <div onclick="event.stopPropagation();qAdd(${p.id})"
-          style="width:30px;height:30px;background:linear-gradient(135deg,var(--sabz),var(--sabz-d));border-
+          style="width:34px;height:34px;background:linear-gradient(135deg,var(--sabz),var(--sabz-d));border-
 
-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 10px rgba(29,158,117,0.4);">
-          <i class="ti ti-plus" style="font-size:14px;color:#fff;"></i>
+radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 10px rgba(29,158,117,0.4);flex-
+
+shrink:0;">
+          <span style="font-size:20px;line-height:1;color:#fff;font-weight:700;">+</span>
         </div>
       </div>
     </div>`).join('');
@@ -786,7 +848,7 @@ items:center;justify-content:center;cursor:pointer;font-size:20px;background:var
         <div onclick="dQty(1)" style="width:38px;height:38px;background:linear-gradient(135deg,var(--sabz),var(--sabz-d));border-
 
 radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 10px rgba(29,158,117,0.4);">
-          <i class="ti ti-plus" style="font-size:16px;color:#fff;"></i>
+          <span style="font-size:20px;line-height:1;color:#fff;font-weight:700;">+</span>
         </div>
       </div>
     </div>`;
@@ -832,7 +894,7 @@ radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer
         <div onclick="cQty(${k},1)" style="width:28px;height:28px;background:linear-gradient(135deg,var(--sabz),var(--sabz-
 
 d));border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;">
-          <i class="ti ti-plus" style="font-size:14px;color:#fff;"></i>
+          <span style="font-size:16px;line-height:1;color:#fff;font-weight:700;">+</span>
         </div>
         <div onclick="cQty(${k},-999)" style="width:28px;height:28px;background:#FEF2F2;border-radius:50%;display:flex;align-
 
