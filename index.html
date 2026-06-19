@@ -219,6 +219,134 @@ button:active{opacity:.88;transform:scale(.97);}
   margin:36px auto;
 }
 @keyframes rot{to{transform:rotate(360deg)}}
+/* ======= DARK MODE ======= */
+body.dark-mode{background:#0a0f14;}
+body.dark-mode .app{background:#0f1923;}
+body.dark-mode{
+  --bg:#0f1923;--bg2:#162030;--bg3:#1c2a3a;
+  --tx:#e8edf5;--tx2:#8fa0b5;--tx3:#5a6e82;
+  --br:#1e2e3f;--sh:0 2px 8px rgba(0,0,0,.3),0 0 1px rgba(0,0,0,.2);
+  --shl:0 8px 32px rgba(0,0,0,.5);
+  --gl:rgba(24,168,118,.12);--gx:rgba(24,168,118,.06);
+  --al:rgba(245,158,11,.12);--bll:rgba(59,130,246,.12);--rl:rgba(239,68,68,.12);
+}
+body.dark-mode #cnav{background:rgba(15,25,35,.97);border-top-color:#1e2e3f;}
+body.dark-mode input,body.dark-mode textarea,body.dark-mode select{
+  background:var(--bg2);color:var(--tx);border-color:var(--br);
+}
+body.dark-mode .pc{background:var(--bg2);}
+body.dark-mode .ci{background:var(--bg2);}
+body.dark-mode #pmodal .mbox,body.dark-mode .mbox{background:var(--bg2);}
+body.dark-mode #agate>div,body.dark-mode .gen-modal-box{background:var(--bg2);}
+
+/* ======= PRODUCT CARD IMPROVED ======= */
+.pc{
+  background:var(--bg);border:1.5px solid var(--br);
+  border-radius:18px;padding:12px;
+  box-shadow:var(--sh);overflow:hidden;
+  display:flex;flex-direction:column;
+  cursor:pointer;
+}
+.pc-img{
+  height:115px;border-radius:13px;
+  background:linear-gradient(135deg,#d4f5e7,#aae8cc);
+  display:flex;align-items:center;justify-content:center;
+  font-size:44px;margin-bottom:10px;
+  overflow:hidden;flex-shrink:0;
+}
+.pc-img img{width:100%;height:100%;object-fit:cover;display:block;}
+.pc-name{font-size:13px;font-weight:800;color:var(--tx);margin:0 0 2px;line-height:1.3;}
+.pc-sub{font-size:10.5px;color:var(--tx3);margin:0 0 10px;}
+.pc-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:auto;}
+.pc-price{font-size:15px;font-weight:900;color:var(--g);}
+
+/* ======= OFFER POSTERS (circular) ======= */
+.offer-posters{
+  display:flex;gap:14px;padding:10px 14px 8px;
+  overflow-x:auto;-webkit-overflow-scrolling:touch;
+  scrollbar-width:none;background:var(--bg);
+}
+.offer-posters::-webkit-scrollbar{display:none;}
+.offer-poster-card{
+  display:flex;flex-direction:column;align-items:center;
+  cursor:pointer;flex-shrink:0;width:78px;
+}
+.offer-poster-circle{
+  width:68px;height:68px;border-radius:50%;
+  overflow:hidden;
+  box-shadow:0 4px 16px rgba(0,0,0,.15);
+  border:2.5px solid var(--g);
+  display:flex;align-items:center;justify-content:center;
+  font-size:26px;
+  margin-bottom:5px;
+  transition:transform .15s;
+}
+.offer-poster-card:active .offer-poster-circle{transform:scale(.93);}
+.offer-poster-title{font-size:10px;font-weight:800;color:var(--tx);text-align:center;line-height:1.2;margin-bottom:1px;}
+.offer-poster-desc{font-size:9px;color:var(--tx2);text-align:center;line-height:1.2;}
+
+/* ======= GENERIC MODAL ======= */
+.gen-modal{
+  position:fixed;inset:0;
+  background:rgba(13,17,23,.58);
+  z-index:600;display:none;
+  align-items:flex-end;justify-content:center;
+  backdrop-filter:blur(5px);
+}
+.gen-modal.center{align-items:center;}
+.gen-modal-box{
+  background:var(--bg);border-radius:24px 24px 0 0;
+  width:100%;max-width:430px;
+  max-height:92vh;overflow-y:auto;
+  padding:20px 18px 36px;
+}
+.gen-modal.center .gen-modal-box{
+  border-radius:20px;max-height:80vh;margin:16px;
+}
+.gen-modal-close{
+  width:34px;height:34px;background:var(--bg2);
+  border-radius:10px;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+
+/* ======= FEEDBACK SCROLL ======= */
+@keyframes scrollUp{0%{transform:translateY(0);}100%{transform:translateY(-50%);}}
+.fb-track{animation:scrollUp 30s linear infinite;display:flex;flex-direction:column;gap:10px;}
+.fb-track:hover{animation-play-state:paused;}
+.fb-item{background:var(--bg2);border:1.5px solid var(--br);border-radius:14px;padding:12px;display:flex;align-items:flex-start;gap:10px;}
+.fb-avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;flex-shrink:0;}
+
+
+/* ======= MORE MENU DROPDOWN ======= */
+#more-menu{
+  position:fixed;top:68px;right:calc(50% - 215px + 10px);
+  background:rgba(13,17,23,.92);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-radius:16px;
+  padding:8px;
+  z-index:999;
+  display:none;
+  flex-direction:column;
+  gap:4px;
+  min-width:190px;
+  box-shadow:0 8px 32px rgba(0,0,0,.35);
+  border:1px solid rgba(255,255,255,.1);
+}
+#more-menu.open{display:flex;}
+.mm-item{
+  display:flex;align-items:center;gap:11px;
+  padding:11px 14px;border-radius:11px;
+  cursor:pointer;color:#fff;
+  font-size:13.5px;font-weight:700;
+  transition:background .12s;
+}
+.mm-item:hover,.mm-item:active{background:rgba(255,255,255,.1);}
+.mm-item i{font-size:18px;flex-shrink:0;}
+.mm-divider{height:1px;background:rgba(255,255,255,.1);margin:2px 8px;}
+@media(max-width:430px){
+  #more-menu{right:10px;}
+}
 </style>
 </head>
 <body>
@@ -247,17 +375,17 @@ button:active{opacity:.88;transform:scale(.97);}
             <h1 style="color:#fff;font-size:20px;font-weight:900;margin:1px 0 0;letter-spacing:-.2px;">Zaiqah ذائقہ</h1>
           </div>
         </div>
-        <div style="display:flex;gap:10px;align-items:center;">
+        <div style="display:flex;gap:9px;align-items:center;">
           <!-- Cart icon -->
-          <div style="position:relative;cursor:pointer;" onclick="goS('cart');setNav('cart')">
+          <div style="position:relative;cursor:pointer;flex-shrink:0;" onclick="goS('cart');setNav('cart')">
             <div style="width:40px;height:40px;background:rgba(255,255,255,.18);border-radius:13px;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px);">
               <i class="ti ti-shopping-bag" style="font-size:20px;color:#fff;"></i>
             </div>
             <span id="hdrbdg" class="bdg" style="right:2px;top:2px;"></span>
           </div>
-          <!-- Admin -->
-          <div onclick="openGate()" style="width:40px;height:40px;background:rgba(255,255,255,.18);border-radius:13px;display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(6px);">
-            <i class="ti ti-settings" style="font-size:19px;color:#fff;"></i>
+          <!-- More button -->
+          <div onclick="toggleMoreMenu()" id="more-btn" style="width:40px;height:40px;background:rgba(255,255,255,.18);border-radius:13px;display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(6px);flex-shrink:0;position:relative;">
+            <i class="ti ti-dots-vertical" style="font-size:20px;color:#fff;"></i>
           </div>
         </div>
       </div>
@@ -297,19 +425,8 @@ button:active{opacity:.88;transform:scale(.97);}
   </div>
 
   <!-- GRID -->
-  <div style="padding:6px 12px calc(var(--nav-h) + 14px);overflow-y:auto;flex:1;">
-
-    <!-- IMPORTANT OFFER POSTER -->
-    <div style="position:relative;border-radius:16px;overflow:hidden;margin-bottom:14px;box-shadow:var(--sh);">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTr5dlvbx9lv_31oVVFPaf3SO_AsHRZqHSc7-eewt98yuYPz9ikaoAuuME&s" alt="Offer" style="width:100%;height:150px;object-fit:cover;display:block;" onerror="this.style.display='none'"/>
-      <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,.72) 100%);"></div>
-      <div style="position:absolute;left:14px;bottom:12px;right:14px;">
-        <p style="color:#fff;font-size:15px;font-weight:900;margin:0 0 3px;line-height:1.3;text-shadow:0 1px 4px rgba(0,0,0,.4);">🎉 Pehle Order pe 10% OFF! Code: ZAIQAH10</p>
-        <p style="color:rgba(255,255,255,.85);font-size:11.5px;margin:0;font-weight:600;text-shadow:0 1px 3px rgba(0,0,0,.4);">Limited time • Abhi order karein</p>
-      </div>
-    </div>
-
-    <div id="cgrid" style="display:grid;grid-template-columns:1fr 1fr;gap:11px;"></div>
+  <div style="padding:8px 12px calc(var(--nav-h) + 14px);overflow-y:auto;flex:1;">
+    <div id="cgrid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;"></div>
     <div id="cempty" style="display:none;text-align:center;padding:60px 0 20px;">
       <i class="ti ti-mood-empty" style="font-size:50px;color:var(--tx3);display:block;margin-bottom:12px;"></i>
       <p style="font-size:14px;font-weight:700;color:var(--tx2);">Koi product nahi mila</p>
@@ -539,6 +656,133 @@ button:active{opacity:.88;transform:scale(.97);}
   </div>
 </div>
 
+
+<!-- ╔══════════════════════════════════════════╗
+     ║         OFFER POSTER MODAL              ║
+     ╚══════════════════════════════════════════╝ -->
+<div id="poster-modal" class="gen-modal center" onclick="if(event.target===this)this.style.display='none'">
+  <div class="gen-modal-box" style="border-radius:20px;margin:16px;padding:24px 20px 28px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+      <h3 id="poster-title" style="font-size:16px;font-weight:900;margin:0;"></h3>
+      <button class="gen-modal-close" onclick="document.getElementById('poster-modal').style.display='none'"><i class="ti ti-x" style="font-size:16px;color:var(--tx2);"></i></button>
+    </div>
+    <div id="poster-circle-big" style="width:100px;height:100px;border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:42px;box-shadow:0 8px 32px rgba(0,0,0,.15);"></div>
+    <p id="poster-body" style="font-size:13.5px;color:var(--tx2);line-height:1.8;text-align:center;margin:0;"></p>
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════╗
+     ║           ABOUT MODAL                   ║
+     ╚══════════════════════════════════════════╝ -->
+<div id="about-modal" class="gen-modal" onclick="if(event.target===this)this.style.display='none'">
+  <div class="gen-modal-box">
+    <div class="drag-bar"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;">
+      <h3 style="font-size:18px;font-weight:900;margin:0;">Zaiqah ke Baare Mein</h3>
+      <button class="gen-modal-close" onclick="document.getElementById('about-modal').style.display='none'"><i class="ti ti-x" style="font-size:16px;color:var(--tx2);"></i></button>
+    </div>
+    <div style="text-align:center;margin-bottom:16px;">
+      <div style="width:60px;height:60px;background:linear-gradient(135deg,#0a5c40,#18A876);border-radius:18px;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;box-shadow:0 6px 20px rgba(24,168,118,.3);"><i class="ti ti-leaf" style="font-size:28px;color:#fff;"></i></div>
+      <h2 style="font-size:19px;font-weight:900;margin:0 0 3px;">Zaiqah ذائقہ</h2>
+      <p style="font-size:12px;color:var(--tx2);margin:0;">خالص مصالحے • Hyderabad, Sindh</p>
+    </div>
+    <div style="background:var(--gl);border-radius:13px;padding:13px 15px;margin-bottom:14px;border:1.5px solid rgba(24,168,118,.15);">
+      <p style="font-size:13.5px;font-weight:700;color:var(--gd);line-height:1.8;margin:0;">🌿 Assalam O Alaikum!<br/>Zaiqah Online Shopping Store filhal sirf <b>Hyderabad City</b> ke liye available hai.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;">
+      <div style="background:var(--bg2);border:1.5px solid var(--br);border-radius:12px;padding:11px;text-align:center;"><i class="ti ti-truck" style="font-size:20px;color:var(--g);display:block;margin-bottom:4px;"></i><p style="font-size:11.5px;font-weight:800;margin:0;">Free Home Delivery</p></div>
+      <div style="background:var(--bg2);border:1.5px solid var(--br);border-radius:12px;padding:11px;text-align:center;"><i class="ti ti-cash" style="font-size:20px;color:var(--am);display:block;margin-bottom:4px;"></i><p style="font-size:11.5px;font-weight:800;margin:0;">Cash On Delivery</p></div>
+      <div style="background:var(--bg2);border:1.5px solid var(--br);border-radius:12px;padding:11px;text-align:center;"><i class="ti ti-star" style="font-size:20px;color:#f59e0b;display:block;margin-bottom:4px;"></i><p style="font-size:11.5px;font-weight:800;margin:0;">Fresh Masalay</p></div>
+      <div style="background:var(--bg2);border:1.5px solid var(--br);border-radius:12px;padding:11px;text-align:center;"><i class="ti ti-shield-check" style="font-size:20px;color:#3B82F6;display:block;margin-bottom:4px;"></i><p style="font-size:11.5px;font-weight:800;margin:0;">Quality Products</p></div>
+    </div>
+    <div style="background:var(--bg2);border:1.5px solid var(--br);border-radius:13px;padding:14px;">
+      <p style="font-size:13px;font-weight:900;margin:0 0 11px;">🏪 Hamare Baare Mein</p>
+      <div style="display:flex;flex-direction:column;gap:7px;">
+        <div style="display:flex;gap:8px;"><span style="color:var(--g);font-weight:800;flex-shrink:0;">✓</span><p style="font-size:12px;color:var(--tx2);margin:0;line-height:1.6;"><b>Quality Assurance:</b> Har product carefully check hota hai delivery se pehle.</p></div>
+        <div style="display:flex;gap:8px;"><span style="color:var(--g);font-weight:800;flex-shrink:0;">✓</span><p style="font-size:12px;color:var(--tx2);margin:0;line-height:1.6;"><b>Customer Satisfaction:</b> Aapki khushi hamara maqsad — 100% satisfaction.</p></div>
+        <div style="display:flex;gap:8px;"><span style="color:var(--g);font-weight:800;flex-shrink:0;">✓</span><p style="font-size:12px;color:var(--tx2);margin:0;line-height:1.6;"><b>Trusted Service:</b> Hyderabad mein hazaron khush customers hamari pehchaan.</p></div>
+        <div style="display:flex;gap:8px;"><span style="color:var(--g);font-weight:800;flex-shrink:0;">✓</span><p style="font-size:12px;color:var(--tx2);margin:0;line-height:1.6;"><b>Fresh Stock:</b> Roz taza masalay pack hote hain — koi purana stock nahi.</p></div>
+        <div style="display:flex;gap:8px;"><span style="color:var(--g);font-weight:800;flex-shrink:0;">✓</span><p style="font-size:12px;color:var(--tx2);margin:0;line-height:1.6;"><b>Secure Ordering:</b> WhatsApp se seedha order — koi third party nahi.</p></div>
+        <div style="display:flex;gap:8px;"><span style="color:var(--g);font-weight:800;flex-shrink:0;">✓</span><p style="font-size:12px;color:var(--tx2);margin:0;line-height:1.6;"><b>Quick Support:</b> Koi bhi masla ho, WhatsApp par foran jawab milega.</p></div>
+        <div style="display:flex;gap:8px;"><span style="color:var(--g);font-weight:800;flex-shrink:0;">✓</span><p style="font-size:12px;color:var(--tx2);margin:0;line-height:1.6;"><b>No Milawat:</b> 100% pure masalay — bina kisi milawat ke.</p></div>
+        <div style="display:flex;gap:8px;"><span style="color:var(--g);font-weight:800;flex-shrink:0;">✓</span><p style="font-size:12px;color:var(--tx2);margin:0;line-height:1.6;"><b>Affordable Prices:</b> Bazaar se behtareen rates mein quality masalay.</p></div>
+        <div style="display:flex;gap:8px;"><span style="color:var(--g);font-weight:800;flex-shrink:0;">✓</span><p style="font-size:12px;color:var(--tx2);margin:0;line-height:1.6;"><b>Fast Delivery:</b> Order karo aur 1-2 din mein ghar par paao.</p></div>
+        <div style="display:flex;gap:8px;"><span style="color:var(--g);font-weight:800;flex-shrink:0;">✓</span><p style="font-size:12px;color:var(--tx2);margin:0;line-height:1.6;"><b>Wholesale Available:</b> Dukandaar hazraat bulk orders ke liye Dukaan section dekhen.</p></div>
+        <div style="display:flex;gap:8px;"><span style="color:var(--g);font-weight:800;flex-shrink:0;">✓</span><p style="font-size:12px;color:var(--tx2);margin:0;line-height:1.6;"><b>Discount Codes:</b> Regular customers ke liye special discount codes available.</p></div>
+        <div style="display:flex;gap:8px;"><span style="color:var(--g);font-weight:800;flex-shrink:0;">✓</span><p style="font-size:12px;color:var(--tx2);margin:0;line-height:1.6;"><b>Return Policy:</b> Product pasand na aaye to hum wapas lete hain — koi sawaal nahi.</p></div>
+        <div style="display:flex;gap:8px;"><span style="color:var(--g);font-weight:800;flex-shrink:0;">✓</span><p style="font-size:12px;color:var(--tx2);margin:0;line-height:1.6;"><b>COD Safety:</b> Pehle dekho, phir pay karo — aapka paisa bilkul mehfooz.</p></div>
+        <div style="display:flex;gap:8px;"><span style="color:var(--g);font-weight:800;flex-shrink:0;">✓</span><p style="font-size:12px;color:var(--tx2);margin:0;line-height:1.6;"><b>Digital Convenience:</b> Phone pe order — koi queue, koi tension nahi.</p></div>
+        <div style="display:flex;gap:8px;"><span style="color:var(--g);font-weight:800;flex-shrink:0;">✓</span><p style="font-size:12px;color:var(--tx2);margin:0;line-height:1.6;"><b>Community Trust:</b> Saalon se Hyderabad ki galiyon mein naam roshaan hai.</p></div>
+        <div style="display:flex;gap:8px;"><span style="color:var(--g);font-weight:800;flex-shrink:0;">✓</span><p style="font-size:12px;color:var(--tx2);margin:0;line-height:1.6;"><b>Variety:</b> Sabut, pese, dry fruits aur blends — sab ek jagah.</p></div>
+        <div style="display:flex;gap:8px;"><span style="color:var(--g);font-weight:800;flex-shrink:0;">✓</span><p style="font-size:12px;color:var(--tx2);margin:0;line-height:1.6;"><b>Eco Packaging:</b> Mahool dost packing — nature ka khayal rakhte hain.</p></div>
+        <div style="display:flex;gap:8px;"><span style="color:var(--g);font-weight:800;flex-shrink:0;">✓</span><p style="font-size:12px;color:var(--tx2);margin:0;line-height:1.6;"><b>Regular Updates:</b> Naye products aur offers ke liye app regularly check karein.</p></div>
+        <div style="display:flex;gap:8px;"><span style="color:var(--g);font-weight:800;flex-shrink:0;">✓</span><p style="font-size:12px;color:var(--tx2);margin:0;line-height:1.6;"><b>Hyderabad Focused:</b> Apne sheher ke log aur zaroorat samajhte hain.</p></div>
+        <div style="display:flex;gap:8px;"><span style="color:var(--g);font-weight:800;flex-shrink:0;">✓</span><p style="font-size:12px;color:var(--tx2);margin:0;line-height:1.6;"><b>Growing Family:</b> Zaiqah sirf ek store nahi, ek family hai — aap bhi is family ka hissa bano!</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════╗
+     ║          FEEDBACK MODAL                 ║
+     ╚══════════════════════════════════════════╝ -->
+<div id="feedback-modal" class="gen-modal" onclick="if(event.target===this)this.style.display='none'">
+  <div class="gen-modal-box">
+    <div class="drag-bar"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+      <h3 style="font-size:18px;font-weight:900;margin:0;">⭐ Customer Feedback</h3>
+      <button class="gen-modal-close" onclick="document.getElementById('feedback-modal').style.display='none'"><i class="ti ti-x" style="font-size:16px;color:var(--tx2);"></i></button>
+    </div>
+    <div style="height:360px;overflow:hidden;position:relative;">
+      <div style="position:absolute;top:0;left:0;right:0;height:36px;background:linear-gradient(to bottom,var(--bg),transparent);z-index:2;pointer-events:none;"></div>
+      <div style="position:absolute;bottom:0;left:0;right:0;height:36px;background:linear-gradient(to top,var(--bg),transparent);z-index:2;pointer-events:none;"></div>
+      <div style="overflow:hidden;height:100%;"><div class="fb-track" id="fb-track"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════╗
+     ║           LOGIN MODAL                   ║
+     ╚══════════════════════════════════════════╝ -->
+<div id="login-modal" class="gen-modal center" onclick="if(event.target===this)this.style.display='none'">
+  <div class="gen-modal-box" style="border-radius:20px;margin:16px;text-align:center;padding:32px 24px;">
+    <div style="font-size:50px;margin-bottom:12px;">🚧</div>
+    <h3 style="font-size:19px;font-weight:900;margin:0 0 8px;">Coming Soon</h3>
+    <p style="font-size:13px;color:var(--tx2);margin:0 0 20px;line-height:1.65;">Login system future update mein available hoga.</p>
+    <button onclick="document.getElementById('login-modal').style.display='none'" style="width:100%;height:46px;background:linear-gradient(135deg,var(--g),var(--gd));color:#fff;border-radius:13px;font-size:14px;font-weight:800;">Theek Hai</button>
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════╗
+     ║          PROFILE MODAL                  ║
+     ╚══════════════════════════════════════════╝ -->
+<div id="profile-modal" class="gen-modal center" onclick="if(event.target===this)this.style.display='none'">
+  <div class="gen-modal-box" style="border-radius:20px;margin:16px;text-align:center;padding:32px 24px;">
+    <div style="font-size:50px;margin-bottom:12px;">🚧</div>
+    <h3 style="font-size:19px;font-weight:900;margin:0 0 8px;">Coming Soon</h3>
+    <p style="font-size:13px;color:var(--tx2);margin:0 0 20px;line-height:1.65;">Profile system future update mein available hoga.</p>
+    <button onclick="document.getElementById('profile-modal').style.display='none'" style="width:100%;height:46px;background:linear-gradient(135deg,var(--g),var(--gd));color:#fff;border-radius:13px;font-size:14px;font-weight:800;">Theek Hai</button>
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════╗
+     ║         COMPLAINT MODAL                 ║
+     ╚══════════════════════════════════════════╝ -->
+<div id="complaint-modal" class="gen-modal" onclick="if(event.target===this)this.style.display='none'">
+  <div class="gen-modal-box">
+    <div class="drag-bar"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;">
+      <div><h3 style="font-size:18px;font-weight:900;margin:0 0 2px;">⚠️ Complaint Center</h3><p style="font-size:11px;color:var(--tx2);margin:0;">03069348405</p></div>
+      <button class="gen-modal-close" onclick="document.getElementById('complaint-modal').style.display='none'"><i class="ti ti-x" style="font-size:16px;color:var(--tx2);"></i></button>
+    </div>
+    <div class="fld"><label>Aapka Naam *</label><input id="cmp-name" type="text" placeholder="Pura naam likhein" style="width:100%;"/></div>
+    <div class="fld"><label>Phone Number *</label><input id="cmp-phone" type="tel" placeholder="03XXXXXXXXX" style="width:100%;"/></div>
+    <div class="fld"><label>Shikayat *</label><textarea id="cmp-text" rows="4" placeholder="Apni shikayat yahan likhein..." style="width:100%;padding:11px 13px;border-radius:11px;border:1.5px solid var(--br);background:var(--bg2);font-family:inherit;font-size:13px;resize:none;"></textarea></div>
+    <button onclick="submitComplaint()" style="width:100%;height:48px;background:linear-gradient(135deg,#EF4444,#b91c1c);color:#fff;border-radius:13px;font-size:14.5px;font-weight:800;box-shadow:0 5px 18px rgba(239,68,68,.3);display:flex;align-items:center;justify-content:center;gap:8px;">
+      <i class="ti ti-brand-whatsapp" style="font-size:18px;"></i> WhatsApp Par Bhejein
+    </button>
+  </div>
+</div>
 
 <!-- ╔══════════════════════════════════════════╗
      ║         ADMIN GATE (Password)           ║
@@ -1368,13 +1612,143 @@ function delP(id){
   renderAdmProds(); renderGrid(activeFil); updBdg();
 }
 
+
+// ── OFFER POSTERS ──────────────────────────────────────────────────
+const posterData = [
+  {emoji:'🎉',bg:'linear-gradient(135deg,#fef3c7,#F59E0B)',title:'10% OFF — Pehle Order Pe!',body:'Apna pehla order karo aur 10% discount paao!<br/><br/>Discount Code: <b>ZAIQAH10</b><br/><br/>Checkout ke waqt yeh code daalo aur apni bachat enjoy karo. Limited time offer — abhi order karein!'},
+  {emoji:'🚚',bg:'linear-gradient(135deg,#d4f5e7,#18A876)',title:'Free Home Delivery',body:'Zaiqah se order karo aur FREE home delivery paao — Hyderabad city mein bilkul free!<br/><br/>Koi extra charges nahi. Seedha aapke ghar tak 1–2 din mein.'},
+  {emoji:'💰',bg:'linear-gradient(135deg,#eff6ff,#3B82F6)',title:'Cash on Delivery (COD)',body:'COD available hai!<br/><br/>Pehle apna order receive karo, check karo, phir payment karo.<br/><br/>Aapka paisa bilkul mehfooz — koi advance payment nahi.'},
+  {emoji:'🌿',bg:'linear-gradient(135deg,#fce7f3,#ec4899)',title:'100% Fresh Masalay',body:'Zaiqah sirf taza aur khalis masalay provide karta hai.<br/><br/>✓ No Milawat<br/>✓ Daily Fresh Stock<br/>✓ Pure Quality<br/>✓ Khushbu aur Taste Guaranteed'},
+  {emoji:'⭐',bg:'linear-gradient(135deg,#f0fdf4,#22c55e)',title:'5 Star Rated Service',body:'Hazaron satisfied customers hamari pehchaan hain!<br/><br/>⭐⭐⭐⭐⭐ Average Rating<br/><br/>Fast service, quality products, aur friendly support.<br/>Zaiqah — Hyderabad ka bharosa!'},
+];
+function openPosterModal(i){
+  const p=posterData[i];
+  document.getElementById('poster-title').textContent=p.title;
+  const c=document.getElementById('poster-circle-big');
+  c.style.background=p.bg; c.textContent=p.emoji;
+  document.getElementById('poster-body').innerHTML=p.body;
+  document.getElementById('poster-modal').style.display='flex';
+}
+
+// ── ABOUT ──────────────────────────────────────────────────────────
+function openAboutModal(){ document.getElementById('about-modal').style.display='flex'; }
+
+// ── FEEDBACK ───────────────────────────────────────────────────────
+const fbComments=[
+  {name:'Ali Ahmed',av:'AA',col:'#18A876',stars:5,text:'Masalay bohat fresh thay. Kali mirch ki khushbu ghar mein aa gayi. Zaiqah best hai!'},
+  {name:'Sana Khan',av:'SK',col:'#3B82F6',stars:5,text:'Delivery bohat fast thi. Kal order kiya aur aaj ghar pe tha. Shukriya Zaiqah!'},
+  {name:'Ahmed Raza',av:'AR',col:'#EF4444',stars:5,text:'Quality bilkul original hai. Koi milawat nahi. Highly recommended!'},
+  {name:'Fatima Noor',av:'FN',col:'#8B5CF6',stars:5,text:'Garam masala biryani mein dala — family ne bohat tarif ki. Zabardast!'},
+  {name:'Usman Malik',av:'UM',col:'#F59E0B',stars:5,text:'COD service bohat achi hai. Pehle maal dekha, phir payment ki. Trust qaim ho gaya!'},
+  {name:'Ayesha Siddiqui',av:'AS',col:'#EC4899',stars:5,text:'Lal mirch itni tazi thi jaise abhi pesi gayi ho. Bohat impressed hun!'},
+  {name:'Bilal Hussain',av:'BH',col:'#14B8A6',stars:5,text:'Dry fruits ka quality bohat umda tha. Kaju aur badam fresh the. Pura paisa wasool!'},
+  {name:'Mariam Ali',av:'MA',col:'#6366F1',stars:5,text:'WhatsApp order process bohat asaan hai. 2 minute mein order ho gaya. Barakallah!'},
+  {name:'Tariq Mehmood',av:'TM',col:'#0EA5E9',stars:5,text:'Hyderabad mein itni achi masala service pehle nahi mili. Zaiqah ek naymat hai!'},
+  {name:'Zara Fatima',av:'ZF',col:'#22C55E',stars:5,text:'Haldi aur zeera bilkul original rang ka tha. Khane ka taste bilkul badal gaya!'},
+  {name:'Hassan Sheikh',av:'HS',col:'#EF4444',stars:5,text:'Price bilkul reasonable hai quality ke hisaab se. Dobara zaroor order karunga!'},
+  {name:'Nadia Baig',av:'NB',col:'#F97316',stars:5,text:'Packing bohat clean aur tight thi. Masalay spill nahi hue. Professional service!'},
+  {name:'Kamran Iqbal',av:'KI',col:'#7C3AED',stars:5,text:'Saunf bohat tazi thi — munh ka freshener bhi ban gayi. Bohot acha experience!'},
+  {name:'Rabiya Khatoon',av:'RK',col:'#BE185D',stars:5,text:'Mama ne dhaniya dala daal mein — family ne kaha bahar ka khana lag raha hai!'},
+  {name:'Shoaib Anwar',av:'SA',col:'#0369A1',stars:5,text:'Fast service, quality products. Zaiqah sach mein achi zaiqah wala masala deta hai!'},
+  {name:'Hina Perveen',av:'HP',col:'#15803D',stars:5,text:'Adrak powder chai mein dali — maza aa gaya. Authentic taste hai. 5 star!'},
+  {name:'Imran Qureshi',av:'IQ',col:'#B45309',stars:5,text:'Discount code ZAIQAH10 kaam kiya. 10% off aur quality bhi top notch. Mubarak!'},
+  {name:'Sobia Nisar',av:'SN',col:'#0F766E',stars:5,text:'Order WhatsApp se track karna asaan tha. Har cheez transparent hai Zaiqah mein!'},
+  {name:'Faisal Chaudhry',av:'FC',col:'#9333EA',stars:5,text:'Badam bohat fresh the — ek haftay ke liye order kiya tha kal kal ho gaya!'},
+  {name:'Amna Tariq',av:'AT',col:'#D97706',stars:5,text:'Zaiqah se pehla order tha, aakhri nahi hoga. Quality aur service dono best!'},
+];
+function openFeedbackModal(){
+  const m=document.getElementById('feedback-modal');
+  m.style.display='flex';
+  const tr=document.getElementById('fb-track');
+  if(tr.children.length>0) return;
+  const db=[...fbComments,...fbComments];
+  tr.innerHTML=db.map(c=>`<div class="fb-item"><div class="fb-avatar" style="background:${c.col};">${c.av}</div><div style="flex:1;min-width:0;"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;"><p style="font-size:12.5px;font-weight:800;margin:0;">${c.name}</p><span style="font-size:11px;color:#F59E0B;">${'⭐'.repeat(c.stars)}</span></div><p style="font-size:12px;color:var(--tx2);margin:0;line-height:1.55;">"${c.text}"</p></div></div>`).join('');
+}
+
+// ── LOGIN / PROFILE ─────────────────────────────────────────────────
+function openLoginModal(){ document.getElementById('login-modal').style.display='flex'; }
+function openProfileModal(){ document.getElementById('profile-modal').style.display='flex'; }
+
+
+// ── MORE MENU ───────────────────────────────────────────────────────
+function toggleMoreMenu(){
+  const m=document.getElementById('more-menu');
+  m.classList.toggle('open');
+}
+function closeMoreMenu(){
+  document.getElementById('more-menu').classList.remove('open');
+}
+// Close more menu when clicking outside
+document.addEventListener('click',function(e){
+  const m=document.getElementById('more-menu');
+  const btn=document.getElementById('more-btn');
+  if(m && btn && !m.contains(e.target) && !btn.contains(e.target)){
+    m.classList.remove('open');
+  }
+});
+// ── DARK MODE ───────────────────────────────────────────────────────
+function toggleDarkMode(){
+  const isDark=document.body.classList.toggle('dark-mode');
+  try{ localStorage.setItem('zq_dark',isDark?'1':'0'); }catch(e){}
+  const icon=document.getElementById('dark-icon');
+  const lbl=document.getElementById('dark-label');
+  if(icon) icon.className=isDark?'ti ti-sun':'ti ti-moon';
+  if(lbl) lbl.textContent=isDark?'Light Mode':'Dark Mode';
+}
+
+// ── COMPLAINT ───────────────────────────────────────────────────────
+function openComplaintModal(){ document.getElementById('complaint-modal').style.display='flex'; }
+function submitComplaint(){
+  const n=document.getElementById('cmp-name').value.trim();
+  const ph=document.getElementById('cmp-phone').value.trim();
+  const txt=document.getElementById('cmp-text').value.trim();
+  if(!n){ tst('❌ Naam zaroor likhein','#EF4444'); return; }
+  if(!ph){ tst('❌ Phone number zaroor likhein','#EF4444'); return; }
+  if(!txt){ tst('❌ Shikayat likhein','#EF4444'); return; }
+  const msg=['⚠️ *Zaiqah — Complaint Center*','━━━━━━━━━━━━━━━━━━━━━','','👤 *Naam:* '+n,'📞 *Phone:* '+ph,'','📝 *Shikayat:*',txt,'','━━━━━━━━━━━━━━━━━━━━━','Customer Complaint Submitted','Zaiqah ذائقہ — Hyderabad'].join('\n');
+  window.open('https://wa.me/923069348405?text='+encodeURIComponent(msg),'_blank');
+  document.getElementById('complaint-modal').style.display='none';
+  document.getElementById('cmp-name').value='';
+  document.getElementById('cmp-phone').value='';
+  document.getElementById('cmp-text').value='';
+  tst('✓ Complaint bhej di gayi!','#18A876');
+}
+
 // ── INIT ─────────────────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded',()=>{
   document.getElementById('offer-text').textContent=bannerTxt;
+  try{ if(localStorage.getItem('zq_dark')==='1'){ document.body.classList.add('dark-mode'); const ic=document.getElementById('dark-icon'); if(ic) ic.className='ti ti-sun'; const lb=document.getElementById('dark-label'); if(lb) lb.textContent='Light Mode'; } }catch(e){}
   goS('home'); setNav('home');
   renderGrid('all');
 });
 </script>
+
+<!-- MORE MENU DROPDOWN -->
+<div id="more-menu">
+  <div class="mm-item" onclick="closeMoreMenu();openGate()">
+    <i class="ti ti-shield-lock" style="color:#60a5fa;"></i> Admin Access
+  </div>
+  <div class="mm-divider"></div>
+  <div class="mm-item" onclick="closeMoreMenu();openAboutModal()">
+    <i class="ti ti-info-circle" style="color:#34d399;"></i> About
+  </div>
+  <div class="mm-item" onclick="closeMoreMenu();openFeedbackModal()">
+    <i class="ti ti-star" style="color:#fbbf24;"></i> Feedback
+  </div>
+  <div class="mm-item" onclick="closeMoreMenu();openLoginModal()">
+    <i class="ti ti-login" style="color:#a78bfa;"></i> Login
+  </div>
+  <div class="mm-item" onclick="closeMoreMenu();openProfileModal()">
+    <i class="ti ti-user" style="color:#38bdf8;"></i> Profile
+  </div>
+  <div class="mm-divider"></div>
+  <div class="mm-item" onclick="closeMoreMenu();toggleDarkMode()">
+    <i id="dark-icon" class="ti ti-moon" style="color:#c084fc;"></i> <span id="dark-label">Dark Mode</span>
+  </div>
+  <div class="mm-item" onclick="closeMoreMenu();openComplaintModal()" style="color:#f87171;">
+    <i class="ti ti-alert-triangle" style="color:#f87171;"></i> Complaint Center
+  </div>
+</div>
 </div>
 </body>
 </html>
