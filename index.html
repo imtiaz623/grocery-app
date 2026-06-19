@@ -2,1279 +2,1300 @@
 <html lang="ur">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
-<title>Zaiqah ذائقہ — Khalis Masalay</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<title>Zaiqah ذائقہ</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/3.35.0/tabler-icons.min.css"/>
 <style>
 :root{
-  --sabz:#1D9E75; --sabz-d:#0F6E56; --sabz-l:#EAF7F2;
-  --neela:#185FA5; --narangi:#FA8C3A; --lal:#E24B4A;
-  --bg:#fff; --bg2:#f4f6f8;
-  --txt:#111827; --txt2:#6b7280; --brd:#e5e7eb;
-  --r:14px; --shadow:0 4px 20px rgba(0,0,0,0.08);
+  --g:#18A876;--gd:#0C7A54;--gl:#E6F9F2;--gx:#f2fdf8;
+  --am:#F59E0B;--al:#FFFBEB;
+  --rd:#EF4444;--rl:#FEF2F2;
+  --bl:#3B82F6;--bll:#EFF6FF;
+  --bg:#fff;--bg2:#F7F9FC;--bg3:#EDF0F5;
+  --tx:#0D1117;--tx2:#5A6577;--tx3:#9CA8B8;
+  --br:#E4E9F0;
+  --sh:0 2px 8px rgba(0,0,0,0.07),0 0 1px rgba(0,0,0,0.06);
+  --shl:0 8px 32px rgba(0,0,0,0.13);
+  --nav-h:68px;
 }
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:system-ui,-apple-system,sans-serif;background:linear-gradient(135deg,#e8f5f0 0%,#f0f2f5 100%);display:flex;justify-
-
-content:center;min-height:100vh;}
-.app{width:100%;max-width:430px;background:var(--bg);min-height:100vh;position:relative;box-shadow:0 0 60px rgba(0,0,0,0.15);}
-input,textarea,select{font-family:inherit;outline:none;border:1.5px solid var(--brd);background:var(--bg2);color:var(--
-
-txt);transition:border-color .2s;}
-input:focus,textarea:focus,select:focus{border-color:var(--sabz);}
-.tab-btn{padding:11px 14px;font-size:12px;color:var(--txt2);border-bottom:2px solid transparent;cursor:pointer;white-
-
-space:nowrap;font-weight:500;transition:all .2s;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;overscroll-behavior:none;}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  background:#d0ede3;
+  display:flex;justify-content:center;min-height:100%;
+}
+.app{
+  width:100%;max-width:430px;background:var(--bg);
+  min-height:100vh;position:relative;
+  box-shadow:0 0 80px rgba(0,0,0,0.2);
+  overflow:hidden;
+}
 .screen{display:none;}
-button{font-family:inherit;transition:opacity .15s,transform .1s;}
-button:active{opacity:.85;transform:scale(.98);}
-.card{background:var(--bg);border:1px solid var(--brd);border-radius:14px;box-shadow:var(--shadow);}
+input,textarea,select{
+  font-family:inherit;outline:none;
+  border:1.5px solid var(--br);
+  background:var(--bg2);color:var(--tx);
+  transition:border-color .18s,box-shadow .18s;
+}
+input:focus,textarea:focus,select:focus{
+  border-color:var(--g);
+  box-shadow:0 0 0 3px rgba(24,168,118,.12);
+}
+button{font-family:inherit;cursor:pointer;border:none;outline:none;}
+button:active{opacity:.88;transform:scale(.97);}
+
+/* ======= TOAST ======= */
+#toast{
+  position:fixed;bottom:calc(var(--nav-h) + 14px);left:50%;
+  transform:translateX(-50%) translateY(12px);
+  background:#0D1117;color:#fff;padding:10px 22px;
+  border-radius:40px;font-size:13px;font-weight:600;
+  z-index:9999;display:none;white-space:nowrap;
+  box-shadow:0 6px 28px rgba(0,0,0,.28);
+  opacity:0;transition:opacity .22s,transform .22s;pointer-events:none;
+}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ======= BOTTOM NAV ======= */
+#cnav{
+  position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+  width:100%;max-width:430px;
+  height:var(--nav-h);
+  background:rgba(255,255,255,.97);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-top:1px solid var(--br);
+  z-index:200;display:flex;
+  box-shadow:0 -2px 20px rgba(0,0,0,.07);
+}
+.ni{
+  flex:1;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:3px;cursor:pointer;
+  padding:8px 0;position:relative;transition:none;
+}
+.ni i{font-size:22px;color:var(--tx3);transition:color .18s;}
+.ni span{font-size:10px;font-weight:600;color:var(--tx3);transition:color .18s;}
+.ni.on i,.ni.on span{color:var(--g);}
+.ni::after{
+  content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:0;height:2.5px;background:var(--g);border-radius:0 0 4px 4px;
+  transition:width .2s;
+}
+.ni.on::after{width:32px;}
+
+/* ======= BADGE ======= */
+.bdg{
+  position:absolute;top:4px;right:18px;
+  background:var(--am);color:#fff;
+  font-size:9.5px;font-weight:800;
+  border-radius:50%;width:17px;height:17px;
+  display:none;align-items:center;justify-content:center;
+  border:2px solid #fff;
+}
+
+/* ======= CATEGORY PILLS ======= */
+.cpills{
+  display:flex;gap:8px;padding:10px 14px 6px;
+  overflow-x:auto;flex-shrink:0;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+.cpills::-webkit-scrollbar{display:none;}
+.cpill{
+  padding:7px 16px;border-radius:40px;font-size:12.5px;font-weight:700;
+  border:1.5px solid var(--br);background:var(--bg2);color:var(--tx2);
+  white-space:nowrap;flex-shrink:0;cursor:pointer;transition:all .16s;
+}
+.cpill.on{background:var(--g);border-color:var(--g);color:#fff;}
+
+/* ======= PRODUCT CARD ======= */
+.pc{
+  background:var(--bg);border:1.5px solid var(--br);
+  border-radius:18px;padding:11px;
+  box-shadow:var(--sh);overflow:hidden;
+  display:flex;flex-direction:column;
+}
+.pc-img{
+  height:108px;border-radius:13px;
+  background:linear-gradient(135deg,#d4f5e7,#aae8cc);
+  display:flex;align-items:center;justify-content:center;
+  font-size:42px;margin-bottom:9px;
+  overflow:hidden;flex-shrink:0;
+}
+.pc-img img{width:100%;height:100%;object-fit:cover;}
+.pc-name{font-size:12.5px;font-weight:800;color:var(--tx);margin:0 0 2px;line-height:1.3;}
+.pc-sub{font-size:10.5px;color:var(--tx3);margin:0 0 9px;}
+.pc-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:auto;}
+.pc-price{font-size:15px;font-weight:900;color:var(--g);}
+
+/* QTY CONTROL on card */
+.qc{
+  display:flex;align-items:center;gap:0;
+  background:var(--bg2);border:1.5px solid var(--br);
+  border-radius:40px;overflow:hidden;flex-shrink:0;
+}
+.qc-btn{
+  width:30px;height:30px;background:transparent;
+  display:flex;align-items:center;justify-content:center;
+  font-size:17px;font-weight:700;color:var(--tx2);
+  flex-shrink:0;
+}
+.qc-btn.plus-full{
+  background:var(--g);color:#fff;
+  border-radius:40px;width:32px;height:32px;
+  box-shadow:0 3px 10px rgba(24,168,118,.35);
+  font-size:19px;font-weight:800;
+}
+.qc-num{
+  font-size:13px;font-weight:800;color:var(--tx);
+  min-width:20px;text-align:center;
+}
+.qc-minus{
+  background:var(--g);color:#fff;
+  border-radius:40px;width:32px;height:32px;
+  box-shadow:0 3px 10px rgba(24,168,118,.35);
+  font-size:19px;font-weight:800;display:flex;align-items:center;justify-content:center;
+}
+
+/* ======= CART ITEM ======= */
+.ci{
+  background:var(--bg);border:1.5px solid var(--br);
+  border-radius:16px;padding:12px;
+  display:flex;align-items:center;gap:11px;
+  margin-bottom:10px;box-shadow:var(--sh);
+}
+
+/* ======= FIELD ======= */
+.fld{margin-bottom:11px;}
+.fld label{font-size:11px;font-weight:700;color:var(--tx2);display:block;margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px;}
+.fld input,.fld textarea{width:100%;padding:11px 13px;border-radius:11px;}
+.fld textarea{resize:none;}
+
+/* ======= TAG ======= */
+.tag{
+  display:inline-flex;align-items:center;gap:4px;
+  background:var(--gl);color:var(--gd);
+  font-size:11px;padding:4px 11px;border-radius:40px;font-weight:700;
+}
+
+/* ======= SECTION TITLE ======= */
+.stitle{
+  font-size:11px;font-weight:800;color:var(--tx3);
+  text-transform:uppercase;letter-spacing:.6px;
+  margin:0 0 10px;
+}
+
+/* ======= MODAL ======= */
+#pmodal{
+  position:fixed;inset:0;
+  background:rgba(13,17,23,.55);
+  z-index:500;display:none;
+  align-items:flex-end;justify-content:center;
+  backdrop-filter:blur(4px);
+}
+.mbox{
+  background:var(--bg);border-radius:22px 22px 0 0;
+  width:100%;max-width:430px;
+  max-height:92vh;overflow-y:auto;
+  padding:20px 18px 36px;
+}
+.drag-bar{width:40px;height:4px;background:var(--br);border-radius:4px;margin:0 auto 18px;}
+
+/* ======= ADMIN GATE ======= */
+#agate{
+  position:fixed;inset:0;
+  background:rgba(13,17,23,.6);
+  z-index:800;display:none;
+  align-items:center;justify-content:center;
+  padding:20px;
+  backdrop-filter:blur(6px);
+}
+
+/* ======= SPINNER ======= */
+.spin{
+  width:32px;height:32px;
+  border:3px solid var(--gl);border-top-color:var(--g);
+  border-radius:50%;animation:rot .7s linear infinite;
+  margin:36px auto;
+}
+@keyframes rot{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
 <div class="app">
+<div id="toast"></div>
 
-<!-- LOGIN SCREEN -->
-<div id="view-login" style="display:flex;padding:0;flex-direction:column;justify-content:center;min-
+<!-- ╔══════════════════════════════════════════╗
+     ║              HOME SCREEN                ║
+     ╚══════════════════════════════════════════╝ -->
+<div id="s-home" class="screen" style="display:flex;flex-direction:column;min-height:100vh;">
 
-height:100vh;position:relative;overflow:hidden;">
+  <!-- HERO -->
+  <div style="background:linear-gradient(155deg,#0a5c40 0%,#18A876 55%,#22cf8f 100%);padding:0;position:relative;overflow:hidden;flex-shrink:0;">
+    <div style="position:absolute;top:-60px;right:-60px;width:220px;height:220px;background:rgba(255,255,255,.06);border-radius:50%;pointer-events:none;"></div>
+    <div style="position:absolute;bottom:-40px;left:-30px;width:160px;height:160px;background:rgba(255,255,255,.04);border-radius:50%;pointer-events:none;"></div>
 
-  <!-- Decorative background blobs -->
-  <div style="position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba
+    <div style="padding:18px 16px 14px;position:relative;z-index:1;">
+      <!-- Top bar -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="width:40px;height:40px;background:rgba(255,255,255,.18);border-radius:13px;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px);">
+            <i class="ti ti-leaf" style="font-size:20px;color:#fff;"></i>
+          </div>
+          <div>
+            <p style="color:rgba(255,255,255,.65);font-size:10px;margin:0;font-weight:700;letter-spacing:.6px;text-transform:uppercase;">خالص مصالحے</p>
+            <h1 style="color:#fff;font-size:20px;font-weight:900;margin:1px 0 0;letter-spacing:-.2px;">Zaiqah ذائقہ</h1>
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;">
+          <!-- Cart icon -->
+          <div style="position:relative;cursor:pointer;" onclick="goS('cart');setNav('cart')">
+            <div style="width:40px;height:40px;background:rgba(255,255,255,.18);border-radius:13px;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px);">
+              <i class="ti ti-shopping-bag" style="font-size:20px;color:#fff;"></i>
+            </div>
+            <span id="hdrbdg" class="bdg" style="right:2px;top:2px;"></span>
+          </div>
+          <!-- Admin -->
+          <div onclick="openGate()" style="width:40px;height:40px;background:rgba(255,255,255,.18);border-radius:13px;display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(6px);">
+            <i class="ti ti-settings" style="font-size:19px;color:#fff;"></i>
+          </div>
+        </div>
+      </div>
 
-(29,158,117,0.15),transparent);border-radius:50%;pointer-events:none;"></div>
-  <div style="position:absolute;bottom:-40px;left:-40px;width:160px;height:160px;background:radial-gradient(circle,rgba
-
-(24,95,165,0.1),transparent);border-radius:50%;pointer-events:none;"></div>
-
-  <div style="padding:40px 28px;position:relative;z-index:1;">
-    <!-- Logo -->
-    <div style="width:80px;height:80px;background:linear-gradient(135deg,var(--sabz),var(--sabz-d));border-
-
-radius:24px;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;box-shadow:0 10px 32px rgba(29,158,117,0.35);">
-      <i class="ti ti-leaf" style="font-size:38px;color:#fff;"></i>
+      <!-- Promo Card -->
+      <div id="promo-card" style="background:rgba(255,255,255,.15);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:16px;padding:12px 14px;border:1px solid rgba(255,255,255,.22);display:flex;align-items:center;gap:12px;">
+        <div style="width:38px;height:38px;background:var(--am);border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(245,158,11,.35);">
+          <i class="ti ti-discount-2" style="font-size:19px;color:#fff;"></i>
+        </div>
+        <div style="flex:1;min-width:0;">
+          <p id="offer-text" style="color:#fff;font-size:13px;font-weight:800;margin:0;line-height:1.4;">🎉 Pehle Order pe 10% OFF — Code: ZAIQAH10</p>
+          <p style="color:rgba(255,255,255,.65);font-size:10.5px;margin:3px 0 0;font-weight:500;">Limited time • Abhi order karein</p>
+        </div>
+      </div>
     </div>
 
-    <h1 style="font-size:28px;font-weight:800;margin:0 0 6px;color:var(--txt);text-align:center;">Zaiqah ذائقہ</h1>
-    <p style="font-size:13px;color:var(--txt2);margin:0 0 40px;text-align:center;">خالص مصالحے — بالکل اصلی</p>
-
-    <!-- Login Card -->
-    <div style="background:var(--bg);border:1.5px solid var(--brd);border-radius:20px;padding:24px;box-shadow:0 8px 32px rgba
-
-(0,0,0,0.07);">
-      <p style="font-size:13px;font-weight:600;color:var(--txt2);margin:0 0 16px;text-align:center;">اپنا نام اور پاسورڈ ڈالیں</p>
-
-      <div style="margin-bottom:14px;">
-        <label style="font-size:11px;font-weight:600;color:var(--txt2);display:block;margin-bottom:6px;">Username</label>
-        <input type="text" id="inp-user"
-          placeholder="Username yahan likhein"
-          style="width:100%;padding:13px 14px;border-radius:12px;font-size:14px;"/>
+    <!-- SEARCH -->
+    <div style="padding:10px 14px 14px;position:relative;z-index:1;">
+      <div style="position:relative;">
+        <i class="ti ti-search" style="position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:16px;color:rgba(255,255,255,.6);pointer-events:none;"></i>
+        <input id="sinp" type="search" placeholder="Masalay dhundein..."
+          oninput="doSearch(this.value)"
+          style="width:100%;padding:11px 13px 11px 40px;border-radius:14px;font-size:13.5px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.18);color:#fff;backdrop-filter:blur(6px);"
+          onfocus="this.style.background='rgba(255,255,255,.25)'"
+          onblur="this.style.background='rgba(255,255,255,.18)'"/>
       </div>
+    </div>
+  </div>
 
-      <div style="margin-bottom:20px;">
-        <label style="font-size:11px;font-weight:600;color:var(--txt2);display:block;margin-bottom:6px;">Password</label>
-        <input type="password" id="inp-pass"
-          placeholder="Password yahan likhein"
-          style="width:100%;padding:13px 14px;border-radius:12px;font-size:14px;"
-          onkeydown="if(event.key==='Enter')doLogin()"/>
-      </div>
+  <!-- CATEGORIES -->
+  <div class="cpills">
+    <div class="cpill on" onclick="cFil('all',this)">🌿 Sab</div>
+    <div class="cpill" onclick="cFil('whole',this)">🌱 Sabut</div>
+    <div class="cpill" onclick="cFil('ground',this)">⚗️ Pesa</div>
+    <div class="cpill" onclick="cFil('dry-fruit',this)">🌰 Dry Fruit</div>
+    <div class="cpill" onclick="cFil('blends',this)">✨ Blends</div>
+  </div>
 
-      <button onclick="doLogin()"
-        style="width:100%;background:linear-gradient(135deg,var(--sabz),var(--sabz-d));color:#fff;border:none;border-
+  <!-- GRID -->
+  <div style="padding:6px 12px calc(var(--nav-h) + 14px);overflow-y:auto;flex:1;">
+    <div id="cgrid" style="display:grid;grid-template-columns:1fr 1fr;gap:11px;"></div>
+    <div id="cempty" style="display:none;text-align:center;padding:60px 0 20px;">
+      <i class="ti ti-mood-empty" style="font-size:50px;color:var(--tx3);display:block;margin-bottom:12px;"></i>
+      <p style="font-size:14px;font-weight:700;color:var(--tx2);">Koi product nahi mila</p>
+    </div>
+  </div>
+</div>
 
-radius:12px;padding:15px;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 6px 20px rgba(29,158,117,0.35);">
-        داخل ہوں ↩
+
+<!-- ╔══════════════════════════════════════════╗
+     ║            PRODUCT DETAIL               ║
+     ╚══════════════════════════════════════════╝ -->
+<div id="s-detail" class="screen" style="display:flex;flex-direction:column;min-height:100vh;background:var(--bg);">
+  <!-- scrollable content -->
+  <div id="detbody" style="flex:1;overflow-y:auto;padding-bottom:calc(var(--nav-h) + 80px);"></div>
+
+  <!-- FIXED BOTTOM ACTION BAR -->
+  <div style="
+    position:fixed;bottom:var(--nav-h);left:50%;transform:translateX(-50%);
+    width:100%;max-width:430px;
+    background:rgba(255,255,255,.97);
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    border-top:1.5px solid var(--br);
+    padding:12px 16px 14px;
+    z-index:100;
+    display:flex;align-items:center;gap:10px;
+  " id="det-bar">
+    <!-- Qty control -->
+    <div style="display:flex;align-items:center;background:var(--bg2);border:1.5px solid var(--br);border-radius:14px;overflow:hidden;flex-shrink:0;">
+      <button onclick="dQty(-1)" style="width:42px;height:46px;background:transparent;font-size:20px;font-weight:700;color:var(--tx2);display:flex;align-items:center;justify-content:center;">−</button>
+      <span id="dqty" style="font-size:16px;font-weight:900;min-width:32px;text-align:center;color:var(--tx);">1</span>
+      <button onclick="dQty(1)" style="width:42px;height:46px;background:var(--g);font-size:20px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;border-radius:0 12px 12px 0;">+</button>
+    </div>
+    <!-- Add to cart -->
+    <button onclick="addFromDet()"
+      style="flex:1;height:46px;background:linear-gradient(135deg,var(--g),var(--gd));color:#fff;border-radius:14px;font-size:14.5px;font-weight:800;box-shadow:0 5px 18px rgba(24,168,118,.38);display:flex;align-items:center;justify-content:center;gap:8px;">
+      <i class="ti ti-shopping-bag-plus" style="font-size:18px;"></i> Basket mein Daalein
+    </button>
+  </div>
+</div>
+
+
+<!-- ╔══════════════════════════════════════════╗
+     ║              CART SCREEN                ║
+     ╚══════════════════════════════════════════╝ -->
+<div id="s-cart" style="display:none;flex-direction:column;min-height:100vh;background:var(--bg);">
+
+  <!-- Header -->
+  <div style="background:linear-gradient(155deg,#0a5c40,#18A876);padding:18px 16px 16px;flex-shrink:0;">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <button onclick="goS('home');setNav('home')" style="width:38px;height:38px;background:rgba(255,255,255,.2);border-radius:13px;display:flex;align-items:center;justify-content:center;">
+        <i class="ti ti-arrow-left" style="font-size:19px;color:#fff;"></i>
       </button>
+      <div>
+        <h2 style="color:#fff;font-size:18px;font-weight:900;margin:0;">Aapka Basket</h2>
+        <p id="cart-count-hdr" style="color:rgba(255,255,255,.7);font-size:11px;margin:2px 0 0;font-weight:500;"></p>
+      </div>
+    </div>
+  </div>
 
-      <p id="login-err" style="display:none;font-size:12px;color:var(--lal);margin-top:14px;font-weight:600;text-
+  <!-- Items -->
+  <div style="flex:1;overflow-y:auto;padding:14px 13px 0;">
+    <div id="citems"></div>
+    <div id="cempty2" style="display:none;text-align:center;padding:60px 0;">
+      <div style="width:72px;height:72px;background:var(--bg2);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;border:1.5px solid var(--br);">
+        <i class="ti ti-shopping-bag" style="font-size:34px;color:var(--tx3);"></i>
+      </div>
+      <p style="font-size:15px;font-weight:800;color:var(--tx2);margin:0 0 5px;">Basket Khali Hai</p>
+      <p style="font-size:12.5px;color:var(--tx3);">Koi masala basket mein daalein</p>
+      <button onclick="goS('home');setNav('home')" style="margin-top:16px;background:var(--g);color:#fff;border-radius:13px;padding:11px 26px;font-size:13.5px;font-weight:700;">Shopping Karein</button>
+    </div>
+  </div>
 
-align:center;background:#FEF2F2;border-radius:8px;padding:10px;">
-        ❌ Galat username ya password — dobara koshish karein
+  <!-- FIXED CHECKOUT PANEL -->
+  <div id="ctotal" style="
+    display:none;
+    position:sticky;bottom:0;
+    background:var(--bg);
+    border-top:1.5px solid var(--br);
+    padding:14px 14px calc(var(--nav-h) + 10px);
+    max-height:60vh;overflow-y:auto;
+    box-shadow:0 -4px 20px rgba(0,0,0,.08);
+  ">
+    <!-- Discount -->
+    <div style="display:flex;gap:8px;margin-bottom:9px;">
+      <input id="dinp" type="text" placeholder="Discount code daalein..."
+        style="flex:1;padding:10px 13px;border-radius:11px;font-size:13px;text-transform:uppercase;"/>
+      <button onclick="applyDisc()" style="background:linear-gradient(135deg,var(--g),var(--gd));color:#fff;border-radius:11px;padding:10px 16px;font-size:13px;font-weight:700;white-space:nowrap;">Apply</button>
+    </div>
+    <div id="dmsg" style="display:none;font-size:12px;padding:8px 12px;border-radius:10px;margin-bottom:9px;font-weight:700;"></div>
+
+    <!-- Summary box -->
+    <div style="background:var(--bg2);border-radius:14px;padding:13px;margin-bottom:12px;border:1.5px solid var(--br);">
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+        <span style="font-size:13px;color:var(--tx2);">Subtotal</span>
+        <span id="csub" style="font-size:13px;font-weight:700;">Rs.0</span>
+      </div>
+      <div id="cdrow" style="display:none;justify-content:space-between;margin-bottom:6px;">
+        <span style="font-size:13px;color:var(--g);font-weight:700;">Discount 🎉</span>
+        <span id="cdval" style="font-size:13px;color:var(--g);font-weight:800;">-Rs.0</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;border-top:1.5px solid var(--br);padding-top:10px;">
+        <span style="font-size:15px;font-weight:900;">Total</span>
+        <span id="ctot" style="font-size:16px;font-weight:900;color:var(--g);">Rs.0</span>
+      </div>
+    </div>
+
+    <!-- Delivery Details -->
+    <div style="background:var(--bg2);border-radius:14px;padding:14px;margin-bottom:12px;border:1.5px solid var(--br);">
+      <p style="font-size:13px;font-weight:900;margin:0 0 12px;display:flex;align-items:center;gap:6px;">
+        <span style="width:24px;height:24px;background:linear-gradient(135deg,var(--g),var(--gd));border-radius:7px;display:inline-flex;align-items:center;justify-content:center;">
+          <i class="ti ti-map-pin" style="font-size:13px;color:#fff;"></i>
+        </span>
+        Delivery Details
       </p>
+      <div class="fld"><label>Pura Naam *</label><input id="coname" type="text" placeholder="Aapka pura naam"/></div>
+      <div class="fld"><label>Phone Number *</label><input id="cophone" type="tel" placeholder="03XXXXXXXXX"/></div>
+      <div style="display:flex;gap:9px;">
+        <div class="fld" style="flex:1;"><label>City</label><input id="cocity" type="text" placeholder="City"/></div>
+        <div class="fld" style="flex:1;"><label>Area / Mohalla</label><input id="coarea" type="text" placeholder="Area"/></div>
+      </div>
+      <div class="fld"><label>Ghar ka Pata (Address)</label><textarea id="coaddr" rows="2" placeholder="Street, Ghar number, Landmark..."  style="width:100%;padding:10px 13px;border-radius:11px;border:1.5px solid var(--br);background:var(--bg);"></textarea></div>
+      <div class="fld"><label>Koi Note (Optional)</label><input id="conote" type="text" placeholder="Koi khaas hukam..."/></div>
     </div>
+
+    <!-- WhatsApp Button -->
+    <button onclick="placeOrder()" style="
+      width:100%;height:52px;
+      background:linear-gradient(135deg,#22c55e,#16a34a);
+      color:#fff;border-radius:15px;
+      font-size:15px;font-weight:900;
+      box-shadow:0 6px 24px rgba(34,197,94,.4);
+      display:flex;align-items:center;justify-content:center;gap:9px;
+    ">
+      <i class="ti ti-brand-whatsapp" style="font-size:21px;"></i>
+      WhatsApp pe Order Karein
+    </button>
   </div>
 </div>
 
 
-<!-- CUSTOMER VIEW -->
-<div id="view-customer" style="display:none;flex-direction:column;min-height:100vh;">
+<!-- ╔══════════════════════════════════════════╗
+     ║            ORDERS SCREEN                ║
+     ╚══════════════════════════════════════════╝ -->
+<div id="s-orders" style="display:none;flex-direction:column;min-height:100vh;background:var(--bg2);">
+  <div style="background:linear-gradient(155deg,#0a5c40,#18A876);padding:18px 16px 16px;flex-shrink:0;">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <button onclick="goS('home');setNav('home')" style="width:38px;height:38px;background:rgba(255,255,255,.2);border-radius:13px;display:flex;align-items:center;justify-content:center;">
+        <i class="ti ti-arrow-left" style="font-size:19px;color:#fff;"></i>
+      </button>
+      <h2 style="color:#fff;font-size:18px;font-weight:900;margin:0;">Order History</h2>
+    </div>
+  </div>
+  <div style="flex:1;overflow-y:auto;padding:13px 13px calc(var(--nav-h) + 10px);">
+    <div id="cordlist"></div>
+  </div>
+</div>
 
-  <!-- HOME SCREEN -->
-  <div id="cs-home" class="screen" style="flex-direction:column;min-height:100vh;">
 
-    <!-- Header -->
-    <div style="background:linear-gradient(135deg,var(--sabz),var(--sabz-d));padding:20px 16px 14px;flex-shrink:0;">
-      <div style="display:flex;justify-content:space-between;align-items:center;">
+<!-- ╔══════════════════════════════════════════╗
+     ║            B2B WHOLESALE                ║
+     ╚══════════════════════════════════════════╝ -->
+<div id="s-b2b" style="display:none;flex-direction:column;min-height:100vh;background:var(--bg2);">
+  <div style="background:linear-gradient(155deg,#0a5c40,#18A876);padding:18px 16px 16px;flex-shrink:0;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px;">
+      <button onclick="goS('home');setNav('home')" style="width:38px;height:38px;background:rgba(255,255,255,.2);border-radius:13px;display:flex;align-items:center;justify-content:center;">
+        <i class="ti ti-arrow-left" style="font-size:19px;color:#fff;"></i>
+      </button>
+      <div>
+        <p style="color:rgba(255,255,255,.65);font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;margin:0;">Wholesale Portal</p>
+        <h2 style="color:#fff;font-size:18px;font-weight:900;margin:2px 0 0;">Dukandaar Panel 🏪</h2>
+      </div>
+    </div>
+  </div>
+  <div style="flex:1;overflow-y:auto;padding:13px 13px calc(var(--nav-h) + 10px);">
+    <div style="background:var(--al);border:1.5px solid #FDE68A;border-radius:14px;padding:13px 14px;margin-bottom:14px;display:flex;gap:10px;align-items:flex-start;">
+      <i class="ti ti-info-circle" style="font-size:20px;color:var(--am);flex-shrink:0;margin-top:1px;"></i>
+      <p style="font-size:12.5px;color:#92400E;line-height:1.65;margin:0;font-weight:600;">Minimum 1kg order pe yeh rates milenge. Bulk ya large order ke liye WhatsApp karein.</p>
+    </div>
+    <p class="stitle">Wholesale Rates (Per 1kg)</p>
+    <div id="b2blist" style="display:flex;flex-direction:column;gap:9px;margin-bottom:16px;"></div>
+    <button onclick="window.open('https://wa.me/923069348405?text=Assalam+o+Alaikum!+Zaiqah+se+bulk+order+karna+chahta+hun.+Details+bataein.','_blank')"
+      style="width:100%;height:52px;background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;border-radius:15px;font-size:14.5px;font-weight:800;box-shadow:0 6px 20px rgba(34,197,94,.35);display:flex;align-items:center;justify-content:center;gap:9px;">
+      <i class="ti ti-brand-whatsapp" style="font-size:20px;"></i> Bulk Order — WhatsApp Karein
+    </button>
+  </div>
+</div>
+
+
+<!-- ╔══════════════════════════════════════════╗
+     ║            SUCCESS SCREEN               ║
+     ╚══════════════════════════════════════════╝ -->
+<div id="s-success" style="display:none;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:40px 22px;text-align:center;background:var(--bg);">
+  <div style="width:88px;height:88px;background:linear-gradient(135deg,#d1fae5,#6ee7b7);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;box-shadow:0 8px 30px rgba(24,168,118,.2);">
+    <i class="ti ti-check" style="font-size:42px;color:var(--gd);"></i>
+  </div>
+  <h2 style="font-size:26px;font-weight:900;margin:0 0 7px;color:var(--tx);">Shukriya! 🎉</h2>
+  <p style="font-size:14px;color:var(--tx2);margin:0 0 14px;line-height:1.6;">Aapka order WhatsApp pe bhej diya gaya.<br/>Hamara team jald aapse rabta karega.</p>
+  <p id="succid" style="font-size:13.5px;color:var(--g);font-weight:900;background:var(--gl);padding:8px 22px;border-radius:40px;margin-bottom:28px;display:inline-block;"></p>
+  <div style="width:100%;display:flex;flex-direction:column;gap:9px;">
+    <button onclick="goS('orders');setNav('orders')" style="width:100%;height:48px;background:var(--bg2);border:1.5px solid var(--br);border-radius:14px;font-size:13.5px;font-weight:800;color:var(--tx);display:flex;align-items:center;justify-content:center;gap:7px;">
+      <i class="ti ti-receipt" style="font-size:17px;"></i> Orders Dekhein
+    </button>
+    <button onclick="goS('home');setNav('home')" style="width:100%;height:48px;background:linear-gradient(135deg,var(--g),var(--gd));color:#fff;border-radius:14px;font-size:13.5px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:7px;">
+      <i class="ti ti-home-2" style="font-size:17px;"></i> Home Wapis Jayein
+    </button>
+  </div>
+</div>
+
+
+<!-- ╔══════════════════════════════════════════╗
+     ║             BOTTOM NAV                  ║
+     ╚══════════════════════════════════════════╝ -->
+<div id="cnav">
+  <div class="ni on" id="ni-home" onclick="goS('home');setNav('home')">
+    <i class="ti ti-home-2"></i><span>Home</span>
+  </div>
+  <div class="ni" id="ni-cart" onclick="goS('cart');setNav('cart')" style="position:relative;">
+    <i class="ti ti-shopping-bag"></i>
+    <span id="navbdg" class="bdg" style="right:16px;top:6px;"></span>
+    <span>Basket</span>
+  </div>
+  <div class="ni" id="ni-orders" onclick="goS('orders');setNav('orders')">
+    <i class="ti ti-receipt"></i><span>Orders</span>
+  </div>
+  <div class="ni" id="ni-b2b" onclick="goS('b2b');setNav('b2b')">
+    <i class="ti ti-building-store"></i><span>Dukaan</span>
+  </div>
+</div>
+
+
+<!-- ╔══════════════════════════════════════════╗
+     ║         ADMIN GATE (Password)           ║
+     ╚══════════════════════════════════════════╝ -->
+<div id="agate">
+  <div style="background:var(--bg);border-radius:22px;padding:26px 22px;width:100%;max-width:360px;box-shadow:var(--shl);">
+    <div style="text-align:center;margin-bottom:20px;">
+      <div style="width:52px;height:52px;background:linear-gradient(135deg,#1e3a5f,#2563EB);border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;box-shadow:0 6px 20px rgba(37,99,235,.3);">
+        <i class="ti ti-shield-lock" style="font-size:26px;color:#fff;"></i>
+      </div>
+      <h3 style="font-size:18px;font-weight:900;margin:0 0 4px;">Admin Access</h3>
+      <p style="font-size:12.5px;color:var(--tx2);margin:0;">Password daal ke daakhil hoon</p>
+    </div>
+    <div class="fld"><label>Password</label><input type="password" id="gpass" placeholder="••••••••" onkeydown="if(event.key==='Enter')chkAdmin()" style="width:100%;"/></div>
+    <p id="gerr" style="display:none;font-size:12px;color:var(--rd);font-weight:700;text-align:center;margin-bottom:10px;"></p>
+    <button onclick="chkAdmin()" style="width:100%;height:48px;background:linear-gradient(135deg,#2563EB,#1d4ed8);color:#fff;border-radius:13px;font-size:15px;font-weight:800;margin-bottom:9px;box-shadow:0 5px 16px rgba(37,99,235,.3);">Daakhil Hoon</button>
+    <button onclick="document.getElementById('agate').style.display='none'" style="width:100%;height:44px;background:var(--bg2);border:1.5px solid var(--br);border-radius:13px;font-size:13.5px;font-weight:700;color:var(--tx2);">Cancel</button>
+  </div>
+</div>
+
+
+<!-- ╔══════════════════════════════════════════╗
+     ║            ADMIN PANEL                  ║
+     ╚══════════════════════════════════════════╝ -->
+<div id="apanel" style="display:none;position:fixed;inset:0;background:var(--bg);z-index:400;max-width:430px;left:50%;transform:translateX(-50%);overflow-y:auto;">
+
+  <!-- Admin Header -->
+  <div style="background:linear-gradient(135deg,#1e3a5f,#1d4ed8);padding:18px 16px 16px;position:sticky;top:0;z-index:10;">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:38px;height:38px;background:rgba(255,255,255,.18);border-radius:12px;display:flex;align-items:center;justify-content:center;">
+          <i class="ti ti-settings" style="font-size:19px;color:#fff;"></i>
+        </div>
         <div>
-          <p style="color:#9FE1CB;font-size:11px;margin:0;font-weight:500;">خالص مصالحے</p>
-          <h2 style="color:#fff;font-size:22px;font-weight:700;margin:3px 0 0;">Zaiqah ذائقہ</h2>
-        </div>
-        <div style="display:flex;gap:16px;align-items:center;">
-          <div style="position:relative;cursor:pointer;" onclick="csGo('cart')">
-            <i class="ti ti-shopping-cart" style="font-size:24px;color:#fff;"></i>
-            <span id="c-badge" style="display:none;position:absolute;top:-6px;right:-6px;background:var(--narangi);color:#fff;font-
-
-size:9px;border-radius:50%;width:18px;height:18px;align-items:center;justify-content:center;font-weight:700;">0</span>
-          </div>
-          <i class="ti ti-logout" style="font-size:22px;color:#fff;cursor:pointer;" onclick="goBack()"></i>
+          <p style="color:rgba(255,255,255,.6);font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin:0;">Admin</p>
+          <h2 style="color:#fff;font-size:17px;font-weight:900;margin:1px 0 0;">Zaiqah Panel</h2>
         </div>
       </div>
-
-      <!-- Offer Banner -->
-      <div onclick="csGo('cart')" style="margin-top:12px;border-
-
-radius:14px;overflow:hidden;cursor:pointer;position:relative;height:80px;background:#0a5c42;">
-        <img id="offer-img"
-          src="https://static.vecteezy.com/system/resources/previews/015/258/820/non_2x/new-offer-tag-red-discount-label-isolated-
-
-on-yellow-background-vector.jpg"
-          style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display='none'"/>
-        <div style="position:absolute;inset:0;background:rgba(0,0,0,0.38);display:flex;align-items:center;padding:0 16px;">
-          <p id="offer-text" style="color:#fff;font-size:13px;margin:0;font-weight:600;line-height:1.4;">
-            Aaj ka offer — Code <b>ZAIQAH10</b> lagaein, 10% off!
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Category Filter -->
-    <div style="padding:12px 16px 4px;overflow-x:auto;display:flex;gap:8px;flex-shrink:0;">
-      <button onclick="cFilter('all',this)"   style="background:var(--sabz);color:#fff;padding:6px 16px;border-radius:20px;font-
-
-size:12px;border:none;cursor:pointer;font-weight:600;white-space:nowrap;">Sab</button>
-      <button onclick="cFilter('whole',this)" style="background:var(--bg2);color:var(--txt2);padding:6px 16px;border-
-
-radius:20px;font-size:12px;border:none;cursor:pointer;white-space:nowrap;">Sabut</button>
-      <button onclick="cFilter('ground',this)"style="background:var(--bg2);color:var(--txt2);padding:6px 16px;border-
-
-radius:20px;font-size:12px;border:none;cursor:pointer;white-space:nowrap;">Pesa</button>
-      <button onclick="cFilter('dry-fruit',this)" style="background:var(--bg2);color:var(--txt2);padding:6px 16px;border-
-
-radius:20px;font-size:12px;border:none;cursor:pointer;white-space:nowrap;">Dry Fruit</button>
-    </div>
-
-    <!-- Products Grid -->
-    <div style="padding:10px 16px 100px;overflow-y:auto;flex:1;">
-      <div id="c-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"></div>
-    </div>
-  </div>
-
-  <!-- PRODUCT DETAIL SCREEN -->
-  <div id="cs-detail" class="screen" style="flex-direction:column;min-height:100vh;">
-    <div id="c-detail-body" style="flex:1;overflow-y:auto;"></div>
-    <div style="padding:14px 16px;border-top:1px solid var(--brd);background:var(--bg);">
-      <button onclick="addFromDetail()"
-        style="width:100%;background:linear-gradient(135deg,var(--sabz),var(--sabz-d));color:#fff;border:none;border-radius:var(--
-
-r);padding:14px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 4px 16px rgba(29,158,117,0.3);">
-        🛒 Basket mein Daalein
+      <button onclick="closeAdmin()" style="width:38px;height:38px;background:rgba(255,255,255,.15);border-radius:12px;display:flex;align-items:center;justify-content:center;">
+        <i class="ti ti-x" style="font-size:19px;color:#fff;"></i>
       </button>
-    </div>
-  </div>
-
-  <!-- CART SCREEN -->
-  <div id="cs-cart" class="screen" style="padding:16px 16px 100px;overflow-y:auto;min-height:100vh;">
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
-      <i class="ti ti-arrow-left" onclick="csGo('home')" style="font-size:22px;cursor:pointer;color:var(--txt);"></i>
-      <p style="font-size:17px;font-weight:700;margin:0;color:var(--txt);">🛒 Aapka Basket</p>
-    </div>
-    <div id="c-cart-items"></div>
-    <div id="c-cart-empty" style="text-align:center;padding:60px 0;color:var(--txt2);">
-      <i class="ti ti-basket" style="font-size:52px;display:block;margin-bottom:12px;opacity:0.3;"></i>
-      <p style="font-size:14px;">Basket khali hai — koi item add karein</p>
-    </div>
-    <div id="c-cart-total" style="display:none;margin-top:14px;">
-      <div style="display:flex;gap:8px;margin-bottom:10px;">
-        <input id="disc-inp" type="text" placeholder="Discount code daalein..."
-          style="flex:1;padding:10px 12px;border-radius:10px;font-size:13px;"/>
-        <button onclick="applyDisc()"
-          style="background:var(--sabz);color:#fff;border:none;border-radius:10px;padding:10px 16px;font-
-
-size:13px;cursor:pointer;font-weight:600;">Apply</button>
-      </div>
-      <div id="disc-msg" style="font-size:12px;margin:-4px 0 10px;display:none;padding:8px 12px;border-radius:8px;"></div>
-      <div style="background:var(--bg2);border-radius:14px;padding:14px;margin-bottom:14px;">
-        <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
-          <span style="font-size:13px;color:var(--txt2);">Subtotal</span>
-          <span id="c-sub" style="font-size:13px;font-weight:500;">Rs.0</span>
-        </div>
-        <div id="c-disc-row" style="display:none;justify-content:space-between;margin-bottom:8px;">
-          <span style="font-size:13px;color:var(--sabz);">Discount</span>
-          <span id="c-disc-val" style="font-size:13px;color:var(--sabz);font-weight:500;">-Rs.0</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;border-top:1px solid var(--brd);padding-top:10px;">
-          <span style="font-size:15px;font-weight:700;">Total</span>
-          <span id="c-total" style="font-size:15px;font-weight:700;color:var(--sabz);">Rs.0</span>
-        </div>
-      </div>
-
-      <!-- DELIVERY DETAILS -->
-      <div style="background:var(--bg2);border-radius:14px;padding:14px;margin-bottom:14px;">
-        <p style="font-size:13px;font-weight:700;color:var(--txt);margin:0 0 10px;">📦 Delivery Details</p>
-
-        <div style="margin-bottom:10px;">
-          <label style="font-size:11px;font-weight:600;color:var(--txt2);display:block;margin-bottom:5px;">Pura Naam</label>
-          <input id="co-name" type="text" placeholder="Aapka naam"
-            style="width:100%;padding:10px 12px;border-radius:10px;font-size:13px;background:var(--bg);"/>
-        </div>
-
-        <div style="margin-bottom:10px;">
-          <label style="font-size:11px;font-weight:600;color:var(--txt2);display:block;margin-bottom:5px;">Contact Number</label>
-          <input id="co-phone" type="tel" placeholder="03XXXXXXXXX"
-            style="width:100%;padding:10px 12px;border-radius:10px;font-size:13px;background:var(--bg);"/>
-        </div>
-
-        <div style="margin-bottom:10px;position:relative;">
-          <label style="font-size:11px;font-weight:600;color:var(--txt2);display:block;margin-bottom:5px;">City</label>
-          <div style="display:flex;gap:8px;">
-            <input id="co-city" type="text" placeholder="City search karein..." autocomplete="off"
-              oninput="filterCities();updateDeliveryNote()" onfocus="filterCities()"
-              style="flex:1;padding:10px 12px;border-radius:10px;font-size:13px;background:var(--bg);"/>
-            <button type="button" onclick="filterCities()"
-              style="background:var(--neela);color:#fff;border:none;border-radius:10px;padding:0 16px;font-
-
-size:15px;cursor:pointer;">🔍</button>
-          </div>
-          <div id="co-city-list" style="display:none;position:absolute;top:100%;left:0;right:46px;background:var(--bg);border:1px 
-
-solid var(--brd);border-radius:10px;margin-top:4px;max-height:180px;overflow-y:auto;z-index:30;box-shadow:var(--shadow);"></div>
-        </div>
-
-        <div style="margin-bottom:0;">
-          <label style="font-size:11px;font-weight:600;color:var(--txt2);display:block;margin-bottom:5px;">Pura Address</label>
-          <textarea id="co-address" rows="2" placeholder="Ghar/Dukaan ka pura address, area, landmark..."
-            style="width:100%;padding:10px 12px;border-radius:10px;font-size:13px;resize:none;background:var(--bg);"></textarea>
-        </div>
-
-        <p id="co-delivery-note" style="font-size:11px;color:var(--sabz-d);margin:10px 0 0;font-
-
-weight:600;background:#EAF7F2;padding:8px 10px;border-radius:8px;">
-          🚚 Free Home Delivery — sirf Hyderabad ke liye
-        </p>
-      </div>
-
-      <button onclick="placeOrder()"
-        style="width:100%;background:linear-gradient(135deg,#25D366,#1da851);color:#fff;border:none;border-radius:var(--
-
-r);padding:14px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(37,211,102,0.3);">
-        <i class="ti ti-brand-whatsapp"></i> WhatsApp pe Order Karein
-      </button>
-    </div>
-  </div>
-
-  <!-- ORDER HISTORY SCREEN -->
-  <div id="cs-orders" class="screen" style="padding:16px 16px 100px;min-height:100vh;">
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
-      <i class="ti ti-arrow-left" onclick="csGo('home')" style="font-size:22px;cursor:pointer;color:var(--txt);"></i>
-      <p style="font-size:17px;font-weight:700;margin:0;">📋 Order History</p>
-    </div>
-    <div id="c-orders-list" style="display:flex;flex-direction:column;gap:10px;"></div>
-  </div>
-
-  <!-- WHOLESALE B2B SCREEN -->
-  <div id="cs-b2b" class="screen" style="min-height:100vh;">
-    <div style="background:linear-gradient(135deg,var(--sabz),var(--sabz-d));padding:24px 20px 20px;">
-      <i class="ti ti-arrow-left" onclick="csGo('home')" style="font-size:22px;cursor:pointer;color:#fff;display:block;margin-
-
-bottom:10px;"></i>
-      <p style="color:#9FE1CB;font-size:11px;margin:0;">Wholesale Portal</p>
-      <h2 style="color:#fff;font-size:20px;font-weight:700;margin:6px 0 0;">Dukandaar Panel</h2>
-    </div>
-    <div style="padding:16px;">
-      <p style="font-size:13px;font-weight:600;color:var(--txt2);margin:0 0 12px;">Wholesale Rates (Kam se Kam 1kg)</p>
-      <div id="b2b-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;"></div>
-      <button onclick="window.open('https://wa.me/923069348405?text=Assalam+o+Alaikum,+bulk+order+karna+hai','_blank')"
-        style="width:100%;background:linear-gradient(135deg,#25D366,#1da851);color:#fff;border:none;border-radius:var(--
-
-r);padding:14px;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(37,211,102,0.3);">
-        📦 Bulk Order — WhatsApp pe Karein
-      </button>
-    </div>
-  </div>
-
-  <!-- USERS SECTION -->
-  <div id="cs-users" class="screen" style="padding:0 0 100px;min-height:100vh;">
-    <div style="background:linear-gradient(135deg,#7c3aed,#5b21b6);padding:20px 16px 16px;">
-      <i class="ti ti-arrow-left" onclick="csGo('home')" style="font-size:22px;cursor:pointer;color:#fff;display:block;margin-
-
-bottom:10px;"></i>
-      <p style="color:#c4b5fd;font-size:11px;margin:0;">Admin Only</p>
-      <h2 style="color:#fff;font-size:20px;font-weight:700;margin:4px 0 0;">Users / Customers</h2>
-    </div>
-    <div style="padding:14px 16px;">
-      <div id="users-list" style="display:flex;flex-direction:column;gap:12px;"></div>
-    </div>
-  </div>
-
-  <!-- ORDER SUCCESS SCREEN -->
-  <div id="cs-success" class="screen" style="padding:60px 20px;text-align:center;min-height:100vh;flex-direction:column;align-
-
-items:center;justify-content:center;">
-    <div style="width:90px;height:90px;background:linear-gradient(135deg,#EAF7F2,#c6f0e2);border-radius:50%;display:flex;align-
-
-items:center;justify-content:center;margin:0 auto 20px;box-shadow:0 8px 24px rgba(29,158,117,0.2);">
-      <i class="ti ti-check" style="font-size:44px;color:var(--sabz);"></i>
-    </div>
-    <h2 style="font-size:24px;font-weight:800;margin:0 0 8px;">Shukriya! 🎉</h2>
-    <p style="font-size:13px;color:var(--txt2);margin:0 0 6px;">Aapka order WhatsApp pe bhej diya gaya</p>
-    <p id="c-success-id" style="font-size:13px;color:var(--sabz);margin:0 0 30px;font-weight:600;"></p>
-    <button onclick="csGo('orders')"
-      style="width:100%;background:var(--bg2);border:1.5px solid var(--brd);border-radius:var(--r);padding:13px;font-
-
-size:14px;cursor:pointer;margin-bottom:10px;font-weight:500;">
-      Orders Dekhein
-    </button>
-    <button onclick="csGo('home')"
-      style="width:100%;background:linear-gradient(135deg,var(--sabz),var(--sabz-d));color:#fff;border:none;border-radius:var(--
-
-r);padding:13px;font-size:14px;cursor:pointer;font-weight:600;box-shadow:0 4px 16px rgba(29,158,117,0.3);">
-      Wapis Jayein
-    </button>
-  </div>
-
-  <!-- BOTTOM NAVIGATION -->
-  <div id="c-nav" style="position:fixed;bottom:0;width:100%;max-width:430px;border-top:1px solid var(--
-
-brd);display:flex;background:var(--bg);z-index:50;box-shadow:0 -4px 16px rgba(0,0,0,0.08);">
-    <div onclick="csGo('home')" style="flex:1;text-align:center;cursor:pointer;padding:9px 0;">
-      <i class="ti ti-home" style="font-size:22px;color:var(--sabz);display:block;"></i>
-      <p style="font-size:10px;margin:2px 0 0;color:var(--sabz);font-weight:600;">Home</p>
-    </div>
-    <div onclick="csGo('cart')" style="flex:1;text-align:center;cursor:pointer;padding:9px 0;">
-      <i class="ti ti-shopping-cart" style="font-size:22px;color:var(--neela);display:block;"></i>
-      <p style="font-size:10px;margin:2px 0 0;color:var(--neela);">Basket</p>
-    </div>
-    <div onclick="csGo('orders')" style="flex:1;text-align:center;cursor:pointer;padding:9px 0;">
-      <i class="ti ti-receipt" style="font-size:22px;color:var(--narangi);display:block;"></i>
-      <p style="font-size:10px;margin:2px 0 0;color:var(--narangi);">Orders</p>
-    </div>
-    <div onclick="csGo('b2b')" style="flex:1;text-align:center;cursor:pointer;padding:9px 0;">
-      <i class="ti ti-building-store" style="font-size:22px;color:var(--lal);display:block;"></i>
-      <p style="font-size:10px;margin:2px 0 0;color:var(--lal);">Dukaan</p>
-    </div>
-    <div id="nav-users-btn" onclick="csGo('users')" style="flex:1;text-align:center;cursor:pointer;padding:9px 0;display:none;">
-      <i class="ti ti-users" style="font-size:22px;color:#7c3aed;display:block;"></i>
-      <p style="font-size:10px;margin:2px 0 0;color:#7c3aed;">Users</p>
-    </div>
-  </div>
-</div>
-
-
-<!-- ADMIN PANEL -->
-<div id="view-admin" style="display:none;min-height:100vh;background:var(--bg);">
-
-  <div style="background:linear-gradient(135deg,var(--neela),#0f4a8a);padding:16px 20px;display:flex;align-items:center;justify-
-
-content:space-between;">
-    <div>
-      <p style="color:#B5D4F4;font-size:11px;margin:0;font-weight:500;">Admin Panel</p>
-      <h2 style="color:#fff;font-size:18px;font-weight:700;margin:4px 0 0;">Zaiqah ذائقہ</h2>
-    </div>
-    <div style="display:flex;gap:14px;align-items:center;">
-      <div style="position:relative;cursor:pointer;" onclick="aGoTab('orders')">
-        <i class="ti ti-bell" style="font-size:24px;color:#fff;"></i>
-        <span id="a-notif" style="position:absolute;top:-6px;right:-6px;background:var(--narangi);color:#fff;font-size:9px;border-
-
-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-weight:700;">0</span>
-      </div>
-      <i class="ti ti-layout-2" title="Customer View" style="font-size:22px;color:#fff;cursor:pointer;" onclick="switchToCustomer
-
-()"></i>
-      <i class="ti ti-logout" style="font-size:22px;color:#fff;cursor:pointer;" onclick="goBack()"></i>
     </div>
   </div>
 
   <!-- Admin Tabs -->
-  <div style="display:flex;border-bottom:1px solid var(--brd);overflow-x:auto;background:var(--bg);">
-    <div id="at-dash"     class="tab-btn" onclick="aGoTab('dash')"     style="color:var(--neela);border-bottom-color:var(--
-
-neela);">Dashboard</div>
-    <div id="at-orders"   class="tab-btn" onclick="aGoTab('orders')">Orders <span id="a-order-badge" style="background:var(--
-
-narangi);color:#fff;font-size:9px;padding:1px 5px;border-radius:10px;margin-left:3px;">0</span></div>
-    <div id="at-products" class="tab-btn" onclick="aGoTab('products')">Products</div>
-    <div id="at-banner"   class="tab-btn" onclick="aGoTab('banner')">Banner</div>
-    <div id="at-chat"     class="tab-btn" onclick="aGoTab('chat')">Customers</div>
+  <div style="display:flex;border-bottom:1.5px solid var(--br);background:var(--bg);overflow-x:auto;position:sticky;top:74px;z-index:9;">
+    <div id="at-dash" onclick="aTab('dash')" class="tab" style="padding:12px 16px;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap;color:var(--g);border-bottom:2.5px solid var(--g);">Dashboard</div>
+    <div id="at-prods" onclick="aTab('prods')" class="tab" style="padding:12px 16px;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap;color:var(--tx2);border-bottom:2.5px solid transparent;">Products</div>
+    <div id="at-orders" onclick="aTab('orders')" class="tab" style="padding:12px 16px;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap;color:var(--tx2);border-bottom:2.5px solid transparent;">Orders</div>
+    <div id="at-cfg" onclick="aTab('cfg')" class="tab" style="padding:12px 16px;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap;color:var(--tx2);border-bottom:2.5px solid transparent;">Settings</div>
   </div>
 
-  <!-- DASHBOARD TAB -->
-  <div id="ap-dash" style="padding:14px 16px;">
+  <!-- DASH -->
+  <div id="ap-dash" style="padding:16px;">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">
-      <div style="background:linear-gradient(135deg,#E6F1FB,#d0e4f7);border-radius:14px;padding:16px;text-align:center;border:1px 
-
-solid #c0d8f0;">
-        <p id="a-stat-orders" style="font-size:26px;font-weight:800;color:var(--neela);margin:0;">0</p>
-        <p style="font-size:11px;color:var(--neela);margin:4px 0 0;font-weight:600;">Naye Orders</p>
+      <div style="background:linear-gradient(135deg,var(--gl),var(--gx));border:1.5px solid rgba(24,168,118,.15);border-radius:16px;padding:16px;text-align:center;">
+        <p id="as-prods" style="font-size:30px;font-weight:900;color:var(--g);margin:0;">0</p>
+        <p style="font-size:11px;font-weight:700;color:var(--tx2);margin:4px 0 0;">Products</p>
       </div>
-      <div style="background:linear-gradient(135deg,#EAF7F2,#c6f0e2);border-radius:14px;padding:16px;text-align:center;border:1px 
-
-solid #a8e4cc;">
-        <p id="a-stat-custs" style="font-size:26px;font-weight:800;color:var(--sabz);margin:0;">0</p>
-        <p style="font-size:11px;color:var(--sabz);margin:4px 0 0;font-weight:600;">Customers</p>
-      </div>
-      <div style="background:linear-gradient(135deg,#FFF3E8,#ffe0c0);border-radius:14px;padding:16px;text-align:center;border:1px 
-
-solid #ffc896;">
-        <p id="a-stat-prods" style="font-size:26px;font-weight:800;color:var(--narangi);margin:0;">0</p>
-        <p style="font-size:11px;color:var(--narangi);margin:4px 0 0;font-weight:600;">Products</p>
-      </div>
-      <div style="background:linear-gradient(135deg,#EAF7F2,#c6f0e2);border-radius:14px;padding:16px;text-align:center;border:1px 
-
-solid #a8e4cc;">
-        <p style="font-size:16px;font-weight:800;color:var(--sabz);margin:0;">🟢 Active</p>
-        <p style="font-size:11px;color:var(--sabz);margin:4px 0 0;font-weight:600;">App Status</p>
+      <div style="background:linear-gradient(135deg,var(--gl),var(--gx));border:1.5px solid rgba(24,168,118,.15);border-radius:16px;padding:16px;text-align:center;">
+        <p id="as-ords" style="font-size:30px;font-weight:900;color:var(--g);margin:0;">0</p>
+        <p style="font-size:11px;font-weight:700;color:var(--tx2);margin:4px 0 0;">Total Orders</p>
       </div>
     </div>
-    <p style="font-size:13px;font-weight:700;color:var(--txt);margin:0 0 10px;">Pending Orders</p>
-    <div id="a-dash-orders"></div>
-    <div style="margin-top:14px;">
-      <button onclick="switchToCustomer()"
-        style="width:100%;background:linear-gradient(135deg,var(--sabz),var(--sabz-d));color:#fff;border:none;border-
-
-radius:12px;padding:12px;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 4px 16px rgba(29,158,117,0.3);">
-        Customer App Dekhein
-      </button>
+    <div style="background:var(--gl);border:1.5px solid rgba(24,168,118,.2);border-radius:16px;padding:16px;text-align:center;margin-bottom:14px;">
+      <i class="ti ti-circle-check" style="font-size:28px;color:var(--g);display:block;margin-bottom:7px;"></i>
+      <p style="font-size:13.5px;font-weight:800;color:var(--gd);">App chal rahi hai — Sab theek hai! 🌿</p>
     </div>
+    <button onclick="closeAdmin()" style="width:100%;height:46px;background:linear-gradient(135deg,var(--g),var(--gd));color:#fff;border-radius:13px;font-size:14px;font-weight:800;">Customer App Dekhein</button>
   </div>
 
-  <!-- ORDERS TAB -->
-  <div id="ap-orders" style="display:none;padding:14px 16px;">
-    <div style="display:flex;gap:8px;margin-bottom:12px;overflow-x:auto;padding-bottom:4px;">
-      <button onclick="aFiltO('all',this)"        style="background:var(--neela);color:#fff;padding:5px 12px;border-
-
-radius:20px;font-size:11px;border:none;cursor:pointer;white-space:nowrap;">Sab</button>
-      <button onclick="aFiltO('new',this)"        style="background:var(--bg2);color:var(--txt2);padding:5px 12px;border-
-
-radius:20px;font-size:11px;border:none;cursor:pointer;white-space:nowrap;">Naye</button>
-      <button onclick="aFiltO('processing',this)" style="background:var(--bg2);color:var(--txt2);padding:5px 12px;border-
-
-radius:20px;font-size:11px;border:none;cursor:pointer;white-space:nowrap;">Processing</button>
-      <button onclick="aFiltO('delivered',this)"  style="background:var(--bg2);color:var(--txt2);padding:5px 12px;border-
-
-radius:20px;font-size:11px;border:none;cursor:pointer;white-space:nowrap;">Delivered</button>
-    </div>
-    <div id="a-orders-list"></div>
-  </div>
-
-  <!-- PRODUCTS TAB -->
-  <div id="ap-products" style="display:none;padding:14px 16px;">
-    <button onclick="openAddP()"
-      style="width:100%;background:linear-gradient(135deg,var(--neela),#0f4a8a);color:#fff;border:none;border-
-
-radius:12px;padding:12px;font-size:14px;font-weight:600;cursor:pointer;margin-bottom:14px;box-shadow:0 4px 16px rgba
-
-(24,95,165,0.3);">
-      + Naya Product Jodein
+  <!-- PRODUCTS -->
+  <div id="ap-prods" style="display:none;padding:16px;">
+    <button onclick="openAdd()" style="width:100%;height:46px;background:linear-gradient(135deg,#2563EB,#1d4ed8);color:#fff;border-radius:13px;font-size:14px;font-weight:800;margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 5px 16px rgba(37,99,235,.25);">
+      <i class="ti ti-plus" style="font-size:18px;"></i> Naya Product Jodein
     </button>
-    <div id="a-products-list"></div>
+    <div id="aplist" style="display:flex;flex-direction:column;gap:10px;"></div>
   </div>
 
-  <!-- BANNER TAB -->
-  <div id="ap-banner" style="display:none;padding:14px 16px;">
-    <p style="font-size:14px;font-weight:700;color:var(--txt);margin:0 0 14px;">Offer Banner Update Karein</p>
-    <div style="margin-bottom:12px;">
-      <label style="font-size:12px;color:var(--txt2);font-weight:500;">Banner Image URL</label>
-      <input id="banner-url" type="text" placeholder="https://i.ibb.co/xxxxxx/image.jpg"
-        style="width:100%;margin-top:6px;padding:10px;border-radius:10px;font-size:13px;"/>
-    </div>
-    <div style="margin-bottom:16px;">
-      <label style="font-size:12px;color:var(--txt2);font-weight:500;">Banner Text</label>
-      <input id="banner-text" type="text" placeholder="Maslan: Eid Sale — Sab pe 20% off!"
-        style="width:100%;margin-top:6px;padding:10px;border-radius:10px;font-size:13px;"/>
-    </div>
-    <button onclick="updateBanner()"
-      style="width:100%;background:linear-gradient(135deg,var(--neela),#0f4a8a);color:#fff;border:none;border-
-
-radius:12px;padding:13px;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 4px 16px rgba(24,95,165,0.3);">
-      Banner Update Karein
-    </button>
-    <p style="font-size:12px;color:var(--txt2);margin:14px 0 8px;font-weight:600;">Preview:</p>
-    <div style="border-radius:12px;overflow:hidden;position:relative;height:80px;background:#0a5c42;">
-      <img id="banner-prev-img"
-        src="https://static.vecteezy.com/system/resources/previews/015/258/820/non_2x/new-offer-tag-red-discount-label-isolated-on-
-
-yellow-background-vector.jpg"
-        style="width:100%;height:100%;object-fit:cover;"/>
-      <div style="position:absolute;inset:0;background:rgba(0,0,0,0.38);display:flex;align-items:center;padding:0 14px;">
-        <p id="banner-prev-txt" style="color:#fff;font-size:13px;margin:0;font-weight:600;">
-          Aaj ka offer — Code ZAIQAH10, 10% off!
-        </p>
-      </div>
-    </div>
-    <p style="font-size:14px;font-weight:700;color:var(--txt);margin:20px 0 10px;">Active Discount Codes</p>
-    <div id="disc-codes-list" style="background:var(--bg2);border-radius:12px;padding:12px;display:flex;flex-
-
-direction:column;gap:6px;"></div>
+  <!-- ORDERS -->
+  <div id="ap-orders" style="display:none;padding:16px;">
+    <div id="aolist" style="display:flex;flex-direction:column;gap:10px;"></div>
   </div>
 
-  <!-- CUSTOMERS CHAT TAB -->
-  <div id="ap-chat" style="display:none;height:480px;flex-direction:column;">
-    <div style="display:flex;height:100%;">
-      <div style="width:110px;border-right:1px solid var(--brd);overflow-y:auto;flex-shrink:0;">
-        <div id="a-cust-list"></div>
+  <!-- SETTINGS -->
+  <div id="ap-cfg" style="display:none;padding:16px;display:none;">
+    <div style="background:var(--bg2);border-radius:15px;padding:16px;margin-bottom:14px;border:1.5px solid var(--br);">
+      <p style="font-size:13.5px;font-weight:900;margin:0 0 13px;">🎉 Promo Banner</p>
+      <div class="fld"><label>Banner Text</label><input id="btext" type="text" placeholder="Offer likhein..." style="width:100%;"/></div>
+      <button onclick="saveBanner()" style="width:100%;height:44px;background:var(--g);color:#fff;border-radius:11px;font-size:13.5px;font-weight:800;">Save Banner</button>
+    </div>
+    <div style="background:var(--bg2);border-radius:15px;padding:16px;border:1.5px solid var(--br);">
+      <p style="font-size:13.5px;font-weight:900;margin:0 0 13px;">🎟️ Discount Codes</p>
+      <div id="dclist" style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px;"></div>
+      <div style="display:flex;gap:8px;margin-bottom:9px;">
+        <input id="ncode" type="text" placeholder="CODE" style="flex:1;padding:10px 12px;border-radius:10px;text-transform:uppercase;"/>
+        <input id="ncodepct" type="number" placeholder="%" style="width:58px;padding:10px 10px;border-radius:10px;"/>
       </div>
-      <div style="flex:1;display:flex;flex-direction:column;">
-        <div style="padding:10px 12px;border-bottom:1px solid var(--brd);background:var(--bg2);">
-          <p id="a-chat-name" style="font-size:13px;font-weight:700;margin:0;color:var(--txt);">Customer select karein</p>
-          <p id="a-chat-phone" style="font-size:11px;color:var(--txt2);margin:2px 0 0;"></p>
-        </div>
-        <div id="a-chat-msgs" style="flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px;min-
-
-height:200px;"></div>
-        <div style="padding:10px;border-top:1px solid var(--brd);display:flex;gap:8px;">
-          <input id="a-msg-inp" type="text" placeholder="Message likhein..."
-            style="flex:1;padding:9px 12px;border-radius:10px;font-size:13px;"
-            onkeydown="if(event.key==='Enter')aSendMsg()"/>
-          <button onclick="aSendMsg()"
-            style="background:linear-gradient(135deg,var(--neela),#0f4a8a);color:#fff;border:none;border-radius:10px;padding:9px 
-
-14px;font-size:13px;cursor:pointer;font-weight:700;">
-            Bhejo
-          </button>
-        </div>
-      </div>
+      <button onclick="addCode()" style="width:100%;height:44px;background:linear-gradient(135deg,#2563EB,#1d4ed8);color:#fff;border-radius:11px;font-size:13.5px;font-weight:800;">Code Jodein</button>
     </div>
   </div>
 </div>
 
-<!-- PRODUCT ADD/EDIT MODAL -->
-<div id="p-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:999;align-items:flex-end;justify-
 
-content:center;">
-  <div style="background:var(--bg);border-radius:24px 24px 0 0;padding:20px;width:100%;max-width:430px;max-height:90vh;overflow-
-
-y:auto;">
-    <div style="width:40px;height:4px;background:var(--brd);border-radius:2px;margin:0 auto 16px;"></div>
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
-      <p id="p-modal-title" style="font-size:16px;font-weight:700;margin:0;">Naya Product</p>
-      <i class="ti ti-x" onclick="closeModal()" style="font-size:22px;cursor:pointer;color:var(--txt2);"></i>
+<!-- ╔══════════════════════════════════════════╗
+     ║          PRODUCT MODAL (Add/Edit)       ║
+     ╚══════════════════════════════════════════╝ -->
+<div id="pmodal">
+  <div class="mbox">
+    <div class="drag-bar"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+      <h3 id="mtitle" style="font-size:17px;font-weight:900;margin:0;"></h3>
+      <button onclick="closeM()" style="width:34px;height:34px;background:var(--bg2);border-radius:10px;display:flex;align-items:center;justify-content:center;">
+        <i class="ti ti-x" style="font-size:17px;color:var(--tx2);"></i>
+      </button>
     </div>
-    <div style="margin-bottom:12px;">
-      <label style="font-size:11px;color:var(--txt2);font-weight:500;">Image URL</label>
-      <div style="display:flex;gap:8px;margin-top:6px;">
-        <input id="pm-img-url" type="text" placeholder="https://i.ibb.co/.../image.jpg"
-          style="flex:1;padding:9px;border-radius:8px;font-size:12px;"/>
-        <button onclick="applyImgUrl()"
-          style="background:var(--neela);color:#fff;border:none;border-radius:8px;padding:9px 12px;font-
 
-size:12px;cursor:pointer;white-space:nowrap;font-weight:600;">
-          Preview
-        </button>
+    <!-- Image -->
+    <div style="margin-bottom:13px;">
+      <label style="font-size:11px;font-weight:700;color:var(--tx2);display:block;margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px;">Image URL</label>
+      <div style="display:flex;gap:8px;margin-bottom:8px;">
+        <input id="mimg" type="text" placeholder="https://i.ibb.co/.../image.jpg" style="flex:1;padding:10px 12px;border-radius:10px;font-size:12px;"/>
+        <button onclick="prevImg()" style="background:#2563EB;color:#fff;border-radius:10px;padding:10px 13px;font-size:12px;font-weight:700;">Preview</button>
+      </div>
+      <div id="mimgprev" data-src="" style="width:76px;height:76px;background:var(--bg2);border-radius:13px;display:flex;align-items:center;justify-content:center;overflow:hidden;border:1.5px solid var(--br);">
+        <i class="ti ti-camera" style="font-size:26px;color:var(--tx3);"></i>
       </div>
     </div>
-    <div id="p-img-prev" data-src=""
-      style="width:80px;height:80px;background:var(--bg2);border-radius:12px;display:flex;align-items:center;justify-
 
-content:center;margin:0 0 14px;overflow:hidden;">
-      <i class="ti ti-camera" style="font-size:30px;color:var(--sabz);"></i>
-    </div>
-    <div style="display:flex;flex-direction:column;gap:10px;">
-      <div>
-        <label style="font-size:11px;color:var(--txt2);font-weight:500;">Naam (English)</label>
-        <input id="pm-name" type="text" placeholder="Maslan: Kali Mirch"
-          style="width:100%;margin-top:4px;padding:10px;border-radius:8px;font-size:13px;"/>
+    <div style="display:flex;flex-direction:column;gap:9px;">
+      <div class="fld"><label>Naam (English) *</label><input id="mname" type="text" placeholder="Maslan: Kali Mirch" style="width:100%;"/></div>
+      <div class="fld"><label>Naam (Urdu)</label><input id="murdu" type="text" placeholder="کالی مرچ" style="width:100%;"/></div>
+      <div style="display:flex;gap:9px;">
+        <div class="fld" style="flex:1;"><label>Qeemat (Rs.) *</label><input id="mprice" type="number" placeholder="120" style="width:100%;"/></div>
+        <div class="fld" style="flex:1;"><label>Unit</label><input id="munit" type="text" placeholder="100g" style="width:100%;"/></div>
       </div>
-      <div>
-        <label style="font-size:11px;color:var(--txt2);font-weight:500;">Naam (Urdu)</label>
-        <input id="pm-urdu" type="text" placeholder="کالی مرچ"
-          style="width:100%;margin-top:4px;padding:10px;border-radius:8px;font-size:13px;"/>
-      </div>
-      <div>
-        <label style="font-size:11px;color:var(--txt2);font-weight:500;">Qeemat — Rs. mein</label>
-        <input id="pm-price" type="number" placeholder="Maslan: 120"
-          style="width:100%;margin-top:4px;padding:10px;border-radius:8px;font-size:13px;"/>
-      </div>
-      <div>
-        <label style="font-size:11px;color:var(--txt2);font-weight:500;">Unit</label>
-        <input id="pm-unit" type="text" placeholder="Maslan: 100g, 1kg, 250ml"
-          style="width:100%;margin-top:4px;padding:10px;border-radius:8px;font-size:13px;"/>
-      </div>
-      <div>
-        <label style="font-size:11px;color:var(--txt2);font-weight:500;">Category</label>
-        <select id="pm-cat" style="width:100%;margin-top:4px;padding:10px;border-radius:8px;font-size:13px;">
-          <option value="whole">Sabut</option>
-          <option value="ground">Pesa</option>
-          <option value="dry-fruit">Dry Fruit</option>
+      <div class="fld">
+        <label>Category</label>
+        <select id="mcat" style="width:100%;padding:11px 13px;border-radius:11px;">
+          <option value="whole">🌱 Sabut</option>
+          <option value="ground">⚗️ Pesa</option>
+          <option value="dry-fruit">🌰 Dry Fruit</option>
+          <option value="blends">✨ Blends</option>
         </select>
       </div>
-      <div>
-        <label style="font-size:11px;color:var(--txt2);font-weight:500;">Chhoti description</label>
-        <textarea id="pm-desc" rows="2" placeholder="Product ke baare mein..."
-          style="width:100%;margin-top:4px;padding:10px;border-radius:8px;font-size:13px;resize:none;"></textarea>
-      </div>
+      <div class="fld"><label>Emoji (agar image nahi)</label><input id="memoji" type="text" placeholder="🟤" style="width:100%;"/></div>
+      <div class="fld"><label>Description</label><textarea id="mdesc" rows="2" placeholder="Product ke baare mein..." style="width:100%;padding:10px 13px;border-radius:11px;border:1.5px solid var(--br);background:var(--bg2);"></textarea></div>
     </div>
-    <div style="display:flex;gap:8px;margin-top:16px;">
-      <button onclick="closeModal()"
-        style="flex:1;padding:12px;border-radius:10px;font-size:13px;cursor:pointer;font-weight:500;border:1.5px solid var(--
 
-brd);background:var(--bg);">Cancel</button>
-      <button onclick="saveProduct()"
-        style="flex:1;background:linear-gradient(135deg,var(--neela),#0f4a8a);color:#fff;border:none;border-
-
-radius:10px;padding:12px;font-size:13px;cursor:pointer;font-weight:700;">
-        Save Karein
+    <div style="display:flex;gap:9px;margin-top:18px;">
+      <button onclick="closeM()" style="flex:1;height:46px;border-radius:12px;font-size:13px;font-weight:700;background:var(--bg2);border:1.5px solid var(--br);color:var(--tx2);">Cancel</button>
+      <button onclick="saveP()" id="sbtn" style="flex:2;height:46px;background:linear-gradient(135deg,#2563EB,#1d4ed8);color:#fff;border-radius:12px;font-size:13.5px;font-weight:800;box-shadow:0 4px 14px rgba(37,99,235,.25);">
+        <i class="ti ti-device-floppy" style="margin-right:5px;"></i> Save Karein
       </button>
     </div>
   </div>
 </div>
 
-
+<!-- ================================================================
+     JAVASCRIPT
+================================================================ -->
 <script>
-// ADMIN CREDENTIALS
-function _chkAdmin(u,p){
-  const _u=[105,109,116,105,97,122,97,108,101,101,49,49,48,55,56,54].map(c=>String.fromCharCode(c)).join('');
-  const _p=[105,109,116,105,97,122,97,108,101,101,49,49,48,55,56,54].map(c=>String.fromCharCode(c)).join('');
-  return u===_u && p===_p;
-}
-
-const WA_NUM = '923069348405';
-
-const DISC_CODES = {
-  'ZAIQAH10': 10,
-  'WELCOME15': 15,
-  'DUKAAN20': 20
-};
-
-let products = [
-  { id:1, name:'Badam', urdu:'بادام', cat:'dry-fruit', emoji:'🟤', price:480, unit:'200g',
-    desc:'Kashmiri badam — ekdum fresh aur crispy.',
-    img:'' },
-
-  { id:2, name:'Kali Mirch', urdu:'کالی مرچ', cat:'whole', emoji:'⚫', price:120, unit:'50g',
-    desc:'Sabut kali mirch — tez khushbu aur maza.',
-    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Black_pepper_closeup.jpg/320px-Black_pepper_closeup.jpg' },
-
-  { id:3, name:'Lal Mirch', urdu:'لال مرچ پسی', cat:'ground', emoji:'🔴', price:90, unit:'100g',
-    desc:'Ghar mein pesi lal mirch — bilkul khalis.',
-    img:'' },
-
-  { id:8, name:'Zeera Sabut', urdu:'زیرہ سبوت', cat:'whole', emoji:'🟤', price:100, unit:'50g',
-    desc:'Asli sabut zeera — salan ka dum.',
-    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Cuminum_cyminum_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-
-
-198.jpg/200px-Cuminum_cyminum_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-198.jpg' },
+// ── DATA ────────────────────────────────────────────────────────────
+let prods = JSON.parse(localStorage.getItem('zq_prods') || 'null') || [
+  {id:1,name:'Kali Mirch',urdu:'کالی مرچ',price:320,unit:'100g',cat:'whole',emoji:'🖤',description:'Premium quality kali mirch — Pakistani cuisine ka zaroor hissa. Khushbu aur taste mein behtareen.'},
+  {id:2,name:'Lal Mirch Pesi',urdu:'لال مرچ پسی',price:180,unit:'100g',cat:'ground',emoji:'🌶️',description:'Taza pesi lal mirch — Biryani aur karahi mein zimmedaar zaiqa.'},
+  {id:3,name:'Garam Masala',urdu:'گرم مصالحہ',price:260,unit:'100g',cat:'blends',emoji:'✨',description:'Perfect blend of 12 masalay — Restaurant jesi khushbu ghar mein.'},
+  {id:4,name:'Dhaniya',urdu:'دھنیہ',price:140,unit:'100g',cat:'whole',emoji:'🌿',description:'Taza sabut dhaniya — Daal aur chutney ka dil.'},
+  {id:5,name:'Zeera',urdu:'زیرہ',price:200,unit:'100g',cat:'whole',emoji:'🌾',description:'Khalis zeera — Digestion aur flavor dono ke liye.'},
+  {id:6,name:'Haldi',urdu:'ہلدی',price:160,unit:'100g',cat:'ground',emoji:'💛',description:'Pure haldi powder — Anti-inflammatory aur rang dene mein behtareen.'},
+  {id:7,name:'Kaju',urdu:'کاجو',price:850,unit:'100g',cat:'dry-fruit',emoji:'🥜',description:'Premium kaju — Mithai, korma aur snacking ke liye.'},
+  {id:8,name:'Badam',urdu:'بادام',price:920,unit:'100g',cat:'dry-fruit',emoji:'🥜',img:'https://i.ibb.co/MkMVzyH4/download.jpg',description:'Desi badam — Energy aur taste ka combination.'},
+  {id:9,name:'Adrak Powder',urdu:'ادرک پاؤڈر',price:190,unit:'100g',cat:'ground',emoji:'🫚',description:'Taza adrak powder — Chai aur gosht ke liye laazmi.'},
+  {id:10,name:'Saunf',urdu:'سونف',price:150,unit:'100g',cat:'whole',emoji:'💚',description:'Khushboodar saunf — Munh ka freshener aur digestive.'},
 ];
 
-let orders = [
-  { id:'ZAQ-001', customer:'Ahmed Bhai', phone:'03001234567', items:'Kali Mirch x2, Garam Masala x1', total:330, status:'new', 
+let discCodes = JSON.parse(localStorage.getItem('zq_dc') || '{"ZAIQAH10":10,"MASALAY15":15}');
+let bannerTxt = localStorage.getItem('zq_banner') || '🎉 Pehle Order pe 10% OFF! Code: ZAIQAH10';
+let orderHist = JSON.parse(localStorage.getItem('zq_orders') || '[]');
+let cart = {};
+let discPct = 0;
+let detProd = null;
+let editId = null;
+let activeFil = 'all';
+let nextId = prods.length ? Math.max(...prods.map(p=>p.id))+1 : 1;
+const WA = '923069348405';
 
-time:'10 min pehle', address:'Hyderabad, Block 5' },
-  { id:'ZAQ-002', customer:'Fatima Apa', phone:'03111234567', items:'Badam x1, Haldi x2', total:440, status:'processing', time:'1 
-
-ghanta pehle', address:'Latifabad No.8' },
-  { id:'ZAQ-003', customer:'Kareem Store', phone:'03211234567', items:'Kaju x2', total:700, status:'delivered', time:'Kal', 
-
-address:'Qasimabad Market' },
-];
-
-let customers = [
-  { id:1, name:'Ahmed Bhai', phone:'03001234567', joinDate:'Jan 2025', topFan:true, totalOrders:12, img:null,
-    unread:2, msgs:[{from:'customer',text:'Assalam o Alaikum!',time:'10:30'},{from:'customer',text:'Badam available 
-
-hai?',time:'10:31'}] },
-  { id:2, name:'Fatima Apa', phone:'03111234567', joinDate:'Mar 2025', topFan:false, totalOrders:4, img:null,
-    unread:1, msgs:[{from:'customer',text:'Delivery kab hogi?',time:'11:00'},{from:'admin',text:'Aaj shaam tak 
-
-InshAllah!',time:'11:05'}] },
-  { id:3, name:'Kareem Store', phone:'03211234567', joinDate:'Feb 2025', topFan:true, totalOrders:28, img:null,
-    unread:0, msgs:[{from:'customer',text:'5kg ka rate chahiye',time:'09:00'},{from:'admin',text:'Rate list bhej raha 
-
-hun',time:'09:10'}] },
-];
-
-let cart={}, discPct=0, detailProd=null, editPid=null, activeCust=null, isAdm=false;
-let orderHist=[];
-
-// LOGIN
-let currentUserName = '';
-function doLogin(){
-  const u = document.getElementById('inp-user').value.trim();
-  const p = document.getElementById('inp-pass').value.trim();
-  const err = document.getElementById('login-err');
-  err.style.display = 'none';
-
-  // Username aur password dono zaroori hain
-  if(u === '' || p === ''){
-    err.textContent = '❌ Username aur Password dono likhein';
-    err.style.display = 'block';
-    return;
-  }
-
-  // Special admin credentials -> admin panel bhi sath khulta hai
-  if(_chkAdmin(u, p)){
-    isAdm = true;
-    currentUserName = u;
-    show('view-login','none');
-    show('view-admin','block');
-    show('view-customer','flex');
-    document.getElementById('view-customer').style.flexDirection='column';
-    document.getElementById('nav-users-btn').style.display='flex';
-    renderCGrid('all'); renderB2B(); csGo('home');
-    aGoTab('dash'); updateStats(); renderDiscCodes();
-    prefillCheckoutName();
-    return;
-  }
-
-  // Koi bhi doosra username/password = normal customer login
-  isAdm = false;
-  currentUserName = u;
-  show('view-login','none');
-  show('view-customer','flex');
-  document.getElementById('view-customer').style.flexDirection='column';
-  document.getElementById('nav-users-btn').style.display='none';
-  renderCGrid('all'); renderB2B(); csGo('home');
-  prefillCheckoutName();
+// ── TOAST ───────────────────────────────────────────────────────────
+function tst(msg, col='#0D1117'){
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.style.background = col;
+  t.style.display = 'block';
+  clearTimeout(t._t);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>t.classList.add('on')));
+  t._t = setTimeout(()=>{ t.classList.remove('on'); setTimeout(()=>t.style.display='none',260); }, 2400);
 }
 
-function prefillCheckoutName(){
-  const nameEl = document.getElementById('co-name');
-  if(nameEl && !nameEl.value) nameEl.value = currentUserName;
-}
-
-function goBack(){
-  isAdm=false;
-  currentUserName='';
-  show('view-login','flex');
-  document.getElementById('view-login').style.flexDirection='column';
-  show('view-customer','none');
-  show('view-admin','none');
-  document.getElementById('inp-user').value='';
-  document.getElementById('inp-pass').value='';
-  cart={}; discPct=0;
-}
-
-function switchToCustomer(){
-  show('view-admin','none');
-  show('view-customer','flex');
-  document.getElementById('view-customer').style.flexDirection='column';
-}
-
-function show(id, val){ document.getElementById(id).style.display = val; }
-
-// SCREEN NAVIGATION
-function csGo(sc){
-  document.querySelectorAll('.screen').forEach(s=>s.style.display='none');
-  const el = document.getElementById('cs-'+sc);
-  if(!el) return;
-  el.style.display = (sc==='home'||sc==='detail'||sc==='success') ? 'flex' : 'block';
-  if(sc==='home'||sc==='detail'||sc==='success') el.style.flexDirection='column';
-  const nav = document.getElementById('c-nav');
-  if(nav) nav.style.display = sc==='success' ? 'none' : 'flex';
-  if(sc==='cart') renderCart();
-  if(sc==='orders') renderCOrders();
-  if(sc==='users') renderUsers();
-}
-
-// PRODUCTS GRID
-function renderCGrid(f){
-  const list = f==='all' ? products : products.filter(p=>p.cat===f);
-  document.getElementById('c-grid').innerHTML = list.map(p=>`
-    <div onclick="openDetail(${p.id})"
-      style="background:var(--bg);border:1px solid var(--brd);border-radius:16px;padding:10px;cursor:pointer;box-shadow:0 2px 12px 
-
-rgba(0,0,0,0.07);transition:transform .15s,box-shadow .15s;"
-      onmouseenter="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,0.12)'"
-      onmouseleave="this.style.transform='';this.style.boxShadow='0 2px 12px rgba(0,0,0,0.07)'">
-      <div style="height:90px;background:linear-gradient(135deg,#EAF7F2,#d4f0e4);border-radius:12px;display:flex;align-
-
-items:center;justify-content:center;font-size:36px;margin-bottom:10px;overflow:hidden;">
-        ${p.img?`<img src="${p.img}" style="width:100%;height:100%;object-fit:cover;" 
-
-onerror="this.parentElement.innerHTML='${p.emoji}'">`:`${p.emoji}`}
-      </div>
-      <p style="font-size:12px;font-weight:700;margin:0;color:var(--txt);line-height:1.3;">${p.name}</p>
-      <p style="font-size:10px;color:var(--txt2);margin:2px 0 8px;">${p.urdu} · ${p.unit}</p>
-      <div style="display:flex;justify-content:space-between;align-items:center;">
-        <span style="font-size:14px;font-weight:800;color:var(--sabz);">Rs.${p.price}</span>
-        <div onclick="event.stopPropagation();qAdd(${p.id})"
-          style="width:34px;height:34px;background:linear-gradient(135deg,var(--sabz),var(--sabz-d));border-
-
-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 10px rgba(29,158,117,0.4);flex-
-
-shrink:0;">
-          <span style="font-size:20px;line-height:1;color:#fff;font-weight:700;">+</span>
-        </div>
-      </div>
-    </div>`).join('');
-}
-
-function cFilter(f,el){
-  document.querySelectorAll('[onclick^="cFilter"]').forEach(b=>{
-    b.style.background='var(--bg2)'; b.style.color='var(--txt2)'; b.style.fontWeight='400';
+// ── SCREEN NAV ──────────────────────────────────────────────────────
+function goS(sc){
+  // hide all
+  ['s-home','s-detail','s-cart','s-orders','s-b2b','s-success'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.style.display = 'none';
   });
-  el.style.background='var(--sabz)'; el.style.color='#fff'; el.style.fontWeight='600';
-  renderCGrid(f);
+  const nav = document.getElementById('cnav');
+  const el = document.getElementById('s-'+sc);
+  if(!el) return;
+
+  if(sc==='success'){
+    el.style.cssText = 'display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:40px 22px;text-align:center;background:var(--bg);';
+    if(nav) nav.style.display = 'none';
+  } else {
+    el.style.display = ['home','detail'].includes(sc) ? 'flex' : 'block';
+    if(['home','detail'].includes(sc)) el.style.flexDirection = 'column';
+    if(nav) nav.style.display = 'flex';
+  }
+
+  if(sc==='cart') renderCart();
+  if(sc==='orders') renderOrds();
+  if(sc==='b2b') renderB2B();
 }
 
-function openDetail(id){
-  detailProd=products.find(p=>p.id===id);
-  document.getElementById('c-detail-body').innerHTML=`
-    <div style="height:220px;background:linear-gradient(135deg,var(--sabz),var(--sabz-d));display:flex;align-items:center;justify-
+function setNav(id){
+  document.querySelectorAll('.ni').forEach(n=>n.classList.remove('on'));
+  const el = document.getElementById('ni-'+id);
+  if(el) el.classList.add('on');
+}
 
-content:center;font-size:64px;position:relative;overflow:hidden;">
-      ${detailProd.img?`<img src="${detailProd.img}" style="width:100%;height:100%;object-fit:cover;" 
+// ── BADGE ───────────────────────────────────────────────────────────
+function updBdg(){
+  const t = Object.values(cart).reduce((a,b)=>a+b,0);
+  ['hdrbdg','navbdg'].forEach(id=>{
+    const b = document.getElementById(id);
+    if(b){ b.textContent=t; b.style.display=t>0?'flex':'none'; }
+  });
+}
 
-onerror="this.style.display='none'">`:`${detailProd.emoji}`}
-      <div onclick="csGo('home')" style="position:absolute;top:14px;left:14px;width:36px;height:36px;background:rgba
+// ── PRODUCTS GRID ───────────────────────────────────────────────────
+function renderGrid(fil){
+  activeFil = fil;
+  const sv = (document.getElementById('sinp').value||'').toLowerCase();
+  let list = fil==='all' ? [...prods] : prods.filter(p=>p.cat===fil);
+  if(sv) list = list.filter(p=>(p.name+' '+(p.urdu||'')).toLowerCase().includes(sv));
 
-(0,0,0,0.35);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(4px);">
-        <i class="ti ti-arrow-left" style="font-size:18px;color:#fff;"></i>
-      </div>
-    </div>
-    <div style="padding:18px;">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
-        <div>
-          <h2 style="font-size:20px;font-weight:800;margin:0;color:var(--txt);">${detailProd.name}</h2>
-          <p style="font-size:12px;color:var(--txt2);margin:3px 0 0;">${detailProd.urdu} · ${detailProd.unit}</p>
-        </div>
-        <span style="font-size:22px;font-weight:800;color:var(--sabz);">Rs.${detailProd.price}</span>
-      </div>
-      <div style="display:flex;gap:6px;margin-bottom:14px;">
-        <span style="background:#EAF7F2;color:var(--sabz-d);font-size:11px;padding:4px 12px;border-radius:20px;font-weight:600;">✓ 
+  const grid = document.getElementById('cgrid');
+  const empty = document.getElementById('cempty');
 
-100% Khalis</span>
-        <span style="background:#EAF7F2;color:var(--sabz-d);font-size:11px;padding:4px 12px;border-radius:20px;font-weight:600;">✓ No 
+  if(!list.length){ grid.innerHTML=''; empty.style.display='block'; return; }
+  empty.style.display = 'none';
 
-Milawat</span>
-      </div>
-      <p style="font-size:13px;color:var(--txt2);line-height:1.7;margin:0 0 20px;">${detailProd.desc}</p>
-      <div style="background:var(--bg2);border-radius:14px;padding:14px;display:flex;align-items:center;gap:14px;justify-
-
-content:center;">
-        <div onclick="dQty(-1)" style="width:38px;height:38px;border:1.5px solid var(--brd);border-radius:50%;display:flex;align-
-
-items:center;justify-content:center;cursor:pointer;font-size:20px;background:var(--bg);">−</div>
-        <span id="d-qty" style="font-size:20px;font-weight:800;min-width:40px;text-align:center;">1</span>
-        <div onclick="dQty(1)" style="width:38px;height:38px;background:linear-gradient(135deg,var(--sabz),var(--sabz-d));border-
-
-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 10px rgba(29,158,117,0.4);">
-          <span style="font-size:20px;line-height:1;color:#fff;font-weight:700;">+</span>
-        </div>
+  grid.innerHTML = list.map(p=>{
+    const q = cart[p.id]||0;
+    const imgH = p.img ? `<img src="${p.img}" onerror="this.parentElement.innerHTML='<span style=font-size:42px>${p.emoji||'🟤'}</span>'"/>` : `<span style="font-size:42px;">${p.emoji||'🟤'}</span>`;
+    // qty controls vs plus button
+    const ctrlHtml = q > 0
+      ? `<div class="qc" onclick="event.stopPropagation()">
+           <button class="qc-minus" onclick="qMinus(${p.id})">−</button>
+           <span class="qc-num" id="qn-${p.id}">${q}</span>
+           <button class="qc-btn" onclick="qPlus(${p.id})" style="background:var(--g);color:#fff;border-radius:0 40px 40px 0;width:32px;height:32px;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;">+</button>
+         </div>`
+      : `<button class="add-btn" onclick="event.stopPropagation();qPlus(${p.id})" style="width:34px;height:34px;background:linear-gradient(135deg,var(--g),var(--gd));border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(24,168,118,.38);">
+           <i class="ti ti-plus" style="font-size:17px;color:#fff;"></i>
+         </button>`;
+    return `
+    <div class="pc" onclick="openDet(${p.id})">
+      <div class="pc-img">${imgH}</div>
+      <p class="pc-name">${p.name}</p>
+      <p class="pc-sub">${p.urdu||''} · ${p.unit||''}</p>
+      <div class="pc-bottom">
+        <span class="pc-price">Rs.${p.price}</span>
+        <div id="ctrl-${p.id}">${ctrlHtml}</div>
       </div>
     </div>`;
-  csGo('detail');
+  }).join('');
 }
 
-function dQty(d){const el=document.getElementById('d-qty');let v=parseInt(el.textContent)+d;if(v<1)v=1;el.textContent=v;}
-function addFromDetail(){const q=parseInt(document.getElementById('d-qty').textContent);cart[detailProd.id]=(cart[detailProd.id]||
+function cFil(f, el){
+  document.querySelectorAll('.cpill').forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');
+  renderGrid(f);
+}
 
-0)+q;updBadge();csGo('home');}
-function qAdd(id){cart[id]=(cart[id]||0)+1;updBadge();}
-function updBadge(){const t=Object.values(cart).reduce((a,b)=>a+b,0);const b=document.getElementById('c-
+function doSearch(v){ renderGrid(activeFil); }
 
-badge');b.textContent=t;b.style.display=t>0?'flex':'none';}
+// ── QUICK ADD/MINUS ─────────────────────────────────────────────────
+function qPlus(id){
+  cart[id] = (cart[id]||0) + 1;
+  updBdg();
+  const p = prods.find(x=>x.id===id);
+  tst(`✓ ${p?p.name:'Product'} add ho gaya!`, '#18A876');
+  refreshCtrl(id);
+}
 
+function qMinus(id){
+  if(!cart[id]) return;
+  cart[id]--;
+  if(cart[id]<=0) delete cart[id];
+  updBdg();
+  refreshCtrl(id);
+}
+
+function refreshCtrl(id){
+  const q = cart[id]||0;
+  const wrap = document.getElementById('ctrl-'+id);
+  if(!wrap) return;
+  if(q > 0){
+    wrap.innerHTML = `
+      <div class="qc" onclick="event.stopPropagation()">
+        <button class="qc-minus" onclick="qMinus(${id})">−</button>
+        <span class="qc-num" id="qn-${id}">${q}</span>
+        <button class="qc-btn" onclick="qPlus(${id})" style="background:var(--g);color:#fff;border-radius:0 40px 40px 0;width:32px;height:32px;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;">+</button>
+      </div>`;
+  } else {
+    wrap.innerHTML = `
+      <button class="add-btn" onclick="event.stopPropagation();qPlus(${id})" style="width:34px;height:34px;background:linear-gradient(135deg,var(--g),var(--gd));border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(24,168,118,.38);">
+        <i class="ti ti-plus" style="font-size:17px;color:#fff;"></i>
+      </button>`;
+  }
+}
+
+// ── PRODUCT DETAIL ──────────────────────────────────────────────────
+function openDet(id){
+  detProd = prods.find(p=>p.id===id);
+  if(!detProd) return;
+  document.getElementById('dqty').textContent = '1';
+  const imgH = detProd.img
+    ? `<img src="${detProd.img}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"/>`
+    : `<span style="font-size:80px;">${detProd.emoji||'🟤'}</span>`;
+  document.getElementById('detbody').innerHTML = `
+    <div style="position:relative;height:240px;background:linear-gradient(155deg,#0a5c40,#18A876);display:flex;align-items:center;justify-content:center;overflow:hidden;">
+      ${imgH}
+      <button onclick="goS('home')" style="position:absolute;top:16px;left:16px;width:40px;height:40px;background:rgba(0,0,0,.32);border-radius:13px;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);">
+        <i class="ti ti-arrow-left" style="font-size:20px;color:#fff;"></i>
+      </button>
+    </div>
+    <div style="padding:20px 18px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
+        <div style="flex:1;">
+          <h2 style="font-size:23px;font-weight:900;margin:0 0 3px;">${detProd.name}</h2>
+          <p style="font-size:13px;color:var(--tx2);margin:0;">${detProd.urdu||''} · ${detProd.unit||''}</p>
+        </div>
+        <span style="font-size:24px;font-weight:900;color:var(--g);flex-shrink:0;margin-left:10px;">Rs.${detProd.price}</span>
+      </div>
+      <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px;">
+        <span class="tag"><i class="ti ti-leaf" style="font-size:12px;"></i> 100% Khalis</span>
+        <span class="tag"><i class="ti ti-award" style="font-size:12px;"></i> No Milawat</span>
+        <span class="tag"><i class="ti ti-truck" style="font-size:12px;"></i> Home Delivery</span>
+      </div>
+      ${detProd.description ? `
+      <div style="background:var(--bg2);border:1.5px solid var(--br);border-radius:14px;padding:14px;margin-bottom:16px;">
+        <p style="font-size:11px;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:.5px;margin:0 0 7px;">Product ke baare mein</p>
+        <p style="font-size:13.5px;color:var(--tx2);line-height:1.75;margin:0;">${detProd.description}</p>
+      </div>` : ''}
+      <div style="background:linear-gradient(135deg,var(--gl),var(--gx));border:1.5px solid rgba(24,168,118,.2);border-radius:14px;padding:13px 16px;display:flex;align-items:center;gap:12px;">
+        <i class="ti ti-package" style="font-size:22px;color:var(--g);flex-shrink:0;"></i>
+        <p style="font-size:12.5px;color:var(--gd);font-weight:600;line-height:1.5;margin:0;">Delivery 1–2 din mein • COD available • Return policy hai</p>
+      </div>
+    </div>`;
+  goS('detail');
+}
+
+function dQty(d){
+  const el = document.getElementById('dqty');
+  let v = parseInt(el.textContent)+d;
+  if(v<1) v=1;
+  el.textContent = v;
+}
+
+function addFromDet(){
+  const q = parseInt(document.getElementById('dqty').textContent);
+  cart[detProd.id] = (cart[detProd.id]||0)+q;
+  updBdg();
+  tst(`✓ ${detProd.name} × ${q} basket mein!`, '#18A876');
+  goS('home'); setNav('home');
+}
+
+// ── CART ────────────────────────────────────────────────────────────
 function renderCart(){
-  const keys=Object.keys(cart).filter(k=>cart[k]>0);
-  document.getElementById('c-cart-empty').style.display=keys.length?'none':'block';
-  document.getElementById('c-cart-total').style.display=keys.length?'block':'none';
-  document.getElementById('c-cart-items').innerHTML=keys.map(k=>{
-    const p=products.find(x=>x.id==k);
-    return`<div style="background:var(--bg2);border-radius:14px;padding:12px;margin-bottom:10px;display:flex;align-
+  const keys = Object.keys(cart).filter(k=>cart[k]>0);
+  const empty2 = document.getElementById('cempty2');
+  const ctotal = document.getElementById('ctotal');
+  const hdr = document.getElementById('cart-count-hdr');
 
-items:center;gap:12px;border:1px solid var(--brd);">
-      <div style="width:52px;height:52px;background:linear-gradient(135deg,#EAF7F2,#d4f0e4);border-radius:12px;display:flex;align-
+  empty2.style.display = keys.length ? 'none' : 'block';
+  ctotal.style.display = keys.length ? 'block' : 'none';
+  if(hdr) hdr.textContent = keys.length ? keys.length+' product'+(keys.length>1?'s':'') : '';
 
-items:center;justify-content:center;font-size:24px;overflow:hidden;flex-shrink:0;">
-        ${p.img?`<img src="${p.img}" style="width:100%;height:100%;object-fit:cover;" 
-
-onerror="this.parentElement.innerHTML='${p.emoji}'">`:`${p.emoji}`}
+  document.getElementById('citems').innerHTML = keys.map(k=>{
+    const p = prods.find(x=>x.id==k); if(!p) return '';
+    const imgH = p.img ? `<img src="${p.img}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='${p.emoji||'🟤'}'"/>` : (p.emoji||'🟤');
+    return `
+    <div class="ci">
+      <div style="width:54px;height:54px;background:linear-gradient(135deg,#d4f5e7,#aae8cc);border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:24px;overflow:hidden;flex-shrink:0;border:1.5px solid var(--br);">
+        ${imgH}
       </div>
       <div style="flex:1;min-width:0;">
-        <p style="font-size:13px;font-weight:700;margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${p.name}</p>
-        <p style="font-size:11px;color:var(--txt2);margin:2px 0;">Rs.${p.price} × ${cart[k]} = <b style="color:var(--sabz);">Rs.
-
-${p.price*cart[k]}</b></p>
+        <p style="font-size:13.5px;font-weight:800;margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${p.name}</p>
+        <p style="font-size:11.5px;color:var(--tx2);margin:2px 0;">Rs.${p.price} × ${cart[k]}</p>
+        <p style="font-size:14px;font-weight:900;color:var(--g);margin:0;">Rs.${p.price*cart[k]}</p>
       </div>
-      <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
-        <div onclick="cQty(${k},-1)" style="width:28px;height:28px;border:1.5px solid var(--brd);border-
-
-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;background:var(--bg);">−</div>
-        <span style="font-size:14px;font-weight:700;min-width:20px;text-align:center;">${cart[k]}</span>
-        <div onclick="cQty(${k},1)" style="width:28px;height:28px;background:linear-gradient(135deg,var(--sabz),var(--sabz-
-
-d));border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;">
-          <span style="font-size:16px;line-height:1;color:#fff;font-weight:700;">+</span>
-        </div>
-        <div onclick="cQty(${k},-999)" style="width:28px;height:28px;background:#FEF2F2;border-radius:50%;display:flex;align-
-
-items:center;justify-content:center;cursor:pointer;margin-left:2px;">
-          <i class="ti ti-trash" style="font-size:13px;color:var(--lal);"></i>
-        </div>
+      <div style="display:flex;align-items:center;gap:5px;flex-shrink:0;">
+        <button onclick="cQty(${k},-1)" style="width:30px;height:30px;border:1.5px solid var(--br);border-radius:50%;background:var(--bg);font-size:16px;font-weight:700;color:var(--tx2);display:flex;align-items:center;justify-content:center;">−</button>
+        <span style="font-size:14px;font-weight:900;min-width:22px;text-align:center;">${cart[k]}</span>
+        <button onclick="cQty(${k},1)" style="width:30px;height:30px;background:var(--g);border-radius:50%;font-size:16px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;">+</button>
+        <button onclick="cQty(${k},-999)" style="width:30px;height:30px;background:var(--rl);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-left:3px;">
+          <i class="ti ti-trash" style="font-size:13px;color:var(--rd);"></i>
+        </button>
       </div>
-    </div>`;}).join('');
-  updTotals();
+    </div>`;
+  }).join('');
+  updTots();
+
+  // pre-fill name
+  const nm = document.getElementById('coname');
+  if(nm && !nm.value && window._sn) nm.value = window._sn;
 }
 
 function cQty(id,d){
-  cart[id]=Math.max(0,(cart[id]||0)+d);
-  if(d===-999) cart[id]=0;
-  updBadge(); renderCart();
+  cart[id] = Math.max(0,(cart[id]||0)+(d===-999?-(cart[id]||0):d));
+  if(cart[id]===0) delete cart[id];
+  updBdg(); renderCart();
 }
 
-function updTotals(){
-  const keys=Object.keys(cart).filter(k=>cart[k]>0);
-  let sub=0; keys.forEach(k=>{const p=products.find(x=>x.id==k);sub+=p.price*cart[k];});
-  const disc=Math.round(sub*discPct/100);
-  document.getElementById('c-sub').textContent='Rs.'+sub;
-  document.getElementById('c-disc-val').textContent='-Rs.'+disc;
-  document.getElementById('c-total').textContent='Rs.'+(sub-disc);
-  document.getElementById('c-disc-row').style.display=discPct>0?'flex':'none';
+function updTots(){
+  const keys = Object.keys(cart).filter(k=>cart[k]>0);
+  let sub=0;
+  keys.forEach(k=>{ const p=prods.find(x=>x.id==k); if(p) sub+=p.price*cart[k]; });
+  const disc = Math.round(sub*discPct/100);
+  document.getElementById('csub').textContent = 'Rs.'+sub;
+  document.getElementById('cdval').textContent = '-Rs.'+disc;
+  document.getElementById('ctot').textContent = 'Rs.'+(sub-disc);
+  document.getElementById('cdrow').style.display = discPct>0 ? 'flex' : 'none';
 }
 
 function applyDisc(){
-  const code=document.getElementById('disc-inp').value.trim().toUpperCase();
-  const msg=document.getElementById('disc-msg');
-  msg.style.display='block';
-  if(DISC_CODES[code]){
-    discPct=DISC_CODES[code];
-    msg.style.color='var(--sabz)';
-    msg.style.background='#EAF7F2';
-    msg.textContent='✓ '+discPct+'% discount apply ho gaya!';
+  const code = document.getElementById('dinp').value.trim().toUpperCase();
+  const msg = document.getElementById('dmsg');
+  msg.style.display = 'block';
+  if(discCodes[code]){
+    discPct = discCodes[code];
+    msg.style.cssText = 'display:block;color:#166534;background:#DCFCE7;border:1.5px solid #BBF7D0;border-radius:10px;padding:8px 12px;font-size:12.5px;font-weight:800;margin-bottom:9px;';
+    msg.textContent = '✓ '+discPct+'% discount laga diya! Mubarak ho 🎉';
   } else {
     discPct=0;
-    msg.style.color='var(--lal)';
-    msg.style.background='#FEF2F2';
-    msg.textContent='✗ Galat code — dobara check karein';
+    msg.style.cssText = 'display:block;color:#991B1B;background:#FEF2F2;border:1.5px solid #FECACA;border-radius:10px;padding:8px 12px;font-size:12.5px;font-weight:800;margin-bottom:9px;';
+    msg.textContent = '✗ Code galat hai — dobara check karein';
   }
-  updTotals();
+  updTots();
 }
 
+// ── PLACE ORDER ─────────────────────────────────────────────────────
 function placeOrder(){
-  const keys=Object.keys(cart).filter(k=>cart[k]>0);
-  if(!keys.length)return;
-  let sub=0,itemsStr='';
-  keys.forEach(k=>{const p=products.find(x=>x.id==k);sub+=p.price*cart[k];itemsStr+=p.name+' x'+cart[k]+', ';});
-  const disc=Math.round(sub*discPct/100),total=sub-disc;
-  const oid='ZAQ-'+String(Math.floor(Math.random()*9000)+1000);
-  const today=new Date().toLocaleDateString('en-PK',{day:'numeric',month:'short',year:'numeric'});
-  orderHist.push({id:oid,date:today,items:itemsStr.slice(0,-2),total,status:'processing'});
-  let msg='Assalam+o+Alaikum!+Zaiqah+se+order:%0A%0A';
-  keys.forEach(k=>{const p=products.find(x=>x.id==k);msg+=p.name+'+x'+cart[k]+'+=+Rs.'+p.price*cart[k]+'%0A';});
-  if(discPct)msg+='Discount+('+discPct+'%25):+-Rs.'+disc+'%0A';
-  msg+='Total:+Rs.'+total+'%0AOrder+ID:+'+oid;
-  window.open('https://wa.me/'+WA_NUM+'?text='+msg,'_blank');
-  document.getElementById('c-success-id').textContent='Order ID: '+oid;
-  cart={}; discPct=0; updBadge();
-  csGo('success');
+  const keys = Object.keys(cart).filter(k=>cart[k]>0);
+  if(!keys.length) return;
+
+  const name  = document.getElementById('coname').value.trim();
+  const phone = document.getElementById('cophone').value.trim();
+  const city  = document.getElementById('cocity').value.trim();
+  const area  = document.getElementById('coarea').value.trim();
+  const addr  = document.getElementById('coaddr').value.trim();
+  const note  = document.getElementById('conote').value.trim();
+
+  if(!name)  { tst('❌ Naam zaroor likhein','#EF4444'); return; }
+  if(!phone) { tst('❌ Phone number zaroor likhein','#EF4444'); return; }
+
+  window._sn = name;
+
+  let sub=0, items=[];
+  keys.forEach(k=>{
+    const p=prods.find(x=>x.id==k);
+    if(p){ const lt=p.price*cart[k]; sub+=lt; items.push({name:p.name,urdu:p.urdu||'',qty:cart[k],price:p.price,unit:p.unit||'',lt}); }
+  });
+  const disc=Math.round(sub*discPct/100), total=sub-disc;
+  const oid='ZAQ-'+String(Math.floor(Math.random()*90000)+10000);
+  const now=new Date();
+  const dstr=now.toLocaleDateString('ur-PK',{day:'numeric',month:'long',year:'numeric'});
+  const tstr=now.toLocaleTimeString('en-PK',{hour:'2-digit',minute:'2-digit'});
+
+  // ── Full WhatsApp message ──
+  const sep = '━━━━━━━━━━━━━━━━━━━━━';
+  const divL = '─────────────────────';
+  let L=[];
+  L.push('🌿 *Zaiqah ذائقہ — Naya Order*');
+  L.push(sep);
+  L.push('');
+  L.push('📋 *Order ID:* '+oid);
+  L.push('📅 *Date:* '+dstr);
+  L.push('⏰ *Time:* '+tstr);
+  L.push('');
+  L.push('👤 *Customer:*');
+  L.push('   🙍 Naam: *'+name+'*');
+  L.push('   📞 Phone: *'+phone+'*');
+  if(city||area) L.push('   🏙️ City/Area: *'+(city+(area?' — '+area:''))+'*');
+  if(addr) L.push('   🏠 Pata: *'+addr+'*');
+  if(note) L.push('   📝 Note: '+note);
+  L.push('');
+  L.push('🛒 *Order Details:*');
+  L.push(divL);
+  items.forEach((it,i)=>{
+    L.push(`${i+1}. *${it.name}* (${it.urdu})`);
+    L.push(`     ${it.qty} ${it.unit} × Rs.${it.price} = *Rs.${it.lt}*`);
+  });
+  L.push(divL);
+  L.push('💰 Subtotal: Rs.'+sub);
+  if(discPct) L.push('🎉 Discount ('+discPct+'%): -Rs.'+disc);
+  L.push('');
+  L.push('✅ *KULL TOTAL: Rs.'+total+'*');
+  L.push(sep);
+  L.push('🚚 Delivery: 1–2 din • COD available');
+  L.push('');
+  L.push('Shukriya Zaiqah ذائقہ ko pasand karne ke liye! 🌿');
+
+  // Save history
+  orderHist.unshift({id:oid,date:dstr,time:tstr,name,phone,city,area,addr,items:items.map(i=>i.name+' x'+i.qty).join(', '),sub,disc,total,discPct,status:'sent'});
+  if(orderHist.length>40) orderHist.pop();
+  localStorage.setItem('zq_orders',JSON.stringify(orderHist));
+
+  window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(L.join('\n')),'_blank');
+
+  cart={}; discPct=0; updBdg();
+  document.getElementById('succid').textContent='Order ID: '+oid;
+  const ss=document.getElementById('s-success');
+  ['s-home','s-detail','s-cart','s-orders','s-b2b'].forEach(id=>{ const e=document.getElementById(id); if(e) e.style.display='none'; });
+  ss.style.cssText='display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:40px 22px;text-align:center;background:var(--bg);';
+  document.getElementById('cnav').style.display='none';
 }
 
-function renderCOrders(){
-  const el=document.getElementById('c-orders-list');
-  if(!orderHist.length){el.innerHTML='<div style="text-align:center;padding:50px 0;color:var(--txt2);"><i class="ti ti-receipt" 
-
-style="font-size:48px;display:block;margin-bottom:10px;opacity:0.3;"></i><p>Abhi koi order nahi</p></div>';return;}
-  el.innerHTML=[...orderHist].reverse().map(o=>{
-    const sl=o.status==='delivered'?{bg:'#EAF7F2',c:'#3B6D11',t:'Deliver Ho Gaya'}:o.status==='processing'?
-
-{bg:'#E6F1FB',c:'#185FA5',t:'Process Ho Raha'}:{bg:'#FAEEDA',c:'#854F0B',t:'Naya'};
-    return`<div style="background:var(--bg);border:1px solid var(--brd);border-radius:14px;padding:14px;box-shadow:var(--shadow);">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-        <span style="font-size:14px;font-weight:700;">${o.id}</span>
-        <span style="background:${sl.bg};color:${sl.c};font-size:11px;padding:3px 10px;border-radius:20px;font-weight:600;">${sl.t}
-
-</span>
+// ── ORDER HISTORY ───────────────────────────────────────────────────
+function renderOrds(){
+  const el=document.getElementById('cordlist');
+  if(!orderHist.length){
+    el.innerHTML=`<div style="text-align:center;padding:60px 0;">
+      <div style="width:68px;height:68px;background:var(--bg);border:1.5px solid var(--br);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;">
+        <i class="ti ti-receipt" style="font-size:32px;color:var(--tx3);"></i>
       </div>
-      <p style="font-size:12px;color:var(--txt2);margin:0 0 6px;">${o.items}</p>
-      <div style="display:flex;justify-content:space-between;border-top:1px solid var(--brd);padding-top:8px;">
-        <span style="font-size:11px;color:var(--txt2);">${o.date}</span>
-        <span style="font-size:14px;font-weight:700;color:var(--sabz);">Rs.${o.total}</span>
+      <p style="font-size:15px;font-weight:800;color:var(--tx2);margin:0 0 5px;">Abhi koi order nahi</p>
+      <p style="font-size:12.5px;color:var(--tx3);">Pehla order karo!</p>
+      <button onclick="goS('home');setNav('home')" style="margin-top:15px;background:var(--g);color:#fff;border-radius:13px;padding:11px 24px;font-size:13.5px;font-weight:800;">Shopping Karein</button>
+    </div>`;
+    return;
+  }
+  el.innerHTML=orderHist.map(o=>`
+    <div style="background:var(--bg);border:1.5px solid var(--br);border-radius:16px;padding:14px;box-shadow:var(--sh);">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <span style="font-size:13.5px;font-weight:900;color:var(--tx);">${o.id}</span>
+        <span style="background:#DCFCE7;color:#166534;font-size:11px;padding:3px 12px;border-radius:40px;font-weight:700;">✓ WhatsApp Bheja</span>
       </div>
-    </div>`;}).join('');
-}
-
-function renderB2B(){
-  const wl=[{name:'Lal Mirch Pesi',unit:'1kg',w:750,r:900},{name:'Kali Mirch',unit:'1kg',w:1800,r:2400},{name:'Garam 
-
-Masala',unit:'1kg',w:2200,r:3000},{name:'Dhaniya Pesa',unit:'1kg',w:580,r:700}];
-  document.getElementById('b2b-list').innerHTML=wl.map(w=>`
-    <div style="background:var(--bg);border:1px solid var(--brd);border-radius:14px;padding:14px;display:flex;justify-content:space-
-
-between;align-items:center;box-shadow:var(--shadow);">
-      <div><p style="font-size:14px;font-weight:600;margin:0;">${w.name}</p><p style="font-size:11px;color:var(--txt2);margin:3px 0 
-
-0;">${w.unit} bag</p></div>
-      <div style="text-align:right;"><p style="font-size:15px;font-weight:700;color:var(--sabz);margin:0;">Rs.${w.w}</p><p 
-
-style="font-size:10px;color:var(--txt2);margin:2px 0 0;">Retail: Rs.${w.r}</p></div>
+      <p style="font-size:12.5px;color:var(--tx2);margin:0 0 6px;line-height:1.5;">${o.items}</p>
+      ${o.city||o.addr ? `<p style="font-size:12px;color:var(--tx3);margin:0 0 8px;display:flex;align-items:center;gap:5px;"><i class="ti ti-map-pin" style="font-size:13px;"></i>${[o.city,o.area,o.addr].filter(Boolean).join(', ')}</p>` : ''}
+      <div style="display:flex;justify-content:space-between;align-items:center;border-top:1.5px solid var(--br);padding-top:9px;">
+        <span style="font-size:12px;color:var(--tx3);">📅 ${o.date}</span>
+        <span style="font-size:16px;font-weight:900;color:var(--g);">Rs.${o.total}</span>
+      </div>
     </div>`).join('');
 }
 
-function renderUsers(){
-  const el=document.getElementById('users-list');
-  if(!el)return;
-  el.innerHTML=customers.map(c=>`
-    <div style="background:var(--bg);border:1px solid var(--brd);border-radius:14px;padding:14px;display:flex;align-
+// ── B2B ─────────────────────────────────────────────────────────────
+function renderB2B(){
+  const wl=[
+    {n:'Lal Mirch Pesi',u:'لال مرچ',unit:'1kg',w:1650,r:1800},
+    {n:'Kali Mirch',u:'کالی مرچ',unit:'1kg',w:2900,r:3200},
+    {n:'Garam Masala',u:'گرم مصالحہ',unit:'1kg',w:2200,r:2600},
+    {n:'Dhaniya Pesa',u:'دھنیہ پسا',unit:'1kg',w:1200,r:1400},
+    {n:'Zeera',u:'زیرہ',unit:'1kg',w:1800,r:2000},
+    {n:'Haldi',u:'ہلدی',unit:'1kg',w:1400,r:1600},
+    {n:'Adrak Powder',u:'ادرک',unit:'1kg',w:1700,r:1900},
+  ];
+  document.getElementById('b2blist').innerHTML=wl.map(w=>`
+    <div style="background:var(--bg);border:1.5px solid var(--br);border-radius:15px;padding:14px;display:flex;justify-content:space-between;align-items:center;box-shadow:var(--sh);">
+      <div>
+        <p style="font-size:14px;font-weight:800;margin:0;">${w.n}</p>
+        <p style="font-size:11.5px;color:var(--tx3);margin:3px 0 0;">${w.u} · ${w.unit}</p>
+      </div>
+      <div style="text-align:right;">
+        <p style="font-size:17px;font-weight:900;color:var(--g);margin:0;">Rs.${w.w}</p>
+        <p style="font-size:11px;color:var(--tx3);margin:3px 0 0;text-decoration:line-through;">Rs.${w.r}</p>
+      </div>
+    </div>`).join('');
+}
 
-items:center;gap:14px;box-shadow:var(--shadow);">
-      <div style="width:52px;height:52px;border-radius:50%;background:${c.topFan?'linear-gradient(135deg,#ffd700,#ff8c00)':'var(--
+// ── ADMIN ───────────────────────────────────────────────────────────
+function openGate(){
+  document.getElementById('agate').style.display='flex';
+  document.getElementById('gpass').value='';
+  document.getElementById('gerr').style.display='none';
+  setTimeout(()=>document.getElementById('gpass').focus(),120);
+}
 
-bg2)'};display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:${c.topFan?'#fff':'var(--
+function chkAdmin(){
+  const pass=document.getElementById('gpass').value;
+  const _p=[105,109,116,105,97,122,97,108,101,101,49,49,48,55,56,54].map(c=>String.fromCharCode(c)).join('');
+  if(pass===_p){
+    document.getElementById('agate').style.display='none';
+    document.getElementById('apanel').style.display='block';
+    aTab('dash');
+  } else {
+    const e=document.getElementById('gerr');
+    e.textContent='❌ Galat password';e.style.display='block';
+    document.getElementById('gpass').value='';
+  }
+}
 
-txt)'};overflow:hidden;flex-shrink:0;border:2px solid ${c.topFan?'#ffd700':'var(--brd)'};">
-        ${c.img?`<img src="${c.img}" style="width:100%;height:100%;object-fit:cover;" 
+function closeAdmin(){ document.getElementById('apanel').style.display='none'; }
 
-onerror="this.parentElement.innerHTML='${c.name[0]}'">`:`${c.name[0]}`}
+function aTab(t){
+  ['dash','prods','orders','cfg'].forEach(x=>{
+    const p=document.getElementById('ap-'+x);
+    const tb=document.getElementById('at-'+x);
+    if(p) p.style.display=x===t?'block':'none';
+    if(tb){ tb.style.color=x===t?'var(--g)':'var(--tx2)'; tb.style.borderBottomColor=x===t?'var(--g)':'transparent'; }
+  });
+  // Fix ap-cfg display bug
+  if(t==='cfg') document.getElementById('ap-cfg').style.display='block';
+
+  if(t==='dash'){ document.getElementById('as-prods').textContent=prods.length; document.getElementById('as-ords').textContent=orderHist.length; }
+  if(t==='prods') renderAdmProds();
+  if(t==='orders') renderAdmOrds();
+  if(t==='cfg'){ renderDC(); document.getElementById('btext').value=bannerTxt; }
+}
+
+function renderAdmProds(){
+  document.getElementById('aplist').innerHTML=prods.map(p=>`
+    <div style="background:var(--bg);border:1.5px solid var(--br);border-radius:14px;padding:12px;display:flex;align-items:center;gap:11px;box-shadow:var(--sh);">
+      <div style="width:46px;height:46px;background:linear-gradient(135deg,#d4f5e7,#aae8cc);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;overflow:hidden;flex-shrink:0;">
+        ${p.img?`<img src="${p.img}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='${p.emoji||'🟤'}'"/>`:p.emoji||'🟤'}
       </div>
       <div style="flex:1;min-width:0;">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap;">
-          <p style="font-size:14px;font-weight:700;margin:0;">${c.name}</p>
-          ${c.topFan?'<span style="background:linear-gradient(90deg,#ffd700,#ff8c00);color:#fff;font-size:9px;padding:2px 
-
-8px;border-radius:20px;font-weight:700;">TOP FAN ★</span>':''}
-        </div>
-        <p style="font-size:11px;color:var(--txt2);margin:0 0 4px;">${c.phone}</p>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;">
-          <span style="font-size:11px;color:var(--txt2);">Joined: ${c.joinDate}</span>
-          <span style="font-size:11px;color:var(--sabz);font-weight:600;">Orders: ${c.totalOrders}</span>
-        </div>
+        <p style="font-size:13px;font-weight:800;margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${p.name}</p>
+        <p style="font-size:11px;color:var(--tx2);margin:3px 0 0;">${p.urdu||''} · Rs.${p.price}/${p.unit||''}</p>
       </div>
-      <a href="https://wa.me/92${c.phone.slice(1)}" target="_blank"
-        style="width:36px;height:36px;background:linear-gradient(135deg,#25D366,#1da851);border-radius:50%;display:flex;align-
-
-items:center;justify-content:center;text-decoration:none;flex-shrink:0;box-shadow:0 3px 10px rgba(37,211,102,0.3);">
-        <i class="ti ti-brand-whatsapp" style="font-size:18px;color:#fff;"></i>
-      </a>
-    </div>`).join('');
-}
-
-function updateBanner(){
-  const url=document.getElementById('banner-url').value.trim();
-  const txt=document.getElementById('banner-text').value.trim();
-  if(url){document.getElementById('offer-img').src=url;document.getElementById('banner-prev-img').src=url;}
-  if(txt){document.getElementById('offer-text').innerHTML=txt;document.getElementById('banner-prev-txt').innerHTML=txt;}
-  alert('Banner update ho gaya!');
-}
-
-function renderDiscCodes(){
-  const el=document.getElementById('disc-codes-list');
-  if(!el)return;
-  el.innerHTML=Object.entries(DISC_CODES).map(([code,pct])=>`
-    <div style="display:flex;justify-content:space-between;align-items:center;background:var(--bg);border-radius:10px;padding:10px 
-
-14px;border:1px solid var(--brd);">
-      <span style="font-size:13px;font-weight:700;color:var(--neela);font-family:monospace;">${code}</span>
-      <span style="background:#EAF7F2;color:var(--sabz-d);font-size:12px;padding:3px 10px;border-radius:20px;font-weight:700;">
-
-${pct}% off</span>
-    </div>`).join('');
-}
-
-// ADMIN PANEL
-function aGoTab(t){
-  ['dash','orders','products','banner','chat'].forEach(x=>{
-    const p=document.getElementById('ap-'+x);
-    if(p)p.style.display=x===t?(x==='chat'?'flex':'block'):'none';
-    const tab=document.getElementById('at-'+x);
-    if(tab){tab.style.color=x===t?'var(--neela)':'var(--txt2)';tab.style.borderBottomColor=x===t?'var(--neela)':'transparent';}
-  });
-  if(t==='dash'){aRenderDash();updateStats();}
-  if(t==='orders')aRenderOrders('all');
-  if(t==='products')aRenderProducts();
-  if(t==='chat')aRenderCustList();
-}
-
-function updateStats(){
-  const n=orders.filter(o=>o.status==='new').length;
-  document.getElementById('a-stat-orders').textContent=n;
-  document.getElementById('a-order-badge').textContent=n;
-  document.getElementById('a-notif').textContent=n;
-  document.getElementById('a-stat-custs').textContent=customers.length;
-  document.getElementById('a-stat-prods').textContent=products.length;
-}
-
-function aOCard(o){
-  const sl=o.status==='new'?{bg:'#FAEEDA',c:'#854F0B',t:'Naya'}:o.status==='processing'?{bg:'#E6F1FB',c:'#185FA5',t:'Processing'}:
-
-{bg:'#EAF7F2',c:'#3B6D11',t:'Delivered'};
-  return`<div style="background:var(--bg);border:1px solid var(--brd);border-radius:14px;padding:14px;margin-bottom:10px;box-
-
-shadow:var(--shadow);">
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
-      <div><p style="font-size:14px;font-weight:700;margin:0;">${o.customer}</p><p style="font-size:11px;color:var(--txt2);margin:2px 
-
-0 0;">${o.id} · ${o.time}</p></div>
-      <span style="background:${sl.bg};color:${sl.c};font-size:11px;padding:3px 10px;border-radius:20px;white-space:nowrap;font-
-
-weight:600;">${sl.t}</span>
-    </div>
-    <p style="font-size:12px;color:var(--txt2);margin:0 0 8px;">${o.items}</p>
-    <p style="font-size:11px;color:var(--txt2);margin:0 0 10px;">📍 ${o.address}</p>
-    <div style="display:flex;justify-content:space-between;align-items:center;">
-      <span style="font-size:15px;font-weight:700;color:var(--neela);">Rs.${o.total}</span>
-      <div style="display:flex;gap:6px;">
-        <a href="https://wa.me/92${o.phone.slice(1)}" target="_blank"
-          style="text-decoration:none;background:linear-gradient(135deg,#25D366,#1da851);color:#fff;border-radius:8px;padding:7px 
-
-12px;font-size:12px;display:flex;align-items:center;gap:4px;font-weight:600;">
-          <i class="ti ti-brand-whatsapp"></i> WA
-        </a>
-        ${o.status!=='delivered'?`<button onclick="aNextStatus('${o.id}')" style="background:linear-gradient(135deg,var(--
-
-neela),#0f4a8a);color:#fff;border:none;border-radius:8px;padding:7px 12px;font-size:12px;cursor:pointer;font-weight:600;">
-
-${o.status==='new'?'Process ➔':'Deliver ✓'}</button>`:''}
-      </div>
-    </div>
-  </div>`;
-}
-
-function aRenderDash(){document.getElementById('a-dash-orders').innerHTML=orders.filter(o=>o.status!=='delivered').map(o=>aOCard
-
-(o)).join('')||'<p style="color:var(--txt2);font-size:13px;text-align:center;padding:20px 0;">Koi pending order nahi — Masha Allah! 
-
-🎉</p>';}
-function aRenderOrders(f){document.getElementById('a-orders-list').innerHTML=(f==='all'?orders:orders.filter(o=>o.status===f)).map
-
-(o=>aOCard(o)).join('')||'<p style="color:var(--txt2);font-size:13px;text-align:center;padding:20px 0;">Koi order nahi</p>';}
-
-function aFiltO(f,el){
-  document.querySelectorAll('[onclick^="aFiltO"]').forEach(b=>{b.style.background='var(--bg2)';b.style.color='var(--txt2)';});
-  el.style.background='var(--neela)';el.style.color='#fff';
-  aRenderOrders(f);
-}
-
-function aNextStatus(id){
-  const o=orders.find(x=>x.id===id);
-  if(o.status==='new')o.status='processing';
-  else if(o.status==='processing')o.status='delivered';
-  updateStats();aRenderDash();aRenderOrders('all');
-}
-
-function aRenderProducts(){
-  document.getElementById('a-products-list').innerHTML=products.map(p=>`
-    <div style="background:var(--bg);border:1px solid var(--brd);border-radius:14px;padding:12px;margin-
-
-bottom:10px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow);">
-      <div style="width:50px;height:50px;background:linear-gradient(135deg,#EAF7F2,#d4f0e4);border-radius:12px;display:flex;align-
-
-items:center;justify-content:center;font-size:24px;flex-shrink:0;overflow:hidden;">
-        ${p.img?`<img src="${p.img}" style="width:100%;height:100%;object-fit:cover;" 
-
-onerror="this.parentElement.innerHTML='${p.emoji}'">`:`${p.emoji}`}
-      </div>
-      <div style="flex:1;min-width:0;"><p style="font-size:13px;font-weight:700;margin:0;overflow:hidden;text-
-
-overflow:ellipsis;white-space:nowrap;">${p.name}</p><p style="font-size:11px;color:var(--txt2);margin:3px 0 0;">${p.urdu} · Rs.
-
-${p.price}/${p.unit}</p></div>
       <div style="display:flex;gap:6px;flex-shrink:0;">
-        <button onclick="openEditP(${p.id})" style="background:var(--bg2);border:1px solid var(--brd);border-radius:8px;padding:6px 
-
-10px;font-size:11px;cursor:pointer;font-weight:600;">Edit</button>
-        <button onclick="delProduct(${p.id})" style="background:#FCEBEB;border:none;border-radius:8px;padding:6px 10px;font-
-
-size:11px;cursor:pointer;color:#A32D2D;font-weight:600;">Del</button>
+        <button onclick="openEdit(${p.id})" style="background:var(--bll);color:#1d4ed8;border:none;border-radius:9px;padding:7px 11px;font-size:11.5px;font-weight:700;">Edit</button>
+        <button onclick="delP(${p.id})" style="background:var(--rl);color:var(--rd);border:none;border-radius:9px;padding:7px 11px;font-size:11.5px;font-weight:700;">Del</button>
       </div>
     </div>`).join('');
 }
 
-function openAddP(){editPid=null;document.getElementById('p-modal-title').textContent='Naya Product Jodein';['pm-name','pm-
-
-urdu','pm-price','pm-unit','pm-desc','pm-img-url'].forEach(id=>document.getElementById(id).value='');document.getElementById('p-img-
-
-prev').innerHTML='<i class="ti ti-camera" style="font-size:30px;color:var(--sabz);"></i>';document.getElementById('p-img-
-
-prev').dataset.src='';showModal();}
-
-function openEditP(id){editPid=id;const p=products.find(x=>x.id===id);document.getElementById('p-modal-title').textContent='Product 
-
-Edit Karein';document.getElementById('pm-name').value=p.name;document.getElementById('pm-urdu').value=p.urdu;document.getElementById
-
-('pm-price').value=p.price;document.getElementById('pm-unit').value=p.unit;document.getElementById('pm-
-
-desc').value=p.desc;document.getElementById('pm-cat').value=p.cat;document.getElementById('pm-img-
-
-url').value=p.img||'';document.getElementById('p-img-prev').innerHTML=p.img?`<img src="${p.img}" 
-
-style="width:100%;height:100%;object-fit:cover;border-radius:10px;">`:`<span style="font-size:40px;">${p.emoji}
-
-</span>`;document.getElementById('p-img-prev').dataset.src=p.img||'';showModal();}
-
-function showModal(){document.getElementById('p-modal').style.display='flex';}
-function closeModal(){document.getElementById('p-modal').style.display='none';}
-function applyImgUrl(){const url=document.getElementById('pm-img-url').value.trim();if(url){document.getElementById('p-img-
-
-prev').innerHTML=`<img src="${url}" style="width:100%;height:100%;object-fit:cover;border-radius:10px;">`;document.getElementById
-
-('p-img-prev').dataset.src=url;}}
-
-function saveProduct(){
-  const name=document.getElementById('pm-name').value.trim();
-  const price=parseInt(document.getElementById('pm-price').value);
-  if(!name||!price){alert('Naam aur qeemat zaroor likhein!');return;}
-  const imgSrc=document.getElementById('p-img-prev').dataset.src||document.getElementById('pm-img-url').value.trim()||null;
-  const data={name,urdu:document.getElementById('pm-urdu').value.trim(),price,unit:document.getElementById('pm-unit').value.trim
-
-()||'100g',cat:document.getElementById('pm-cat').value,desc:document.getElementById('pm-desc').value.trim(),img:imgSrc};
-  if(editPid){const p=products.find(x=>x.id===editPid);Object.assign(p,data);}
-  else{products.push({id:Date.now(),emoji:'🟤',...data});}
-  closeModal();aRenderProducts();updateStats();
-}
-
-function delProduct(id){if(confirm('Sach mein delete karein?')){products=products.filter(x=>x.id!==id);aRenderProducts();updateStats
-
-();}}
-
-function aRenderCustList(){
-  document.getElementById('a-cust-list').innerHTML=customers.map(c=>`
-    <div onclick="aOpenChat(${c.id})" style="padding:10px 8px;cursor:pointer;border-bottom:1px solid var(--brd);background:
-
-${activeCust===c.id?'var(--bg2)':'transparent'};">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
-        <div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#E6F1FB,#c5ddf7);display:flex;align-
-
-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--neela);">${c.name[0]}</div>
-        ${c.unread>0?`<span style="background:var(--narangi);color:#fff;font-size:9px;width:16px;height:16px;border-
-
-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;">${c.unread}</span>`:''}
+function renderAdmOrds(){
+  const el=document.getElementById('aolist');
+  if(!orderHist.length){ el.innerHTML='<p style="text-align:center;color:var(--tx2);padding:30px 0;">Koi order nahi</p>'; return; }
+  el.innerHTML=orderHist.map(o=>`
+    <div style="background:var(--bg);border:1.5px solid var(--br);border-radius:14px;padding:13px;box-shadow:var(--sh);">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:7px;">
+        <div>
+          <p style="font-size:13px;font-weight:900;margin:0;">${o.name}</p>
+          <p style="font-size:11px;color:var(--tx2);margin:2px 0 0;">${o.id} · ${o.date}</p>
+        </div>
+        <span style="background:#DCFCE7;color:#166534;font-size:10.5px;padding:3px 10px;border-radius:40px;font-weight:700;">✓ Sent</span>
       </div>
-      <p style="font-size:10px;font-weight:600;margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${c.name}</p>
-    </div>`).join('');
-}
-
-function aOpenChat(id){
-  activeCust=id;const c=customers.find(x=>x.id===id);c.unread=0;
-  document.getElementById('a-chat-name').textContent=c.name;
-  document.getElementById('a-chat-phone').textContent=c.phone;
-  document.getElementById('a-chat-msgs').innerHTML=c.msgs.map(m=>`
-    <div style="display:flex;justify-content:${m.from==='admin'?'flex-end':'flex-start'};">
-      <div style="max-width:78%;background:${m.from==='admin'?'linear-gradient(135deg,var(--neela),#0f4a8a)':'var(--bg2)'};color:
-
-${m.from==='admin'?'#fff':'var(--txt)'};border-radius:12px;padding:8px 12px;">
-        <p style="font-size:12px;margin:0;">${m.text}</p>
-        <p style="font-size:9px;margin:3px 0 0;opacity:0.7;">${m.time}</p>
+      <p style="font-size:12px;color:var(--tx2);margin:0 0 4px;">${o.items}</p>
+      ${o.city||o.addr?`<p style="font-size:11.5px;color:var(--tx3);margin:0 0 8px;">📍 ${[o.city,o.area,o.addr].filter(Boolean).join(', ')}</p>`:''}
+      <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--br);padding-top:8px;">
+        <span style="font-size:15px;font-weight:900;color:var(--g);">Rs.${o.total}</span>
+        ${o.phone?`<a href="https://wa.me/92${o.phone.replace(/^0/,'')}" target="_blank" style="background:#22c55e;color:#fff;border-radius:9px;padding:6px 13px;font-size:12px;font-weight:800;text-decoration:none;display:flex;align-items:center;gap:5px;"><i class="ti ti-brand-whatsapp"></i> WA</a>`:''}
       </div>
     </div>`).join('');
-  const msgs=document.getElementById('a-chat-msgs');msgs.scrollTop=msgs.scrollHeight;
-  aRenderCustList();
 }
 
-function aSendMsg(){
-  if(!activeCust)return;
-  const inp=document.getElementById('a-msg-inp');const text=inp.value.trim();if(!text)return;
-  const c=customers.find(x=>x.id===activeCust);
-  const now=new Date();
-  c.msgs.push({from:'admin',text,time:now.getHours()+':'+String(now.getMinutes()).padStart(2,'0')});
-  inp.value='';aOpenChat(activeCust);
+function renderDC(){
+  const el=document.getElementById('dclist');
+  if(!el) return;
+  const en=Object.entries(discCodes);
+  el.innerHTML=en.length?en.map(([c,p])=>`
+    <div style="display:flex;justify-content:space-between;align-items:center;background:var(--bg);border:1.5px solid var(--br);border-radius:11px;padding:10px 13px;">
+      <span style="font-size:13px;font-weight:900;color:#2563EB;font-family:monospace;">${c}</span>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="background:var(--gl);color:var(--gd);font-size:12px;padding:3px 12px;border-radius:40px;font-weight:800;">${p}% off</span>
+        <button onclick="rmCode('${c}')" style="background:var(--rl);border:none;border-radius:8px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+          <i class="ti ti-trash" style="font-size:13px;color:var(--rd);"></i>
+        </button>
+      </div>
+    </div>`).join(''):'<p style="font-size:12.5px;color:var(--tx3);text-align:center;padding:10px;">Koi code nahi</p>';
 }
 
-// APP START
-window.addEventListener('DOMContentLoaded', function(){
-  show('view-login','none');
-  show('view-customer','none');
-  show('view-admin','none');
-  const loginEl = document.getElementById('view-login');
-  loginEl.style.display = 'flex';
-  loginEl.style.flexDirection = 'column';
-  loginEl.style.justifyContent = 'center';
+function addCode(){
+  const c=document.getElementById('ncode').value.trim().toUpperCase();
+  const p=parseInt(document.getElementById('ncodepct').value);
+  if(!c||!p||p<1||p>100){ tst('❌ Code aur valid % daalein','#EF4444'); return; }
+  discCodes[c]=p;
+  localStorage.setItem('zq_dc',JSON.stringify(discCodes));
+  document.getElementById('ncode').value='';
+  document.getElementById('ncodepct').value='';
+  renderDC(); tst('✓ Code add ho gaya!','#18A876');
+}
+
+function rmCode(c){
+  if(!confirm('Code "'+c+'" delete karein?')) return;
+  delete discCodes[c];
+  localStorage.setItem('zq_dc',JSON.stringify(discCodes));
+  renderDC(); tst('✓ Code remove ho gaya','#18A876');
+}
+
+function saveBanner(){
+  const txt=document.getElementById('btext').value.trim();
+  if(!txt){ tst('❌ Kuch to likhein','#EF4444'); return; }
+  bannerTxt=txt;
+  localStorage.setItem('zq_banner',txt);
+  document.getElementById('offer-text').textContent=txt;
+  tst('✓ Banner update ho gaya!','#18A876');
+}
+
+// Product CRUD
+function openAdd(){
+  editId=null;
+  document.getElementById('mtitle').textContent='Naya Product Jodein';
+  ['mname','murdu','mprice','munit','mdesc','mimg','memoji'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('mcat').value='whole';
+  document.getElementById('mimgprev').innerHTML='<i class="ti ti-camera" style="font-size:26px;color:var(--tx3);"></i>';
+  document.getElementById('mimgprev').dataset.src='';
+  document.getElementById('pmodal').style.display='flex';
+}
+
+function openEdit(id){
+  editId=id;
+  const p=prods.find(x=>x.id===id); if(!p) return;
+  document.getElementById('mtitle').textContent='Product Edit Karein';
+  document.getElementById('mname').value=p.name||'';
+  document.getElementById('murdu').value=p.urdu||'';
+  document.getElementById('mprice').value=p.price||'';
+  document.getElementById('munit').value=p.unit||'';
+  document.getElementById('mdesc').value=p.description||'';
+  document.getElementById('mcat').value=p.cat||'whole';
+  document.getElementById('mimg').value=p.img||'';
+  document.getElementById('memoji').value=p.emoji||'🟤';
+  document.getElementById('mimgprev').innerHTML=p.img?`<img src="${p.img}" style="width:100%;height:100%;object-fit:cover;border-radius:11px;">`:`<span style="font-size:36px;">${p.emoji||'🟤'}</span>`;
+  document.getElementById('mimgprev').dataset.src=p.img||'';
+  document.getElementById('pmodal').style.display='flex';
+}
+
+function closeM(){ document.getElementById('pmodal').style.display='none'; }
+
+function prevImg(){
+  const url=document.getElementById('mimg').value.trim();
+  if(url){ document.getElementById('mimgprev').innerHTML=`<img src="${url}" style="width:100%;height:100%;object-fit:cover;border-radius:11px;">`; document.getElementById('mimgprev').dataset.src=url; }
+}
+
+function saveP(){
+  const name=document.getElementById('mname').value.trim();
+  const price=parseInt(document.getElementById('mprice').value);
+  if(!name||!price){ tst('❌ Naam aur qeemat zaroor likhein!','#EF4444'); return; }
+  const img=document.getElementById('mimgprev').dataset.src||document.getElementById('mimg').value.trim()||null;
+  const d={name,urdu:document.getElementById('murdu').value.trim()||null,price,unit:document.getElementById('munit').value.trim()||'100g',cat:document.getElementById('mcat').value,description:document.getElementById('mdesc').value.trim()||null,img,emoji:document.getElementById('memoji').value.trim()||'🟤'};
+  if(editId){
+    const idx=prods.findIndex(p=>p.id===editId);
+    if(idx>-1) prods[idx]={...prods[idx],...d};
+  } else {
+    d.id=nextId++; prods.push(d);
+  }
+  localStorage.setItem('zq_prods',JSON.stringify(prods));
+  tst('✓ Product save ho gaya!','#18A876');
+  closeM(); renderAdmProds(); renderGrid(activeFil);
+}
+
+function delP(id){
+  if(!confirm('Sach mein delete karein?')) return;
+  prods=prods.filter(p=>p.id!==id);
+  delete cart[id];
+  localStorage.setItem('zq_prods',JSON.stringify(prods));
+  tst('✓ Product delete ho gaya','#18A876');
+  renderAdmProds(); renderGrid(activeFil); updBdg();
+}
+
+// ── INIT ─────────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('offer-text').textContent=bannerTxt;
+  goS('home'); setNav('home');
+  renderGrid('all');
 });
-
-</script>
-</div>
-</body>
-</html>
-
 </script>
 </div>
 </body>
