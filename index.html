@@ -111,21 +111,22 @@ button:active{opacity:.88;transform:scale(.97);}
 /* ======= PRODUCT CARD ======= */
 .pc{
   background:var(--bg);border:1.5px solid var(--br);
-  border-radius:18px;padding:11px;
+  border-radius:20px;padding:14px 12px;
   box-shadow:var(--sh);overflow:hidden;
-  display:flex;flex-direction:column;
+  display:flex;flex-direction:column;align-items:center;
 }
 .pc-img{
-  height:108px;border-radius:13px;
+  width:74px;height:74px;border-radius:50%;
   background:linear-gradient(135deg,#d4f5e7,#aae8cc);
   display:flex;align-items:center;justify-content:center;
-  font-size:42px;margin-bottom:9px;
+  font-size:32px;margin-bottom:10px;
   overflow:hidden;flex-shrink:0;
+  border:1px solid var(--br);
 }
-.pc-img img{width:100%;height:100%;object-fit:cover;}
-.pc-name{font-size:12.5px;font-weight:800;color:var(--tx);margin:0 0 2px;line-height:1.3;}
-.pc-sub{font-size:10.5px;color:var(--tx3);margin:0 0 9px;}
-.pc-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:auto;}
+.pc-img img{width:100%;height:100%;object-fit:contain;border-radius:50%;}
+.pc-name{font-size:13px;font-weight:800;color:var(--tx);margin:0 0 2px;line-height:1.3;text-align:center;}
+.pc-sub{font-size:10.5px;color:var(--tx3);margin:0 0 10px;text-align:center;}
+.pc-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:auto;width:100%;}
 .pc-price{font-size:15px;font-weight:900;color:var(--g);}
 
 /* QTY CONTROL on card */
@@ -242,22 +243,23 @@ body.dark-mode #agate>div,body.dark-mode .gen-modal-box{background:var(--bg2);}
 /* ======= PRODUCT CARD IMPROVED ======= */
 .pc{
   background:var(--bg);border:1.5px solid var(--br);
-  border-radius:18px;padding:12px;
+  border-radius:20px;padding:15px 12px;
   box-shadow:var(--sh);overflow:hidden;
-  display:flex;flex-direction:column;
+  display:flex;flex-direction:column;align-items:center;
   cursor:pointer;
 }
 .pc-img{
-  height:115px;border-radius:13px;
+  width:80px;height:80px;border-radius:50%;
   background:linear-gradient(135deg,#d4f5e7,#aae8cc);
   display:flex;align-items:center;justify-content:center;
-  font-size:44px;margin-bottom:10px;
+  font-size:34px;margin-bottom:11px;
   overflow:hidden;flex-shrink:0;
+  border:1px solid var(--br);
 }
-.pc-img img{width:100%;height:100%;object-fit:cover;display:block;}
-.pc-name{font-size:13px;font-weight:800;color:var(--tx);margin:0 0 2px;line-height:1.3;}
-.pc-sub{font-size:10.5px;color:var(--tx3);margin:0 0 10px;}
-.pc-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:auto;}
+.pc-img img{width:100%;height:100%;object-fit:contain;border-radius:50%;}
+.pc-name{font-size:13px;font-weight:800;color:var(--tx);margin:0 0 2px;line-height:1.3;text-align:center;}
+.pc-sub{font-size:10.5px;color:var(--tx3);margin:0 0 11px;text-align:center;}
+.pc-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:auto;width:100%;}
 .pc-price{font-size:15px;font-weight:900;color:var(--g);}
 
 /* ======= OFFER POSTERS (circular) ======= */
@@ -391,26 +393,27 @@ body.dark-mode #agate>div,body.dark-mode .gen-modal-box{background:var(--bg2);}
       </div>
 
       <!-- Promo Card -->
-      <div id="promo-card" style="background:rgba(255,255,255,.15);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:16px;padding:12px 14px;border:1px solid rgba(255,255,255,.22);display:flex;align-items:center;gap:12px;">
-        <div style="width:38px;height:38px;background:var(--am);border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(245,158,11,.35);">
-          <i class="ti ti-discount-2" style="font-size:19px;color:#fff;"></i>
+      <div id="promo-card" style="background:rgba(255,255,255,.15);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:13px;padding:8px 11px;border:1px solid rgba(255,255,255,.22);display:flex;align-items:center;gap:9px;">
+        <div style="width:28px;height:28px;background:var(--am);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(245,158,11,.35);">
+          <i class="ti ti-discount-2" style="font-size:14px;color:#fff;"></i>
         </div>
         <div style="flex:1;min-width:0;">
-          <p id="offer-text" style="color:#fff;font-size:13px;font-weight:800;margin:0;line-height:1.4;">🎉 Pehle Order pe 10% OFF — Code: ZAIQAH10</p>
-          <p style="color:rgba(255,255,255,.65);font-size:10.5px;margin:3px 0 0;font-weight:500;">Limited time • Abhi order karein</p>
+          <p id="offer-text" style="color:#fff;font-size:11.5px;font-weight:800;margin:0;line-height:1.3;">🎉 Pehle Order pe 10% OFF — Code: ZAIQAH10</p>
+          <p style="color:rgba(255,255,255,.65);font-size:9px;margin:2px 0 0;font-weight:500;">Limited time • Abhi order karein</p>
         </div>
       </div>
     </div>
 
     <!-- SEARCH -->
-    <div style="padding:10px 14px 14px;position:relative;z-index:1;">
+    <div style="padding:10px 14px 14px;position:relative;z-index:5;">
       <div style="position:relative;">
         <i class="ti ti-search" style="position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:16px;color:rgba(255,255,255,.6);pointer-events:none;"></i>
         <input id="sinp" type="search" placeholder="Masalay dhundein..."
           oninput="doSearch(this.value)"
-          style="width:100%;padding:11px 13px 11px 40px;border-radius:14px;font-size:13.5px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.18);color:#fff;backdrop-filter:blur(6px);"
-          onfocus="this.style.background='rgba(255,255,255,.25)'"
-          onblur="this.style.background='rgba(255,255,255,.18)'"/>
+          onfocus="this.style.background='rgba(255,255,255,.25)';showSugg(this.value)"
+          onblur="this.style.background='rgba(255,255,255,.18)';setTimeout(hideSugg,150)"
+          style="width:100%;padding:11px 13px 11px 40px;border-radius:14px;font-size:13.5px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.18);color:#fff;backdrop-filter:blur(6px);"/>
+        <div id="sugg-box" style="display:none;position:absolute;top:calc(100% + 6px);left:0;right:0;background:var(--bg);border-radius:14px;box-shadow:var(--shl);overflow:hidden;max-height:240px;overflow-y:auto;z-index:50;"></div>
       </div>
     </div>
   </div>
@@ -426,7 +429,7 @@ body.dark-mode #agate>div,body.dark-mode .gen-modal-box{background:var(--bg2);}
 
   <!-- GRID -->
   <div style="padding:8px 12px calc(var(--nav-h) + 14px);overflow-y:auto;flex:1;">
-    <div id="cgrid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;"></div>
+    <div id="cgrid" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;"></div>
     <div id="cempty" style="display:none;text-align:center;padding:60px 0 20px;">
       <i class="ti ti-mood-empty" style="font-size:50px;color:var(--tx3);display:block;margin-bottom:12px;"></i>
       <p style="font-size:14px;font-weight:700;color:var(--tx2);">Koi product nahi mila</p>
@@ -626,6 +629,9 @@ body.dark-mode #agate>div,body.dark-mode .gen-modal-box{background:var(--bg2);}
   <p style="font-size:14px;color:var(--tx2);margin:0 0 14px;line-height:1.6;">Aapka order WhatsApp pe bhej diya gaya.<br/>Hamara team jald aapse rabta karega.</p>
   <p id="succid" style="font-size:13.5px;color:var(--g);font-weight:900;background:var(--gl);padding:8px 22px;border-radius:40px;margin-bottom:28px;display:inline-block;"></p>
   <div style="width:100%;display:flex;flex-direction:column;gap:9px;">
+    <button id="succ-resend" style="width:100%;height:48px;background:#22c55e;color:#fff;border-radius:14px;font-size:13.5px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:7px;">
+      <i class="ti ti-brand-whatsapp" style="font-size:17px;"></i> WhatsApp Na Khula? Dobara Bhejein
+    </button>
     <button onclick="goS('orders');setNav('orders')" style="width:100%;height:48px;background:var(--bg2);border:1.5px solid var(--br);border-radius:14px;font-size:13.5px;font-weight:800;color:var(--tx);display:flex;align-items:center;justify-content:center;gap:7px;">
       <i class="ti ti-receipt" style="font-size:17px;"></i> Orders Dekhein
     </button>
@@ -981,21 +987,21 @@ let prods = JSON.parse(localStorage.getItem('zq_prods') || 'null') || [
   // 👇 LAL MIRCH PESI (Mirch Lal Powder) ki image yahan: img:'' (✅ add ho gayi hai)
   {id:2,name:'Lal Mirch Pesi',urdu:'لال مرچ پسی',price:180,unit:'100g',cat:'ground',emoji:'🌶️',img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBMHTWuxlFmPl2oJlqSqArJiFCiztJqJJUWcL8MNa8xw&s=10',description:'Taza pesi lal mirch — Biryani aur karahi mein zimmedaar zaiqa.'},
   // 👇 GARAM MASALA ki image yahan: img:''
-  {id:3,name:'Garam Masala',urdu:'گرم مصالحہ',price:260,unit:'100g',cat:'blends',emoji:'✨',img:'',description:'Perfect blend of 12 masalay — Restaurant jesi khushbu ghar mein.'},
+  {id:3,name:'Garam Masala',urdu:'گرم مصالحہ',price:260,unit:'100g',cat:'blends',emoji:'✨',img:'https://img.drz.lazcdn.com/static/pk/p/e9267a21a0d79861243477f25b548bfe.jpg_720x720q80.jpg',description:'Perfect blend of 12 masalay — Restaurant jesi khushbu ghar mein.'},
   // 👇 DHANIYA (Dhaniya Sabut) ki image yahan: img:'' (✅ add ho gayi hai)
   {id:4,name:'Dhaniya',urdu:'دھنیہ',price:140,unit:'100g',cat:'whole',emoji:'🌿',img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAMV1xBbTIrmFX6WmsZj8Fh0nwKMRdGManK3scwKHwzw&s=10',description:'Taza sabut dhaniya — Daal aur chutney ka dil.'},
   // 👇 ZEERA ki image yahan: img:''
-  {id:5,name:'Zeera',urdu:'زیرہ',price:200,unit:'100g',cat:'whole',emoji:'🌾',img:'',description:'Khalis zeera — Digestion aur flavor dono ke liye.'},
+  {id:5,name:'Zeera',urdu:'زیرہ',price:200,unit:'100g',cat:'whole',emoji:'🌾',img:'https://5.imimg.com/data5/GV/QU/MY-22118346/cumin-seeds-500x500.jpg',description:'Khalis zeera — Digestion aur flavor dono ke liye.'},
   // 👇 HALDI ki image yahan: img:''
-  {id:6,name:'Haldi',urdu:'ہلدی',price:160,unit:'100g',cat:'ground',emoji:'💛',img:'',description:'Pure haldi powder — Anti-inflammatory aur rang dene mein behtareen.'},
+  {id:6,name:'Haldi',urdu:'ہلدی',price:160,unit:'100g',cat:'ground',emoji:'💛',img:'https://pinefoods.pk/cdn/shop/files/0F8A8094.jpg?v=1754914304&width=1946',description:'Pure haldi powder — Anti-inflammatory aur rang dene mein behtareen.'},
   // 👇 KAJU ki image yahan: img:''
-  {id:7,name:'Kaju',urdu:'کاجو',price:850,unit:'100g',cat:'dry-fruit',emoji:'🥜',img:'',description:'Premium kaju — Mithai, korma aur snacking ke liye.'},
+  {id:7,name:'Kaju',urdu:'کاجو',price:850,unit:'100g',cat:'dry-fruit',emoji:'🥜',img:'https://punjabistore.com.pk/wp-content/uploads/2022/02/33.jpg',description:'Premium kaju — Mithai, korma aur snacking ke liye.'},
   // 👇 BADAM ki image yahan: img:'' (✅ already add ki hui hai, badalni ho to yahan se badlein)
   {id:8,name:'Badam',urdu:'بادام',price:920,unit:'100g',cat:'dry-fruit',emoji:'🥜',img:'https://i.ibb.co/MkMVzyH4/download.jpg',description:'Desi badam — Energy aur taste ka combination.'},
   // 👇 ADRAK POWDER ki image yahan: img:''
-  {id:9,name:'Adrak Powder',urdu:'ادرک پاؤڈر',price:190,unit:'100g',cat:'ground',emoji:'🫚',img:'',description:'Taza adrak powder — Chai aur gosht ke liye laazmi.'},
+  {id:9,name:'Adrak Powder',urdu:'ادرک پاؤڈر',price:190,unit:'100g',cat:'ground',emoji:'🫚',img:'https://restomart.pk/wp-content/uploads/2024/10/Dry-Ginger-Powder-500x515-1.jpg',description:'Taza adrak powder — Chai aur gosht ke liye laazmi.'},
   // 👇 SAUNF ki image yahan: img:''
-  {id:10,name:'Saunf',urdu:'سونف',price:150,unit:'100g',cat:'whole',emoji:'💚',img:'',description:'Khushboodar saunf — Munh ka freshener aur digestive.'},
+  {id:10,name:'Saunf',urdu:'سونف',price:150,unit:'100g',cat:'whole',emoji:'💚',img:'https://aplentyfood.com/wp-content/uploads/2023/06/sounf.jpg',description:'Khushboodar saunf — Munh ka freshener aur digestive.'},
   // 👇 KALI MIRCH SABUT ki image yahan: img:'' (✅ add ho gayi hai)
   {id:11,name:'Kali Mirch Sabut',urdu:'کالی مرچ سابت',price:340,unit:'100g',cat:'whole',emoji:'⚫',img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmKtKUJgyWaoWblVUjByUGue-_ms1D1cE6X22xY8K8hw&s=10',description:'Khalis sabut kali mirch — Pulao, biryani aur gosht mein behtareen khushbu aur taste.'},
 ];
@@ -1004,7 +1010,7 @@ let prods = JSON.parse(localStorage.getItem('zq_prods') || 'null') || [
 let discCodes = JSON.parse(localStorage.getItem('zq_dc') || '{"ZAIQAH10":10,"MASALAY15":15}');
 let bannerTxt = localStorage.getItem('zq_banner') || '🎉 Pehle Order pe 10% OFF! Code: ZAIQAH10';
 let orderHist = JSON.parse(localStorage.getItem('zq_orders') || '[]');
-let cart = {};
+let cart = JSON.parse(localStorage.getItem('zq_cart') || '{}');
 let discPct = 0;
 let detProd = null;
 let editId = null;
@@ -1062,6 +1068,11 @@ function updBdg(){
   });
 }
 
+// ── CART PERSISTENCE (basket refresh ke baad bhi khali nahi hota) ───
+function saveCart(){
+  try{ localStorage.setItem('zq_cart', JSON.stringify(cart)); }catch(e){}
+}
+
 // ── PRODUCTS GRID ───────────────────────────────────────────────────
 function renderGrid(fil){
   activeFil = fil;
@@ -1107,12 +1118,41 @@ function cFil(f, el){
   renderGrid(f);
 }
 
-function doSearch(v){ renderGrid(activeFil); }
+function doSearch(v){ renderGrid(activeFil); showSugg(v); }
+
+function showSugg(v){
+  const box = document.getElementById('sugg-box');
+  v = (v||'').trim().toLowerCase();
+  if(!v){ box.style.display='none'; box.innerHTML=''; return; }
+  const matches = prods.filter(p=>(p.name+' '+(p.urdu||'')).toLowerCase().includes(v)).slice(0,6);
+  if(!matches.length){ box.style.display='none'; box.innerHTML=''; return; }
+  box.innerHTML = matches.map(p=>`
+    <div onclick="pickSugg(${p.id})" style="display:flex;align-items:center;gap:10px;padding:10px 13px;cursor:pointer;border-bottom:1px solid var(--br);" onmousedown="event.preventDefault()">
+      <div style="width:30px;height:30px;border-radius:50%;background:var(--gl);display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;font-size:14px;">
+        ${p.img?`<img src="${p.img}" style="width:100%;height:100%;object-fit:contain;" onerror="this.parentElement.textContent='${p.emoji||'🟤'}'"/>`:(p.emoji||'🟤')}
+      </div>
+      <div style="flex:1;min-width:0;">
+        <p style="font-size:12.5px;font-weight:700;color:var(--tx);margin:0;">${p.name}</p>
+        <p style="font-size:10px;color:var(--tx3);margin:0;">${p.urdu||''} · Rs.${p.price}</p>
+      </div>
+      <i class="ti ti-arrow-up-right" style="font-size:14px;color:var(--tx3);"></i>
+    </div>`).join('');
+  box.style.display='block';
+}
+function hideSugg(){ document.getElementById('sugg-box').style.display='none'; }
+function pickSugg(id){
+  const p = prods.find(x=>x.id===id);
+  if(!p) return;
+  document.getElementById('sinp').value = p.name;
+  hideSugg();
+  renderGrid('all');
+  openDet(id);
+}
 
 // ── QUICK ADD/MINUS ─────────────────────────────────────────────────
 function qPlus(id){
   cart[id] = (cart[id]||0) + 1;
-  updBdg();
+  updBdg(); saveCart();
   const p = prods.find(x=>x.id===id);
   tst(`✓ ${p?p.name:'Product'} add ho gaya!`, '#18A876');
   refreshCtrl(id);
@@ -1122,7 +1162,7 @@ function qMinus(id){
   if(!cart[id]) return;
   cart[id]--;
   if(cart[id]<=0) delete cart[id];
-  updBdg();
+  updBdg(); saveCart();
   refreshCtrl(id);
 }
 
@@ -1196,7 +1236,7 @@ function dQty(d){
 function addFromDet(){
   const q = parseInt(document.getElementById('dqty').textContent);
   cart[detProd.id] = (cart[detProd.id]||0)+q;
-  updBdg();
+  updBdg(); saveCart();
   tst(`✓ ${detProd.name} × ${q} basket mein!`, '#18A876');
   goS('home'); setNav('home');
 }
@@ -1245,7 +1285,7 @@ function renderCart(){
 function cQty(id,d){
   cart[id] = Math.max(0,(cart[id]||0)+(d===-999?-(cart[id]||0):d));
   if(cart[id]===0) delete cart[id];
-  updBdg(); renderCart();
+  updBdg(); saveCart(); renderCart();
 }
 
 function updTots(){
@@ -1278,7 +1318,7 @@ function applyDisc(){
 // ── PLACE ORDER ─────────────────────────────────────────────────────
 function placeOrder(){
   const keys = Object.keys(cart).filter(k=>cart[k]>0);
-  if(!keys.length) return;
+  if(!keys.length){ tst('❌ Basket khali hai','#EF4444'); return; }
 
   const name  = document.getElementById('coname').value.trim();
   const phone = document.getElementById('cophone').value.trim();
@@ -1297,13 +1337,16 @@ function placeOrder(){
     const p=prods.find(x=>x.id==k);
     if(p){ const lt=p.price*cart[k]; sub+=lt; items.push({name:p.name,urdu:p.urdu||'',qty:cart[k],price:p.price,unit:p.unit||'',lt}); }
   });
+  // Agar koi item match na ho (data corrupt), order rok dein taake ghalat/khali order na jaye
+  if(!items.length){ tst('❌ Basket mein koi valid product nahi mila','#EF4444'); return; }
+
   const disc=Math.round(sub*discPct/100), total=sub-disc;
   const oid='ZAQ-'+String(Math.floor(Math.random()*90000)+10000);
   const now=new Date();
   const dstr=now.toLocaleDateString('ur-PK',{day:'numeric',month:'long',year:'numeric'});
   const tstr=now.toLocaleTimeString('en-PK',{hour:'2-digit',minute:'2-digit'});
 
-  // ── Full WhatsApp message ──
+  // ── Full WhatsApp message (complete order details) ──
   const sep = '━━━━━━━━━━━━━━━━━━━━━';
   const divL = '─────────────────────';
   let L=[];
@@ -1337,19 +1380,33 @@ function placeOrder(){
   L.push('');
   L.push('Shukriya Zaiqah ذائقہ ko pasand karne ke liye! 🌿');
 
-  // Save history
+  const waLink = 'https://wa.me/'+WA+'?text='+encodeURIComponent(L.join('\n'));
+
+  // Save history (order record mehfooz, chahe WhatsApp khule ya na khule)
   orderHist.unshift({id:oid,date:dstr,time:tstr,name,phone,city,area,addr,items:items.map(i=>i.name+' x'+i.qty).join(', '),sub,disc,total,discPct,status:'sent'});
   if(orderHist.length>40) orderHist.pop();
   localStorage.setItem('zq_orders',JSON.stringify(orderHist));
 
-  window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(L.join('\n')),'_blank');
+  // WhatsApp kholne ki koshish karein
+  const waWin = window.open(waLink,'_blank');
 
-  cart={}; discPct=0; updBdg();
+  // Basket ab clear karein — order WhatsApp ke liye bhej diya gaya hai
+  // (agar popup block ho jaye to bhi user ke pass "Dobara Bhejein" button success screen pe maujood hoga)
+  cart={}; discPct=0; updBdg(); saveCart();
+
   document.getElementById('succid').textContent='Order ID: '+oid;
+  window._lastWaLink = waLink;
+  const resendBtn = document.getElementById('succ-resend');
+  if(resendBtn) resendBtn.onclick = ()=>window.open(waLink,'_blank');
+
   const ss=document.getElementById('s-success');
   ['s-home','s-detail','s-cart','s-orders','s-b2b'].forEach(id=>{ const e=document.getElementById(id); if(e) e.style.display='none'; });
   ss.style.cssText='display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:40px 22px;text-align:center;background:var(--bg);';
   document.getElementById('cnav').style.display='none';
+
+  if(!waWin || waWin.closed || typeof waWin.closed==='undefined'){
+    tst('⚠️ WhatsApp khulne mein masla — "Dobara Bhejein" button dabayein','#F59E0B');
+  }
 }
 
 // ── ORDER HISTORY ───────────────────────────────────────────────────
@@ -1608,6 +1665,7 @@ function delP(id){
   prods=prods.filter(p=>p.id!==id);
   delete cart[id];
   localStorage.setItem('zq_prods',JSON.stringify(prods));
+  saveCart();
   tst('✓ Product delete ho gaya','#18A876');
   renderAdmProds(); renderGrid(activeFil); updBdg();
 }
@@ -1718,6 +1776,13 @@ function submitComplaint(){
 window.addEventListener('DOMContentLoaded',()=>{
   document.getElementById('offer-text').textContent=bannerTxt;
   try{ if(localStorage.getItem('zq_dark')==='1'){ document.body.classList.add('dark-mode'); const ic=document.getElementById('dark-icon'); if(ic) ic.className='ti ti-sun'; const lb=document.getElementById('dark-label'); if(lb) lb.textContent='Light Mode'; } }catch(e){}
+  // Basket ko refresh ke baad bhi mehfooz rakhein — sirf wo items rakhein jo abhi bhi available hain
+  let cleaned=false;
+  Object.keys(cart).forEach(k=>{
+    if(!prods.find(p=>p.id==k) || cart[k]<=0){ delete cart[k]; cleaned=true; }
+  });
+  if(cleaned) saveCart();
+  updBdg();
   goS('home'); setNav('home');
   renderGrid('all');
 });
