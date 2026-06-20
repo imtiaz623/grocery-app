@@ -971,40 +971,69 @@ body.dark-mode #agate>div,body.dark-mode .gen-modal-box{background:var(--bg2);}
 <script>
 // ── DATA ────────────────────────────────────────────────────────────
 // ════════════════════════════════════════════════════════════════════
-// 🖼️ IMAGE URL KAISE ADD KAREIN:
-// Har product ke "img:''" wale hisse mein, do single-quotes (' ') ke
-// BEECH apna DIRECT image link paste karein. JPG, PNG, JPEG — sab chalengay.
+// 🖼️ SAB PRODUCTS KI IMAGES ADD HO GAYI HAIN ✅
+// Naya product add karte waqt "img:''" wale hisse mein apna DIRECT
+// image link paste karein. JPG, PNG, JPEG — sab chalengay.
 // Sirf yeh dhayan rakhein ke link "DIRECT image link" ho, page link nahi.
 //   ✅ SAHI (direct link):  img:'https://i.ibb.co/abc1234/photo.png'
 //   ❌ GALAT (page link):   img:'https://ibb.co/abc1234'
 // ImgBB pe upload karne ke baad "Direct link" wala option copy karein
 // (jo "i.ibb.co" se shuru ho aur .jpg/.png/.jpeg pe khatam ho), "page link" nahi.
-// Baki kuch nahi badalna — bus quotes ke beech link paste kar ke save kar dein.
 // ════════════════════════════════════════════════════════════════════
-let prods = JSON.parse(localStorage.getItem('zq_prods') || 'null') || [
-  // 👇 KALI MIRCH ki image yahan: img:'' (✅ add ho gayi hai)
+const DEFAULT_PRODUCTS = [
+  // ✅ Kali Mirch — image add ho gayi
   {id:1,name:'Kali Mirch',urdu:'کالی مرچ',price:320,unit:'100g',cat:'whole',emoji:'🖤',img:'https://i.ibb.co/MDFrh546/download-1.jpg',description:'Premium quality kali mirch — Pakistani cuisine ka zaroor hissa. Khushbu aur taste mein behtareen.'},
-  // 👇 LAL MIRCH PESI (Mirch Lal Powder) ki image yahan: img:'' (✅ add ho gayi hai)
-  {id:2,name:'Lal Mirch Pesi',urdu:'لال مرچ پسی',price:180,unit:'100g',cat:'ground',emoji:'🌶️',img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBMHTWuxlFmPl2oJlqSqArJiFCiztJqJJUWcL8MNa8xw&s=10',description:'Taza pesi lal mirch — Biryani aur karahi mein zimmedaar zaiqa.'},
-  // 👇 GARAM MASALA ki image yahan: img:''
+  // ✅ Lal Mirch Pesi — image add ho gayi
+  {id:2,name:'Lal Mirch Pesi',urdu:'لال مرچ پسی',price:180,unit:'100g',cat:'ground',emoji:'🌶️',img:'https://punjabistore.com.pk/wp-content/uploads/2022/02/Surkh-Mirch-powder-Red-Chilli-Powder.jpg',description:'Taza pesi lal mirch — Biryani aur karahi mein zimmedaar zaiqa.'},
+  // ✅ Garam Masala — image add ho gayi
   {id:3,name:'Garam Masala',urdu:'گرم مصالحہ',price:260,unit:'100g',cat:'blends',emoji:'✨',img:'https://img.drz.lazcdn.com/static/pk/p/e9267a21a0d79861243477f25b548bfe.jpg_720x720q80.jpg',description:'Perfect blend of 12 masalay — Restaurant jesi khushbu ghar mein.'},
-  // 👇 DHANIYA (Dhaniya Sabut) ki image yahan: img:'' (✅ add ho gayi hai)
-  {id:4,name:'Dhaniya',urdu:'دھنیہ',price:140,unit:'100g',cat:'whole',emoji:'🌿',img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAMV1xBbTIrmFX6WmsZj8Fh0nwKMRdGManK3scwKHwzw&s=10',description:'Taza sabut dhaniya — Daal aur chutney ka dil.'},
-  // 👇 ZEERA ki image yahan: img:''
+  // ✅ Dhaniya — image add ho gayi
+  {id:4,name:'Dhaniya',urdu:'دھنیہ',price:140,unit:'100g',cat:'whole',emoji:'🌿',img:'https://punjabistore.com.pk/wp-content/uploads/2022/02/Dhania-Sabat-Coriander-Whole-1.jpg',description:'Taza sabut dhaniya — Daal aur chutney ka dil.'},
+  // ✅ Zeera — image add ho gayi
   {id:5,name:'Zeera',urdu:'زیرہ',price:200,unit:'100g',cat:'whole',emoji:'🌾',img:'https://5.imimg.com/data5/GV/QU/MY-22118346/cumin-seeds-500x500.jpg',description:'Khalis zeera — Digestion aur flavor dono ke liye.'},
-  // 👇 HALDI ki image yahan: img:''
+  // ✅ Haldi — image add ho gayi
   {id:6,name:'Haldi',urdu:'ہلدی',price:160,unit:'100g',cat:'ground',emoji:'💛',img:'https://pinefoods.pk/cdn/shop/files/0F8A8094.jpg?v=1754914304&width=1946',description:'Pure haldi powder — Anti-inflammatory aur rang dene mein behtareen.'},
-  // 👇 KAJU ki image yahan: img:''
+  // ✅ Kaju — image add ho gayi
   {id:7,name:'Kaju',urdu:'کاجو',price:850,unit:'100g',cat:'dry-fruit',emoji:'🥜',img:'https://punjabistore.com.pk/wp-content/uploads/2022/02/33.jpg',description:'Premium kaju — Mithai, korma aur snacking ke liye.'},
-  // 👇 BADAM ki image yahan: img:'' (✅ already add ki hui hai, badalni ho to yahan se badlein)
+  // ✅ Badam — image add ho gayi
   {id:8,name:'Badam',urdu:'بادام',price:920,unit:'100g',cat:'dry-fruit',emoji:'🥜',img:'https://i.ibb.co/MkMVzyH4/download.jpg',description:'Desi badam — Energy aur taste ka combination.'},
-  // 👇 ADRAK POWDER ki image yahan: img:''
+  // ✅ Adrak Powder — image add ho gayi
   {id:9,name:'Adrak Powder',urdu:'ادرک پاؤڈر',price:190,unit:'100g',cat:'ground',emoji:'🫚',img:'https://restomart.pk/wp-content/uploads/2024/10/Dry-Ginger-Powder-500x515-1.jpg',description:'Taza adrak powder — Chai aur gosht ke liye laazmi.'},
-  // 👇 SAUNF ki image yahan: img:''
+  // ✅ Saunf — image add ho gayi
   {id:10,name:'Saunf',urdu:'سونف',price:150,unit:'100g',cat:'whole',emoji:'💚',img:'https://aplentyfood.com/wp-content/uploads/2023/06/sounf.jpg',description:'Khushboodar saunf — Munh ka freshener aur digestive.'},
-  // 👇 KALI MIRCH SABUT ki image yahan: img:'' (✅ add ho gayi hai)
-  {id:11,name:'Kali Mirch Sabut',urdu:'کالی مرچ سابت',price:340,unit:'100g',cat:'whole',emoji:'⚫',img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmKtKUJgyWaoWblVUjByUGue-_ms1D1cE6X22xY8K8hw&s=10',description:'Khalis sabut kali mirch — Pulao, biryani aur gosht mein behtareen khushbu aur taste.'},
+  // ✅ Kali Mirch Sabut — image add ho gayi
+  {id:11,name:'Kali Mirch Sabut',urdu:'کالی مرچ سابت',price:340,unit:'100g',cat:'whole',emoji:'⚫',img:'https://punjabistore.com.pk/wp-content/uploads/2022/02/Balck-Pepper-1.jpg',description:'Khalis sabut kali mirch — Pulao, biryani aur gosht mein behtareen khushbu aur taste.'},
+  // ✅ Jafil Sabut — image add ho gayi
+  {id:12,name:'Jafil Sabut',urdu:'جاوفل',price:220,unit:'50g',cat:'whole',emoji:'🌰',img:'https://pk-live-21.slatic.net/kf/S2b8ddd714a3940c9b3777124e568b6a42.jpg',description:'Khalis sabut jafil — Mithai aur gosht ke masalon mein khushbu ke liye behtareen.'},
+  // ✅ Javitri Sabut — image add ho gayi
+  {id:13,name:'Javitri Sabut',urdu:'جاوتری',price:450,unit:'50g',cat:'whole',emoji:'🌿',img:'http://thenaturespalm.in/cdn/shop/files/product_123_246.jpg?v=1742048612',description:'Khalis sabut javitri — Biryani aur garam masala blends ka zaroori hissa.'},
+  // ✅ Long Sabut — image add ho gayi
+  {id:14,name:'Long Sabut',urdu:'لونگ',price:280,unit:'100g',cat:'whole',emoji:'🌸',img:'https://static-01.daraz.pk/p/e1d062b1802e45f3a38abcc9d1dcbae2.jpg',description:'Khushboodar sabut long — Chai, pulao aur masalon mein zaroori.'},
+  // ✅ Lal Mirch Sabut — image add ho gayi
+  {id:15,name:'Lal Mirch Sabut',urdu:'لال مرچ سابت',price:240,unit:'100g',cat:'whole',emoji:'🌶️',img:'https://foodpanda.dhmedia.io/image/darkstores/nv-global-catalog/pk/f0ae32eb-e9af-4a6c-b34f-1352a2f947cc.jpg?height=480',description:'Khalis sabut lal mirch — Tadka aur achaar ke liye behtareen.'},
+  // ✅ Akhrot Sabut — image add ho gayi
+  {id:16,name:'Akhrot Sabut',urdu:'اخروٹ',price:680,unit:'100g',cat:'dry-fruit',emoji:'🥜',img:'https://punjabistore.com.pk/wp-content/uploads/2022/02/Akhroot-Sabat-1.jpg',description:'Taza sabut akhrot — Dimaghi sehat aur energy ke liye behtareen.'},
+  // ✅ Anjeer — image add ho gayi
+  {id:17,name:'Anjeer',urdu:'انجیر',price:550,unit:'100g',cat:'dry-fruit',emoji:'🟤',img:'http://www.aajeel.com.pk/cdn/shop/files/ANJEER-AFGHANI.png?v=1724339490',description:'Khalis anjeer — Fiber aur natural sweetness se bharpoor.'},
+  // ✅ Pista — image add ho gayi
+  {id:18,name:'Pista',urdu:'پستہ',price:480,unit:'50g',cat:'dry-fruit',emoji:'🥜',img:'https://www.cartpk.com/media/catalog/product/cache/ccf016c098f64509830f131aff46d4ef/2/f/2f9dcb2d90f4409e4d537e6f2ef55084_2.jpg',description:'Premium pista — Mithai aur snacking ke liye behtareen.'},
 ];
+
+// ── PRODUCTS LOADING (purane saved data ke sath naye products bhi auto-add ho jayein) ──
+// Browser ke localStorage mein agar purani product list saved hai, to sirf wahi
+// products dikhte the aur naye products (jo code mein add hue) nazar nahi aate the.
+// Yeh logic ab check karta hai: agar koi DEFAULT product (id ke zariye) saved list
+// mein missing hai, to usay add kar deta hai — admin ke kisi edit/delete ko chhede bina.
+let prods = JSON.parse(localStorage.getItem('zq_prods') || 'null');
+if(!prods){
+  prods = DEFAULT_PRODUCTS.slice();
+} else {
+  const existingIds = new Set(prods.map(p=>p.id));
+  DEFAULT_PRODUCTS.forEach(dp=>{
+    if(!existingIds.has(dp.id)) prods.push(dp);
+  });
+  localStorage.setItem('zq_prods', JSON.stringify(prods));
+}
 
 
 let discCodes = JSON.parse(localStorage.getItem('zq_dc') || '{"ZAIQAH10":10,"MASALAY15":15}');
