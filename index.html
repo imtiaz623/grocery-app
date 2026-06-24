@@ -349,11 +349,65 @@ body.dark-mode #agate>div,body.dark-mode .gen-modal-box{background:var(--bg2);}
 @media(max-width:430px){
   #more-menu{right:10px;}
 }
+
+/* ======= SELL OR BUY FLOATING BUTTON ======= */
+#sob-btn{
+  position:fixed;
+  bottom:calc(var(--nav-h) + 16px);
+  right:14px;
+  z-index:300;
+  display:flex;align-items:center;gap:5px;
+  padding:8px 14px;
+  border-radius:30px;
+  background:linear-gradient(160deg,#ff5c5c 0%,#e21f1f 55%,#a40f0f 100%);
+  color:#fff;font-size:11.5px;font-weight:800;
+  text-decoration:none;white-space:nowrap;
+  border:1px solid rgba(255,255,255,.35);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.5) inset,
+    0 -2px 4px rgba(0,0,0,.25) inset,
+    0 5px 0 #7a0a0a,
+    0 6px 10px rgba(0,0,0,.35),
+    0 0 14px 3px rgba(239,68,68,.9);
+  animation:sobGlow 1.4s ease-in-out infinite;
+}
+#sob-btn i{font-size:13px;}
+#sob-btn:active{
+  transform:translateY(3px);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.5) inset,
+    0 -2px 4px rgba(0,0,0,.25) inset,
+    0 2px 0 #7a0a0a,
+    0 3px 6px rgba(0,0,0,.35),
+    0 0 10px 2px rgba(239,68,68,.8);
+}
+@keyframes sobGlow{
+  0%,100%{
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.5) inset,
+      0 -2px 4px rgba(0,0,0,.25) inset,
+      0 5px 0 #7a0a0a,
+      0 6px 10px rgba(0,0,0,.35),
+      0 0 8px 2px rgba(239,68,68,.7);
+  }
+  50%{
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.5) inset,
+      0 -2px 4px rgba(0,0,0,.25) inset,
+      0 5px 0 #7a0a0a,
+      0 6px 10px rgba(0,0,0,.35),
+      0 0 20px 6px rgba(239,68,68,1);
+  }
+}
 </style>
 </head>
 <body>
 <div class="app">
 <div id="toast"></div>
+
+<a id="sob-btn" href="https://gentle-brigadeiros-610f81.netlify.app/" target="_blank" rel="noopener">
+  <i class="ti ti-bolt"></i> Sell or Buy
+</a>
 
 <!-- ╔══════════════════════════════════════════╗
      ║              HOME SCREEN                ║
@@ -1016,7 +1070,9 @@ const DEFAULT_PRODUCTS = [
   // ✅ Anjeer — image add ho gayi
   {id:17,name:'Anjeer',urdu:'انجیر',price:550,unit:'100g',cat:'dry-fruit',emoji:'🟤',img:'http://www.aajeel.com.pk/cdn/shop/files/ANJEER-AFGHANI.png?v=1724339490',description:'Khalis anjeer — Fiber aur natural sweetness se bharpoor.'},
   // ✅ Pista — image add ho gayi
-  {id:18,name:'Pista',urdu:'پستہ',price:480,unit:'50g',cat:'dry-fruit',emoji:'🥜',img:'https://www.cartpk.com/media/catalog/product/cache/ccf016c098f64509830f131aff46d4ef/2/f/2f9dcb2d90f4409e4d537e6f2ef55084_2.jpg',description:'Premium pista — Mithai aur snacking ke liye behtareen.'},
+  {id:18,name:'Pista',urdu:'پستہ',price:480,unit:'50g',cat:'dry-fruit',emoji:'🥜',img:'https://pictures.grocerapps.com/original/grocerapp-pistachio-roasted-100-gm--627a323d4a5ec.jpg',description:'Premium pista — Mithai aur snacking ke liye behtareen.'},
+ // ✅ Pista — image add ho gayi
+  {id:18,name:'Aloo Bukhara',urdu:'آلو بخارا',price:280,unit:'50g',cat:'dry-fruit',emoji:'🥜',img:'https://pansariinn.pk/uploads/product_image/product_2848_1.jpg',description:'Premium Aloo Bukhara.'},
 ];
 
 // ── PRODUCTS LOADING (purane saved data ke sath naye products bhi auto-add ho jayein) ──
